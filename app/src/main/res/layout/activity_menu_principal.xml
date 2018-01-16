@@ -10,9 +10,9 @@
 
     <ImageView
         android:id="@+id/imgLogo"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="250dp"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/logo200" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,20 +29,28 @@
                 android:id="@+id/btnCatalogo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:onClick="abrirCatalogo"
-                android:text="@string/cat_logo" />
+                android:padding="25dp"
+                android:text="@string/cat_logo"
+                android:textSize="18sp" />
             <Button
                 android:id="@+id/btnListas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:padding="25dp"
                 android:onClick="abrirListas"
-                android:text="@string/listas" />
+                android:text="@string/listas"
+                android:textSize="18sp"/>
             <Button
                 android:id="@+id/btnHistorial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="25dp"
                 android:onClick="abrirHistorial"
-                android:text="@string/historial" />
+                android:text="@string/historial"
+                android:textSize="18sp"/>
         </LinearLayout>
 
     </LinearLayout>

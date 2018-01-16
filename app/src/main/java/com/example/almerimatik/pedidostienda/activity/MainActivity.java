@@ -16,7 +16,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void abrirMenuPrincipal(View view) {
-
+        Intent intent = new Intent(this, menuPrincipal.class);
+        startActivity(intent);
 
     }
 }

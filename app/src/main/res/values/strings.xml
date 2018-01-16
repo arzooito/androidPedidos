@@ -3,4 +3,10 @@
     <string name="cat_logo">Catálogo</string>
     <string name="listas">listas</string>
     <string name="historial">Historial</string>
+    <string name="title_activity_catalogo">CatalogoActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

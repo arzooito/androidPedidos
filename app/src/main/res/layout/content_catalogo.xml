@@ -4,12 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.almerimatik.pedidostienda.activity.MainActivity">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.almerimatik.pedidostienda.activity.CatalogoActivity"
+    tools:showIn="@layout/app_bar_catalogo">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        android:onClick="abrirMenuPrincipal"/>
 </android.support.constraint.ConstraintLayout>
