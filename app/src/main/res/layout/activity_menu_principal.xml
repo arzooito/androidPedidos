@@ -5,35 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
     tools:context="com.example.almerimatik.pedidostienda.activity.menuPrincipal">
 
 
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        app:srcCompat="@drawable/logo" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
-        <Button
-            android:id="@+id/btnCatalogo"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="abrirCatalogo"
-            android:text="@string/cat_logo" />
-        <Button
-            android:id="@+id/btnListas"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="abrirListas"
-            android:text="@string/listas" />
-        <Button
-            android:id="@+id/btnHistorial"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="abrirHistorial"
-            android:text="@string/historial" />
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnCatalogo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="abrirCatalogo"
+                android:text="@string/cat_logo" />
+            <Button
+                android:id="@+id/btnListas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="abrirListas"
+                android:text="@string/listas" />
+            <Button
+                android:id="@+id/btnHistorial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="abrirHistorial"
+                android:text="@string/historial" />
+        </LinearLayout>
+
     </LinearLayout>
-
 
 </android.support.v7.widget.LinearLayoutCompat>
