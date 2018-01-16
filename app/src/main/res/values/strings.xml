@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">PedidosTienda</string>
+    <string name="cat_logo">Catálogo</string>
+    <string name="listas">listas</string>
+    <string name="historial">Historial</string>
+</resources>
