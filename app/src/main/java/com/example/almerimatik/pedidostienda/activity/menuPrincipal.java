@@ -17,7 +17,7 @@ public class menuPrincipal extends AppCompatActivity {
 
     public void abrirCatalogo(View view) {
 
-        Intent intent = new Intent(this, CatalogoActivity.class);
+        Intent intent = new Intent(this, BaseActivity.class);
         startActivity(intent);
     }
 
