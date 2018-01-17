@@ -26,31 +26,20 @@
             android:orientation="vertical">
 
             <Button
+                style="@style/BotonNaranja"
                 android:id="@+id/btnCatalogo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
                 android:onClick="abrirCatalogo"
-                android:padding="25dp"
-                android:text="@string/cat_logo"
-                android:textSize="18sp" />
+                android:text="@string/cat_logo" />
             <Button
+                style="@style/BotonNaranja"
                 android:id="@+id/btnListas"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:padding="25dp"
                 android:onClick="abrirListas"
-                android:text="@string/listas"
-                android:textSize="18sp"/>
+                android:text="@string/listas"/>
             <Button
+                style="@style/BotonNaranja"
                 android:id="@+id/btnHistorial"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="25dp"
                 android:onClick="abrirHistorial"
-                android:text="@string/historial"
-                android:textSize="18sp"/>
+                android:text="@string/historial"/>
         </LinearLayout>
 
     </LinearLayout>
