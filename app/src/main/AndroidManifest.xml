@@ -21,6 +21,10 @@
             android:name=".activity.CatalogoActivity"
             android:label="@string/title_activity_catalogo"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".activity.HistorialActivity"
+            android:label="@string/title_activity_historial"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
