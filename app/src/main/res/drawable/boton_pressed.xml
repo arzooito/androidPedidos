@@ -3,13 +3,8 @@
     android:shape="rectangle">
 
     <solid android:color="@color/botonTexto" />
-    <corners android:radius="4dp" />
-    <padding
-        android:bottom="30dp"
-        android:left="30dp"
-        android:right="30dp"
-        android:top="30dp" />
+    <corners android:radius="40dp" />
     <stroke
         android:width="2dp"
-        android:color="@android:color/white" />
+        android:color="@color/botonReposo" />
 </shape>

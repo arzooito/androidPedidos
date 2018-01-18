@@ -18,7 +18,7 @@
         </activity>
         <activity android:name=".activity.menuPrincipal" />
         <activity
-            android:name=".activity.BaseActivity"
+            android:name=".activity.CatalogoActivity"
             android:label="@string/title_activity_catalogo"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
