@@ -20,6 +20,17 @@
         app:srcCompat="@drawable/logo72" />
 
     <TextView
+        android:id="@+id/bienvenidoUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:text="Bienvenido, usuario"
+        android:textSize="25sp"
+        android:textAllCaps="false"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@android:color/holo_red_dark" />
+
+    <!--<TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
@@ -33,6 +44,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="gabarron.suppot@gmail.com"
-        android:textColor="@android:color/holo_red_dark" />
+        android:textColor="@android:color/holo_red_dark" />-->
 
 </LinearLayout>
