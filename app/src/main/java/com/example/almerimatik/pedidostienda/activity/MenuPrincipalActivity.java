@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.example.almerimatik.pedidostienda.R;
 
-public class menuPrincipal extends AppCompatActivity {
+public class MenuPrincipalActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +22,14 @@ public class menuPrincipal extends AppCompatActivity {
     }
 
     public void abrirListas(View view) {
+
+        Intent intent = new Intent(this, ListasActivity.class);
+        startActivity(intent);
     }
 
     public void abrirHistorial(View view) {
+
+        Intent intent = new Intent(this, HistorialActivity.class);
+        startActivity(intent);
     }
 }

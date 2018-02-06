@@ -19,7 +19,7 @@ import com.example.almerimatik.pedidostienda.constantes.Tipo;
 
 import static com.example.almerimatik.pedidostienda.constantes.Tipo.CATALOGO;
 
-public class CatalogoActivity extends ListadoBaseActivity{
+public class CatalogoActivity extends ListadoProductos{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

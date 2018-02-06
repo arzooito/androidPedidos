@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.almerimatik.pedidostienda">
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo72"
@@ -16,15 +21,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.menuPrincipal" />
+        <activity android:name=".activity.MenuPrincipalActivity" />
         <activity
             android:name=".activity.CatalogoActivity"
             android:label="@string/title_activity_catalogo"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.HistorialActivity"
             android:label="@string/title_activity_historial"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ListasActivity"
+            android:label="@string/title_activity_listas"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ListaActivity"
+            android:label="@string/title_activity_lista"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.CarritoActivity"
+            android:label="@string/title_activity_carrito"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login"></activity>
     </application>
 
 </manifest>

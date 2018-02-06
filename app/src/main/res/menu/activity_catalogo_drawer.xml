@@ -11,30 +11,22 @@
         <item
             android:id="@+id/nav_lista"
             android:icon="@drawable/ic_menu_lista"
-            android:title="Lista" />
+            android:title="Listas" />
         <item
             android:id="@+id/nav_historial"
             android:icon="@drawable/ic_menu_historial"
             android:title="Historial" />
-        <item
-            android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Opciones" />
     </group>
 
-    <item android:title="Filtros">
+    <item android:title="">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="Opciones" />
             <item
                 android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_salir"
                 android:title="Salir" />
         </menu>
     </item>
