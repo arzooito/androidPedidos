@@ -42,13 +42,7 @@
             android:name=".activity.CarritoActivity"
             android:label="@string/title_activity_carrito"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="activity.LoginActivity"
-            android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.RegistroActivity"></activity>
     </application>
 
 </manifest>

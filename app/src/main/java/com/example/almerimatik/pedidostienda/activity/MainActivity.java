@@ -1,14 +1,17 @@
 package com.example.almerimatik.pedidostienda.activity;
 
+import android.app.DialogFragment;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.almerimatik.pedidostienda.Dialogs.LoginDialog;
 import com.example.almerimatik.pedidostienda.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity  extends FragmentActivity {
 
     final int LOGIN = 0;
     @Override
@@ -23,18 +26,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void abrirLogin(View view) {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivityForResult(intent,LOGIN);
+        DialogFragment newFragment = new LoginDialog();
+        newFragment.show(getFragmentManager(),"LoginDialog1");
+
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Check which request we're responding to
-        if (requestCode == LOGIN) {
 
-            if (resultCode == RESULT_OK) {
-                Toast.makeText(this,"It works",Toast.LENGTH_LONG).show();
-            }
-        }
-    }
 }
