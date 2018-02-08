@@ -4,12 +4,11 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.almerimatik.pedidostienda.Dialogs.LoginDialog;
+import com.example.almerimatik.pedidostienda.Dialogs.RegistroDialog;
 import com.example.almerimatik.pedidostienda.R;
 import com.example.almerimatik.pedidostienda.ws.Ws;
 
@@ -36,7 +35,6 @@ public class MainActivity  extends FragmentActivity {
     }
 
 
-
     public void abrirLogin(View view) {
         abrirLogin();
 
@@ -57,14 +55,12 @@ public class MainActivity  extends FragmentActivity {
         }
 
         protected void onPostExecute(Void result) {
-
             if(autenticado){
                 abrirMenuPrincipal();
             }
         }
 
         private void login(String usuario, String password){
-
             autenticado = Ws.login(usuario,password);
         }
 
@@ -72,7 +68,7 @@ public class MainActivity  extends FragmentActivity {
 
     public class RegistrarTask extends AsyncTask<String, Void, Void> {
 
-        boolean autenticado = false;
+        boolean registrado = false;
 
         protected Void doInBackground(String... params) {
             registrar(params[0],params[1],params[2],params[3]);
@@ -80,16 +76,15 @@ public class MainActivity  extends FragmentActivity {
         }
 
         protected void onPostExecute(Void result) {
-
-            if(autenticado){
+            if(registrado){
                 abrirMenuPrincipal();
             }
         }
 
         private void registrar(String usuario, String email, String telefono, String password){
-
-            autenticado = Ws.registrarUsuario(usuario, email, telefono, password);
+            registrado = Ws.registrarUsuario(usuario, email, telefono, password);
         }
-
     }
+
+
 }

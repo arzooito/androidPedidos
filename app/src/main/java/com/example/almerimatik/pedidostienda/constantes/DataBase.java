@@ -5,4 +5,6 @@ package com.example.almerimatik.pedidostienda.constantes;
  */
 
 public class DataBase {
+
+    public static final int VERSION_DB = 1;
 }

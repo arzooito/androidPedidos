@@ -56,9 +56,9 @@ public class Ws {
 
         boolean result = false;
         SoapObject request = new SoapObject(NAMESPACE, METHOD);
-        request.addProperty("usuario", usuario);
+        request.addProperty("nombre", usuario);
         request.addProperty("password", password);
-        request.addProperty("email", email);
+        request.addProperty("mail", email);
         request.addProperty("telefono", telefono);
 
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
