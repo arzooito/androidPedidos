@@ -2,6 +2,7 @@ package com.example.almerimatik.pedidostienda.activity;
 
 import android.app.DialogFragment;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,26 +11,85 @@ import android.widget.Toast;
 
 import com.example.almerimatik.pedidostienda.Dialogs.LoginDialog;
 import com.example.almerimatik.pedidostienda.R;
+import com.example.almerimatik.pedidostienda.ws.Ws;
 
 public class MainActivity  extends FragmentActivity {
 
-    final int LOGIN = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
 
-    public void abrirMenuPrincipal(View view) {
+    public void abrirMenuPrincipal() {
         Intent intent = new Intent(this, MenuPrincipalActivity.class);
         startActivity(intent);
     }
 
-    public void abrirLogin(View view) {
+    public void abrirMenuPrincipal(View view) {
+        abrirMenuPrincipal();
+    }
+
+    public void abrirLogin() {
         DialogFragment newFragment = new LoginDialog();
-        newFragment.show(getFragmentManager(),"LoginDialog1");
+        newFragment.show(getFragmentManager(),"LoginDialog");
+    }
+
+
+
+    public void abrirLogin(View view) {
+        abrirLogin();
 
     }
 
 
+    public class LoginTask extends AsyncTask<String, Void, Void> {
+
+        boolean autenticado = false;
+
+        //protected void onPreExecute(){
+        //progress.show();
+        // }
+
+        protected Void doInBackground(String... params) {
+            login(params[0],params[1]);
+            return null;
+        }
+
+        protected void onPostExecute(Void result) {
+
+            if(autenticado){
+                abrirMenuPrincipal();
+            }
+        }
+
+        private void login(String usuario, String password){
+
+            autenticado = Ws.login(usuario,password);
+        }
+
+    }
+
+    public class RegistrarTask extends AsyncTask<String, Void, Void> {
+
+        boolean autenticado = false;
+
+        protected Void doInBackground(String... params) {
+            registrar(params[0],params[1],params[2],params[3]);
+            return null;
+        }
+
+        protected void onPostExecute(Void result) {
+
+            if(autenticado){
+                abrirMenuPrincipal();
+            }
+        }
+
+        private void registrar(String usuario, String email, String telefono, String password){
+
+            autenticado = Ws.registrarUsuario(usuario, email, telefono, password);
+        }
+
+    }
 }
