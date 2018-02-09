@@ -1,5 +1,6 @@
 package com.example.almerimatik.pedidostienda.activity;
 
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -10,14 +11,19 @@ import android.view.View;
 import com.example.almerimatik.pedidostienda.Dialogs.LoginDialog;
 import com.example.almerimatik.pedidostienda.Dialogs.RegistroDialog;
 import com.example.almerimatik.pedidostienda.R;
+import com.example.almerimatik.pedidostienda.constantes.Data;
 import com.example.almerimatik.pedidostienda.ws.Ws;
 
 public class MainActivity  extends FragmentActivity {
+
+    long idUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        iniciar();
     }
 
     public void abrirMenuPrincipal() {
@@ -25,21 +31,32 @@ public class MainActivity  extends FragmentActivity {
         startActivity(intent);
     }
 
-    public void abrirMenuPrincipal(View view) {
-        abrirMenuPrincipal();
-    }
 
     public void abrirLogin() {
         DialogFragment newFragment = new LoginDialog();
         newFragment.show(getFragmentManager(),"LoginDialog");
     }
 
+    public void abrirRegistrar() {
+        DialogFragment newFragment = new RegistroDialog();
+        newFragment.show(getFragmentManager(),"RegistroDialog");
+    }
 
-    public void abrirLogin(View view) {
-        abrirLogin();
+
+    public void iniciar(){
+
+        idUsuario = Data.getIdUsuario(this);
+        if(idUsuario < 0){
+            abrirLogin();
+        }else{
+            abrirMenuPrincipal();
+        }
 
     }
 
+    public void setUsuario(){
+        Data.setIdUsuario(this,idUsuario);
+    }
 
     public class LoginTask extends AsyncTask<String, Void, Void> {
 
@@ -56,12 +73,14 @@ public class MainActivity  extends FragmentActivity {
 
         protected void onPostExecute(Void result) {
             if(autenticado){
-                abrirMenuPrincipal();
+                setUsuario();
+                iniciar();
             }
         }
 
         private void login(String usuario, String password){
-            autenticado = Ws.login(usuario,password);
+            idUsuario = Ws.login(usuario,password);
+            autenticado = !(idUsuario < 0);
         }
 
     }
@@ -77,12 +96,13 @@ public class MainActivity  extends FragmentActivity {
 
         protected void onPostExecute(Void result) {
             if(registrado){
-                abrirMenuPrincipal();
+
             }
         }
 
         private void registrar(String usuario, String email, String telefono, String password){
-            registrado = Ws.registrarUsuario(usuario, email, telefono, password);
+            long idUsuario = Ws.registrarUsuario(usuario, email, telefono, password);
+            registrado = !(idUsuario < 0);
         }
     }
 

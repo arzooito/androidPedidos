@@ -21,12 +21,12 @@ public class Ws {
 
 
 
-    public static boolean login(String usuario, String password){
+    public static long login(String usuario, String password){
 
         String METHOD = "login";
         String SOAP_ACTION = NAMESPACE+METHOD;
 
-        boolean result = false;
+        long result = -1;
         SoapObject request = new SoapObject(NAMESPACE, METHOD);
         request.addProperty("nombre", usuario);
         request.addProperty("password", password);
@@ -39,7 +39,7 @@ public class Ws {
         {
             transporte.call(SOAP_ACTION, envelope);
             SoapPrimitive resultado_xml =(SoapPrimitive)envelope.getResponse();
-            result = Boolean.valueOf(resultado_xml.toString());
+            result = Long.valueOf(resultado_xml.toString());
         }
         catch (Exception e)
         {
@@ -49,12 +49,12 @@ public class Ws {
         return result;
     }
 
-    public static boolean registrarUsuario(String usuario, String email, String telefono, String password){
+    public static long registrarUsuario(String usuario, String email, String telefono, String password){
 
         String METHOD = "registrarUsuario";
         String SOAP_ACTION = NAMESPACE+METHOD;
 
-        boolean result = false;
+        long result = -1;
         SoapObject request = new SoapObject(NAMESPACE, METHOD);
         request.addProperty("nombre", usuario);
         request.addProperty("password", password);
@@ -69,7 +69,7 @@ public class Ws {
         {
             transporte.call(SOAP_ACTION, envelope);
             SoapPrimitive resultado_xml =(SoapPrimitive)envelope.getResponse();
-            result = Boolean.valueOf(resultado_xml.toString());
+            result = Long.valueOf(resultado_xml.toString());
         }
         catch (Exception e)
         {

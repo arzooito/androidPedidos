@@ -3,9 +3,8 @@ package com.example.almerimatik.pedidostienda.Modelo;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Build;
 
-import static com.example.almerimatik.pedidostienda.constantes.DataBase.VERSION_DB;
+import static com.example.almerimatik.pedidostienda.constantes.Data.VERSION_DB;
 
 /**
  * Created by Almerimatik on 08/02/2018.
@@ -26,7 +25,7 @@ public class TiendaSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE categoria(id INTEGER PRIMARY KEY, nombre TEXT)");
         db.execSQL("CREATE TABLE subcategoria(id INTEGER PRIMARY KEY, nombre TEXT, idCategoria INTEGER)");
 
-        db.execSQL("CREATE TABLE lista(_id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT)");
+        db.execSQL("CREATE TABLE lista(_id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, pedido INTEGER)");
         db.execSQL("CREATE TABLE lista_producto(_id INTEGER PRIMARY KEY AUTOINCREMENT, idLista INTEGER, idProducto INTEGER, unidades INTEGER)");
     }
 
