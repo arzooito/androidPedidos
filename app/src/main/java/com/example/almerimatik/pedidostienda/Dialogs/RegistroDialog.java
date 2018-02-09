@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ public class RegistroDialog extends DialogFragment {
 
     EditText etUsuario,  etPassword, etTelefono, etEmail;
     String mensaje;
+    Button btnRegistrar;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -33,15 +35,18 @@ public class RegistroDialog extends DialogFragment {
         etEmail = (EditText) v.findViewById(R.id.etEmail);
         etTelefono = (EditText) v.findViewById(R.id.etTelefono);
         etPassword = (EditText) v.findViewById(R.id.etPassword);
+        btnRegistrar = (Button) v.findViewById(R.id.btnLoguear);
 
         etEmail.setVisibility(View.VISIBLE);
         etTelefono.setVisibility(View.VISIBLE);
+        btnRegistrar.setText(R.string.boton_registrar);
 
-        builder.setView(v)
-                // Add action buttons
-                .setPositiveButton(R.string.boton_enviar, new DialogInterface.OnClickListener() {
+        builder.setView(v);
+
+        btnRegistrar.setOnClickListener(
+                new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int id) {
+                    public void onClick(View v) {
 
                         String user = etUsuario.getText().toString().trim();
                         String email = etEmail.getText().toString().trim();
@@ -53,13 +58,11 @@ public class RegistroDialog extends DialogFragment {
                         }else{
                             Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
                         }
+
+                        dismiss();
                     }
-                })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        RegistroDialog.this.getDialog().cancel();
-                    }
-                });
+                }
+        );
 
 
         return builder.create();

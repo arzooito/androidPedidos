@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -23,6 +25,8 @@ public class LoginDialog extends DialogFragment {
 
     EditText etUsuario,  etPassword;
     String mensaje;
+    Button btnLoguear, btnRegistrar;
+    CheckBox checkRecordar;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -31,28 +35,31 @@ public class LoginDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         View v= inflater.inflate(R.layout.dialog_login, null);
+
         etUsuario = (EditText) v.findViewById(R.id.etUsuario);
         etPassword = (EditText) v.findViewById(R.id.etPassword);
+        checkRecordar = (CheckBox) v.findViewById(R.id.recordar_check);
+        btnLoguear = (Button) v.findViewById(R.id.btnLoguear);
 
-        builder.setView(v)
-                // Add action buttons
-                .setPositiveButton(R.string.boton_login, new DialogInterface.OnClickListener() {
+        builder.setView(v);
+
+        btnLoguear.setOnClickListener(
+                new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int id) {
+                    public void onClick(View v) {
                         String user = etUsuario.getText().toString().trim();
                         String password = etPassword.getText().toString().trim();
+                        boolean remember = checkRecordar.isChecked();
+
                         if(validar()){
                             loguear(user,password);
                         }else{
                             Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
                         }
+                        dismiss();
                     }
-                })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        LoginDialog.this.getDialog().cancel();
-                    }
-                });
+                }
+        );
 
 
         return builder.create();

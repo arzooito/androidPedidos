@@ -10,47 +10,72 @@
         android:scaleType="center"
         android:background="#ffae75"
         android:contentDescription="@string/app_name" />
-    <EditText
-        android:id="@+id/etUsuario"
-        android:inputType="textPersonName"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="4dp"
-        android:hint="@string/et_nombre_usuario" />
-    <EditText
-        android:id="@+id/etEmail"
-        android:inputType="textEmailAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="4dp"
-        android:hint="@string/et_email"
-        android:visibility="gone"/>
-    <EditText
-        android:id="@+id/etTelefono"
-        android:inputType="text|phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="4dp"
-        android:hint="@string/et_telefono"
-        android:visibility="gone"/>
-    <EditText
-        android:id="@+id/etPassword"
-        android:inputType="textPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="sans-serif"
-        android:hint="@string/et_password"/>
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/etUsuario"
+            android:inputType="textPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="4dp"
+            android:hint="@string/et_nombre_usuario" />
+        <EditText
+            android:id="@+id/etEmail"
+            android:inputType="textEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="4dp"
+            android:hint="@string/et_email"
+            android:visibility="gone"/>
+        <EditText
+            android:id="@+id/etTelefono"
+            android:inputType="text|phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="4dp"
+            android:hint="@string/et_telefono"
+            android:visibility="gone"/>
+        <EditText
+            android:id="@+id/etPassword"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="sans-serif"
+            android:hint="@string/et_password"/>
+        <CheckBox
+            android:id="@+id/recordar_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="@string/recordar_check"
+            android:layout_marginBottom="24dp"/>
+        <Button
+            android:id="@+id/btnLoguear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/button_padding"
+            android:paddingTop="@dimen/button_padding"
+            android:text="@string/boton_login"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+
 </LinearLayout>

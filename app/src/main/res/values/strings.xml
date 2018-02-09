@@ -8,13 +8,16 @@
     <string name="title_activity_listas">Listas</string>
     <string name="title_activity_lista">Lista</string>
     <string name="title_activity_carrito">Carrito</string>
-    <string name="boton_login">Login</string>
-    <string name="boton_enviar">Enviar</string>
+    <string name="boton_login">Entrar</string>
+    <string name="boton_registrar">Registrarse</string>
     <string name="et_nombre_usuario">Nombre de usuario</string>
     <string name="et_password">Password</string>
     <string name="et_telefono">Telefono</string>
     <string name="et_email">Email</string>
     <string name="cancel">Cancelar</string>
+    <string name="info_text">Ingresa con tu cuenta o registate</string>
+    <string name="recordar_check">Recordarme</string>
+    <string name="olvidar_text">¿Olvidaste tu contraseña?</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
