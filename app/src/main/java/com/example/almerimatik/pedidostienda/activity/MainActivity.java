@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.almerimatik.pedidostienda.Dialogs.LoginDialog;
+import com.example.almerimatik.pedidostienda.Dialogs.RegistroDialog;
 import com.example.almerimatik.pedidostienda.R;
 import com.example.almerimatik.pedidostienda.constantes.Data;
 import com.example.almerimatik.pedidostienda.constantes.Sesion;
@@ -27,6 +29,9 @@ public class MainActivity  extends FragmentActivity {
     String nameUser = null;
     String pass = null;
     boolean remember = false;
+    LoginDialog loginFragment;
+    DialogFragment registroFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +49,19 @@ public class MainActivity  extends FragmentActivity {
 
 
     public void abrirLogin() {
-        DialogFragment newFragment = new LoginDialog();
-        newFragment.show(getFragmentManager(),"LoginDialog");
+        if(registroFragment != null && registroFragment.isResumed()){
+            registroFragment.dismiss();
+        }
+        loginFragment = new LoginDialog();
+        loginFragment.show(getFragmentManager(),"LoginDialog");
     }
 
     public void abrirRegistrar() {
-        DialogFragment newFragment = new RegistroDialog();
-        newFragment.show(getFragmentManager(),"RegistroDialog");
+        if(loginFragment.isResumed()){
+            loginFragment.dismiss();
+        }
+        registroFragment = new RegistroDialog();
+        registroFragment.show(getFragmentManager(),"RegistroDialog");
     }
 
 
@@ -77,12 +88,30 @@ public class MainActivity  extends FragmentActivity {
         Sesion.setPassword(pass);
     }
 
+    public void setNameUser(String nameUser) {
+        this.nameUser = nameUser;
+    }
 
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
 
+    public void setRemember(boolean remember) {
+        this.remember = remember;
+    }
+
+    public void mensajeErrorLogueo(){
+        Toast.makeText(this,R.string.error_login,Toast.LENGTH_LONG).show();
+    }
+
+    public void mensajeErrorRegistro(){
+        Toast.makeText(this,R.string.error_registro,Toast.LENGTH_LONG).show();
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
+
     public class LoginTask extends AsyncTask<String, Void, Void> {
 
         boolean autenticado = false;
@@ -92,6 +121,7 @@ public class MainActivity  extends FragmentActivity {
         // }
 
         protected Void doInBackground(String... params) {
+
             login(params[0],params[1]);
             return null;
         }
@@ -103,7 +133,11 @@ public class MainActivity  extends FragmentActivity {
                 }
                 
                 setUsuarioSesion();
+                loginFragment.dismiss();
                 iniciar();
+            }else{
+                loginFragment.clearInputs();
+                mensajeErrorLogueo();
             }
         }
 
@@ -129,195 +163,17 @@ public class MainActivity  extends FragmentActivity {
 
         protected void onPostExecute(Void result) {
             if(registrado){
-
+                setUsuarioSesion();
+                registroFragment.dismiss();
+                iniciar();
+            }else{
+                mensajeErrorRegistro();
             }
         }
 
         private void registrar(String usuario, String email, String telefono, String password){
             long idUsuario = Ws.registrarUsuario(usuario, email, telefono, password);
             registrado = !(idUsuario < 0);
-        }
-    }
-
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-
-    @SuppressLint("ValidFragment")
-    public class LoginDialog extends DialogFragment {
-
-        EditText etUsuario, etPassword;
-        String mensaje;
-        Button btnLoguear;
-        CheckBox checkRecordar;
-        TextView tvRegistrar;
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            // Get the layout inflater
-            LayoutInflater inflater = getActivity().getLayoutInflater();
-
-            View v= inflater.inflate(R.layout.dialog_login, null);
-
-            etUsuario = (EditText) v.findViewById(R.id.etUsuario);
-            etPassword = (EditText) v.findViewById(R.id.etPassword);
-            checkRecordar = (CheckBox) v.findViewById(R.id.recordar_check);
-            btnLoguear = (Button) v.findViewById(R.id.btnLoguear);
-            //tvRegistrar = (TextView) v.findViewById(R.id.tvRegistrar)
-
-            builder.setView(v);
-
-            btnLoguear.setOnClickListener(
-                    new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            nameUser = etUsuario.getText().toString().trim();
-                            pass = etPassword.getText().toString().trim();
-                            remember = checkRecordar.isChecked();
-
-                            if(validar()){
-                                loguear(nameUser,pass);
-                                dismiss();
-                            }else{
-                                Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
-                            }
-
-                        }
-                    }
-            );
-
-
-            return builder.create();
-        }
-
-        public void loguear(String usuario, String password){
-
-            String[] params = {usuario,password};
-            new LoginTask().execute(params);
-        }
-
-
-        public void mensaje(){
-
-            mensaje = "";
-
-            if("".equals(etUsuario.getText().toString().trim())){
-                mensaje += "* Debe introducir un nombre de usuario\n";
-            }
-            if("".equals(etPassword.getText().toString().trim())){
-                mensaje += "* Debe introducir un password\n";
-            }
-        }
-
-        public boolean validar(){
-            boolean valido = true;
-            mensaje();
-            if(!mensaje.equals("")){
-                valido = false;
-
-            }
-            return valido;
-        }
-
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-
-    @SuppressLint("ValidFragment")
-    public class RegistroDialog extends DialogFragment {
-
-        EditText etUsuario,  etPassword, etTelefono, etEmail;
-        String mensaje;
-        Button btnRegistrar;
-        CheckBox checkRecordar;
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            // Get the layout inflater
-            LayoutInflater inflater = getActivity().getLayoutInflater();
-
-            View v= inflater.inflate(R.layout.dialog_login, null);
-            etUsuario = (EditText) v.findViewById(R.id.etUsuario);
-            etEmail = (EditText) v.findViewById(R.id.etEmail);
-            etTelefono = (EditText) v.findViewById(R.id.etTelefono);
-            etPassword = (EditText) v.findViewById(R.id.etPassword);
-            btnRegistrar = (Button) v.findViewById(R.id.btnLoguear);
-            checkRecordar = (CheckBox) v.findViewById(R.id.recordar_check);
-
-            etEmail.setVisibility(View.VISIBLE);
-            etTelefono.setVisibility(View.VISIBLE);
-            checkRecordar.setVisibility(View.GONE);
-
-            btnRegistrar.setText(R.string.boton_registrar);
-
-            builder.setView(v);
-
-            btnRegistrar.setOnClickListener(
-                    new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            String user = etUsuario.getText().toString().trim();
-                            String email = etEmail.getText().toString().trim();
-                            String telefono = etTelefono.getText().toString().trim();
-                            String password = etPassword.getText().toString().trim();
-
-                            if(validar()){
-                                registrar(user, email, telefono, password);
-                            }else{
-                                Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
-                            }
-
-                            dismiss();
-                        }
-                    }
-            );
-
-
-            return builder.create();
-        }
-
-        public void registrar(String usuario, String email, String telefono, String password){
-
-            String[] params = {usuario,email,telefono,password};
-            MainActivity activity = (MainActivity) getActivity();
-            activity.new RegistrarTask().execute(params);
-        }
-
-
-        public void mensaje(){
-
-            mensaje = "";
-
-            if("".equals(etUsuario.getText().toString().trim())){
-                mensaje += "* Debe introducir un nombre de usuario\n";
-            }
-            if(!etEmail.getText().toString().trim()
-                    .matches("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$")){
-                mensaje += "* Debe introducir un email válido\n";
-            }
-            if(!etTelefono.getText().toString().trim()
-                    .matches("^[0-9]{9}")){
-                mensaje += "* Debe introducir un telefono válido\n";
-            }
-            if("".equals(etPassword.getText().toString().trim())){
-                mensaje += "* Debe introducir un password\n";
-            }
-        }
-
-        public boolean validar(){
-            boolean valido = true;
-            mensaje();
-            if(!mensaje.equals("")){
-                valido = false;
-
-            }
-            return valido;
         }
     }
 

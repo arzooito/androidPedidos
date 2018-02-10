@@ -74,7 +74,16 @@
             android:paddingTop="@dimen/button_padding"
             android:text="@string/boton_login"
             android:textColor="@android:color/white" />
-
+        <TextView
+            android:id="@+id/tvRegistrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_gravity="center"
+            android:textColor="@color/colorAccent"
+            android:text="@string/sin_registro"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
     </LinearLayout>
 
 

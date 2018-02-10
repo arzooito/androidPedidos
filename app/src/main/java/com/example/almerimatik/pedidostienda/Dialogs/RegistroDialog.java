@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.almerimatik.pedidostienda.R;
@@ -23,10 +25,14 @@ public class RegistroDialog extends DialogFragment {
     EditText etUsuario,  etPassword, etTelefono, etEmail;
     String mensaje;
     Button btnRegistrar;
+    CheckBox checkRecordar;
+    MainActivity activity;
+    TextView tvLoguear;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        activity = (MainActivity) getActivity();
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
@@ -36,10 +42,14 @@ public class RegistroDialog extends DialogFragment {
         etTelefono = (EditText) v.findViewById(R.id.etTelefono);
         etPassword = (EditText) v.findViewById(R.id.etPassword);
         btnRegistrar = (Button) v.findViewById(R.id.btnLoguear);
+        checkRecordar = (CheckBox) v.findViewById(R.id.recordar_check);
+        tvLoguear = (TextView) v.findViewById(R.id.tvRegistrar);
 
         etEmail.setVisibility(View.VISIBLE);
         etTelefono.setVisibility(View.VISIBLE);
+        checkRecordar.setVisibility(View.GONE);
         btnRegistrar.setText(R.string.boton_registrar);
+        tvLoguear.setText(R.string.con_registro);
 
         builder.setView(v);
 
@@ -55,11 +65,20 @@ public class RegistroDialog extends DialogFragment {
 
                         if(validar()){
                             registrar(user, email, telefono, password);
+                            dismiss();
                         }else{
                             Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
                         }
 
-                        dismiss();
+                    }
+                }
+        );
+
+        tvLoguear.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        activity.abrirLogin();
                     }
                 }
         );

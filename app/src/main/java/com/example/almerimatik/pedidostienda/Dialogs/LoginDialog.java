@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.almerimatik.pedidostienda.R;
@@ -27,10 +28,13 @@ public class LoginDialog extends DialogFragment {
     String mensaje;
     Button btnLoguear, btnRegistrar;
     CheckBox checkRecordar;
+    TextView tvRegistrar;
+    MainActivity activity;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        activity = (MainActivity) getActivity();
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
@@ -40,6 +44,7 @@ public class LoginDialog extends DialogFragment {
         etPassword = (EditText) v.findViewById(R.id.etPassword);
         checkRecordar = (CheckBox) v.findViewById(R.id.recordar_check);
         btnLoguear = (Button) v.findViewById(R.id.btnLoguear);
+        tvRegistrar = (TextView) v.findViewById(R.id.tvRegistrar);
 
         builder.setView(v);
 
@@ -50,13 +55,24 @@ public class LoginDialog extends DialogFragment {
                         String user = etUsuario.getText().toString().trim();
                         String password = etPassword.getText().toString().trim();
                         boolean remember = checkRecordar.isChecked();
+                        activity.setNameUser(user);
+                        activity.setPass(password);
+                        activity.setRemember(remember);
 
                         if(validar()){
                             loguear(user,password);
                         }else{
                             Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
                         }
-                        dismiss();
+                    }
+                }
+        );
+
+        tvRegistrar.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        activity.abrirRegistrar();
                     }
                 }
         );
@@ -68,7 +84,6 @@ public class LoginDialog extends DialogFragment {
     public void loguear(String usuario, String password){
 
         String[] params = {usuario,password};
-        MainActivity activity = (MainActivity) getActivity();
         activity.new LoginTask().execute(params);
     }
 
@@ -93,6 +108,11 @@ public class LoginDialog extends DialogFragment {
 
         }
         return valido;
+    }
+
+    public void clearInputs(){
+        etUsuario.setText("");
+        etPassword.setText("");
     }
 
 }
