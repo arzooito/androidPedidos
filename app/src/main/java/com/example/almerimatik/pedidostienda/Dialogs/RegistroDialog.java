@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.almerimatik.pedidostienda.AsynTasks.RegistrarTask;
 import com.example.almerimatik.pedidostienda.R;
 import com.example.almerimatik.pedidostienda.activity.MainActivity;
 
@@ -91,7 +92,7 @@ public class RegistroDialog extends DialogFragment {
 
         String[] params = {usuario,email,telefono,password};
         MainActivity activity = (MainActivity) getActivity();
-        activity.new RegistrarTask().execute(params);
+        new RegistrarTask(activity).execute(params);
     }
 
 

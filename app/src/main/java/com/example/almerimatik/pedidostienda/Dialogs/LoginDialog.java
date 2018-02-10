@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.almerimatik.pedidostienda.AsynTasks.LoginTask;
 import com.example.almerimatik.pedidostienda.R;
 import com.example.almerimatik.pedidostienda.activity.MainActivity;
 
@@ -84,7 +85,7 @@ public class LoginDialog extends DialogFragment {
     public void loguear(String usuario, String password){
 
         String[] params = {usuario,password};
-        activity.new LoginTask().execute(params);
+        new LoginTask(activity).execute(params);
     }
 
 

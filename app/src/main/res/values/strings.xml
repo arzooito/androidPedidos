@@ -28,6 +28,7 @@
     <string name="error_registro">Usuario ya registrado. Pruebe a loguearse</string>
     <string name="sin_registro">Si no tiene usuario, registrese aquí</string>
     <string name="con_registro">Si ya tiene usuario, acceda desde aquí</string>
+    <string name="conectando_msg">Conectando con el servidor...</string>
 
 
 

@@ -19,6 +19,8 @@
         <EditText
             android:id="@+id/etUsuario"
             android:inputType="textPersonName"
+            android:background="@drawable/caja_text_edit"
+            android:padding="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -29,6 +31,8 @@
         <EditText
             android:id="@+id/etEmail"
             android:inputType="textEmailAddress"
+            android:background="@drawable/caja_text_edit"
+            android:padding="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -40,6 +44,8 @@
         <EditText
             android:id="@+id/etTelefono"
             android:inputType="text|phone"
+            android:background="@drawable/caja_text_edit"
+            android:padding="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -51,6 +57,8 @@
         <EditText
             android:id="@+id/etPassword"
             android:inputType="textPassword"
+            android:background="@drawable/caja_text_edit"
+            android:padding="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -72,6 +80,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/button_padding"
             android:paddingTop="@dimen/button_padding"
+            android:background="@drawable/boton_activity_principal"
             android:text="@string/boton_login"
             android:textColor="@android:color/white" />
         <TextView
