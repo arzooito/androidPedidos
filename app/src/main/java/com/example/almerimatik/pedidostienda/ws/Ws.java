@@ -107,15 +107,14 @@ public class Ws {
         return result;
     }
 
-    public static String actualizar(){
+    public static String actualizar(String fecha){
 
         String METHOD = "actualizar";
         String SOAP_ACTION = NAMESPACE+METHOD;
 
         String result = null;
         SoapObject request = new SoapObject(NAMESPACE, METHOD);
-        //request.addProperty("usuario", usuario);
-        //request.addProperty("password", password);
+        request.addProperty("fecha", fecha);
 
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);

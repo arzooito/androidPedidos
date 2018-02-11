@@ -1,8 +1,8 @@
 package com.example.almerimatik.pedidostienda.Tools;
 
 /**
- * Created by Almerimatik on 07/02/2018.
+ * Created by arzoo on 12/02/2018.
  */
 
-public class BD {
+public class XML {
 }
