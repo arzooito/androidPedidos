@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\Users\arzoo\Documents\AndroidStudioProjects\androidPedidos\PedidosTienda.iml" filepath="C:\Users\arzoo\Documents\AndroidStudioProjects\androidPedidos\PedidosTienda.iml" />
-      <module fileurl="file://$PROJECT_DIR$/androidPedidos.iml" filepath="$PROJECT_DIR$/androidPedidos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PedidosTienda.iml" filepath="$PROJECT_DIR$/PedidosTienda.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

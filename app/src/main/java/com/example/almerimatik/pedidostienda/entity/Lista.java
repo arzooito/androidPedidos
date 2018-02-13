@@ -11,24 +11,20 @@ public class Lista {
     private long id;
     private String nombre;
     private List<Producto> productos;
-    private boolean pedido;
 
     public Lista(){
 
-        this.pedido = false;
     }
 
     public Lista(long id, String nombre) {
         this.id = id;
         this.nombre = nombre;
-        this.pedido = false;
     }
 
-    public Lista(long id, String nombre, List<Producto> productos, boolean pedido) {
+    public Lista(long id, String nombre, List<Producto> productos) {
         this.id = id;
         this.nombre = nombre;
         this.productos = productos;
-        this.pedido = pedido;
     }
 
     public long getId() {
@@ -55,11 +51,4 @@ public class Lista {
         this.productos = productos;
     }
 
-    public boolean isPedido() {
-        return pedido;
-    }
-
-    public void setPedido(boolean pedido) {
-        this.pedido = pedido;
-    }
 }

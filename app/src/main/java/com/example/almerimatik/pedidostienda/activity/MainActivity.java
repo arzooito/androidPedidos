@@ -1,22 +1,12 @@
 package com.example.almerimatik.pedidostienda.activity;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
+
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -52,6 +42,7 @@ public class MainActivity  extends FragmentActivity {
 
 
         Sesion.init(this);
+        actualizar();
         //iniciar();
     }
 
@@ -112,6 +103,10 @@ public class MainActivity  extends FragmentActivity {
         }else{
             abrirMenuPrincipal();
         }
+
+    }
+
+    public void actualizar(){
 
     }
 

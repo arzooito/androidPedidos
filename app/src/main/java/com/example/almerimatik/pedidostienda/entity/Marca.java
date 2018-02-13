@@ -1,5 +1,7 @@
 package com.example.almerimatik.pedidostienda.entity;
 
+import android.content.ContentValues;
+
 /**
  * Created by Almerimatik on 09/02/2018.
  */
@@ -27,5 +29,14 @@ public class Marca {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public ContentValues rellenar(){
+
+        final ContentValues nuevoRegistro = new ContentValues();
+        nuevoRegistro.put("id", id);
+        nuevoRegistro.put("nombre", nombre);
+        return nuevoRegistro;
+
     }
 }

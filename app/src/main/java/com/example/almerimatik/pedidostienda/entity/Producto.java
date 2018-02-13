@@ -1,5 +1,7 @@
 package com.example.almerimatik.pedidostienda.entity;
 
+import android.content.ContentValues;
+
 /**
  * Created by Almerimatik on 09/02/2018.
  */
@@ -82,5 +84,19 @@ public class Producto {
 
     public void setSubcategoria(Subcategoria subcategoria) {
         this.subcategoria = subcategoria;
+    }
+
+    public ContentValues rellenar(){
+
+        final ContentValues nuevoRegistro = new ContentValues();
+        nuevoRegistro.put("id", id);
+        nuevoRegistro.put("nombre", nombre);
+        nuevoRegistro.put("formato", formato);
+        nuevoRegistro.put("precio", precio);
+        nuevoRegistro.put("foto", foto);
+        nuevoRegistro.put("idMarca", marca.getId());
+        nuevoRegistro.put("idSubcategoria", subcategoria.getId());
+        return nuevoRegistro;
+
     }
 }

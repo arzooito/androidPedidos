@@ -1,5 +1,7 @@
 package com.example.almerimatik.pedidostienda.entity;
 
+import android.content.ContentValues;
+
 /**
  * Created by Almerimatik on 09/02/2018.
  */
@@ -42,5 +44,15 @@ public class Subcategoria {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public ContentValues rellenar(){
+
+        final ContentValues nuevoRegistro = new ContentValues();
+        nuevoRegistro.put("id", id);
+        nuevoRegistro.put("nombre", nombre);
+        nuevoRegistro.put("idCategoria", categoria.getId());
+        return nuevoRegistro;
+
     }
 }
