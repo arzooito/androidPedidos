@@ -1,5 +1,7 @@
 package com.example.almerimatik.pedidostienda.entity;
 
+import android.content.ContentValues;
+
 import java.util.List;
 
 /**
@@ -51,4 +53,18 @@ public class Lista {
         this.productos = productos;
     }
 
+    public ContentValues rellenar(){
+
+        final ContentValues nuevoRegistro = new ContentValues();
+        nuevoRegistro.put("id", id);
+        nuevoRegistro.put("nombre", nombre);
+        return nuevoRegistro;
+
+    }
+
+    public String[] getCampos(){
+
+        String[] campos = {"id","nombre"};
+        return campos;
+    }
 }

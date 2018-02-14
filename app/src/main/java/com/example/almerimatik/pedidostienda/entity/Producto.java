@@ -97,6 +97,11 @@ public class Producto {
         nuevoRegistro.put("idMarca", marca.getId());
         nuevoRegistro.put("idSubcategoria", subcategoria.getId());
         return nuevoRegistro;
+    }
 
+    public String[] getCampos(){
+
+        String[] campos = {"id","nombre", "formato", "precio", "foto", "idMarca", "idSubcategoria"};
+        return campos;
     }
 }

@@ -39,4 +39,10 @@ public class Marca {
         return nuevoRegistro;
 
     }
+
+    public String[] getCampos(){
+
+        String[] campos = {"id","nombre"};
+        return campos;
+    }
 }

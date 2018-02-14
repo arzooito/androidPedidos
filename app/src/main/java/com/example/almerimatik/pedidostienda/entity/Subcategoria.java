@@ -53,6 +53,11 @@ public class Subcategoria {
         nuevoRegistro.put("nombre", nombre);
         nuevoRegistro.put("idCategoria", categoria.getId());
         return nuevoRegistro;
+    }
 
+    public String[] getCampos(){
+
+        String[] campos = {"id","nombre", "idCategoria"};
+        return campos;
     }
 }

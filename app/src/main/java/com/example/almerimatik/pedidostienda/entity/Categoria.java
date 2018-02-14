@@ -42,6 +42,11 @@ public class Categoria {
         nuevoRegistro.put("id", id);
         nuevoRegistro.put("nombre", nombre);
         return nuevoRegistro;
+    }
 
+    public String[] getCampos(){
+
+        String[] campos = {"id","nombre"};
+        return campos;
     }
 }
