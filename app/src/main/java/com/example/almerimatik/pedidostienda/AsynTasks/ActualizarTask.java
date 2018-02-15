@@ -83,7 +83,7 @@ public class ActualizarTask extends AsyncTask<Void, Integer, Void> {
 
             bd.closeBD();
 
-            String actualizacionFecha = Fechas.FormatearFechaHoraSQL();
+            String actualizacionFecha = Fechas.FormatearFechaHora();
             Data.setUltimaActualizacion(main,actualizacionFecha);
         }else{
             String msj = main.getString(R.string.conection_ws_error);
