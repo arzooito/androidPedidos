@@ -3,6 +3,7 @@ package com.example.almerimatik.pedidostienda.AsynTasks;
 import android.os.AsyncTask;
 import android.view.View;
 
+import com.example.almerimatik.pedidostienda.R;
 import com.example.almerimatik.pedidostienda.activity.MainActivity;
 import com.example.almerimatik.pedidostienda.ws.Ws;
 
@@ -20,6 +21,7 @@ public class RegistrarTask extends AsyncTask<String, Void, Void> {
     }
 
     protected void onPreExecute(){
+        main.getTvProgress().setText(R.string.conectando_msg);
         main.getProgressBar().setVisibility(View.VISIBLE);
     }
 

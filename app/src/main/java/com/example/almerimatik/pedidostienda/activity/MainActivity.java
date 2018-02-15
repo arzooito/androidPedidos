@@ -12,6 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.almerimatik.pedidostienda.AsynTasks.ActualizarTask;
+import com.example.almerimatik.pedidostienda.AsynTasks.LoginTask;
 import com.example.almerimatik.pedidostienda.Dialogs.LoginDialog;
 import com.example.almerimatik.pedidostienda.Dialogs.RegistroDialog;
 import com.example.almerimatik.pedidostienda.R;
@@ -43,7 +45,7 @@ public class MainActivity  extends FragmentActivity {
 
         Sesion.init(this);
         actualizar();
-        //iniciar();
+
     }
 
     @Override
@@ -58,6 +60,8 @@ public class MainActivity  extends FragmentActivity {
     public LinearLayout getProgressBar() {
         return progressBarBox;
     }
+
+    public TextView getTvProgress() { return  tvProgress; }
 
     public LoginDialog getLoginFragment() {
         return loginFragment;
@@ -108,6 +112,7 @@ public class MainActivity  extends FragmentActivity {
 
     public void actualizar(){
 
+        new ActualizarTask(this).execute();
     }
 
     public void abrirMenuPrincipal() {

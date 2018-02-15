@@ -89,10 +89,8 @@ public class XML {
                     String idSub = elementoProducto.getAttribute("idSubcategoria");
 
                     long id = Long.valueOf(s_id);
-                    bd.openBD(false);
                     Marca marca = bd.getMarca(idMarca);
                     Subcategoria sub = bd.getSubcategoria(idSub);
-                    bd.closeBD();
 
                     prod.setId(id);
                     prod.setNombre(nombre);
@@ -207,9 +205,7 @@ public class XML {
 
 
                     long id = Long.valueOf(s_id);
-                    bd.openBD(false);
                     Categoria cat = bd.getCategoria(idCat);
-                    bd.closeBD();
 
                     sub.setId(id);
                     sub.setNombre(nombre);

@@ -27,7 +27,7 @@ public class LoginDialog extends DialogFragment {
 
     EditText etUsuario,  etPassword;
     String mensaje;
-    Button btnLoguear, btnRegistrar;
+    Button btnLoguear;
     CheckBox checkRecordar;
     TextView tvRegistrar;
     MainActivity activity;

@@ -14,6 +14,7 @@ public class Fechas {
     private final static String FORMATO_HORA = "HH:mm";
     private final static String FORMATO_FECHA_CORTO = "dd-MM-yyyy";
     private final static String FORMATO_FECHA_HORA = "dd-MM-yyyy HH:mm";
+    private final static String FORMATO_FECHA_HORA_SQL = "yyyy-dd-MM HH:mm";
     private final static String FECHA_MINIMA_SQL = "01-01-1753";
     private final static String FECHA_MAXIMA_SQL = "31-12-999";
 
@@ -242,6 +243,10 @@ public class Fechas {
 
     public static String FormatearFechaHora() {
         return FormatearFechaHora(new Date());
+    }
+
+    public static String FormatearFechaHoraSQL() {
+        return FormatearFecha(new Date(), FORMATO_FECHA_HORA_SQL);
     }
 
     public static String FormatearFechaHora(Date fecha) {

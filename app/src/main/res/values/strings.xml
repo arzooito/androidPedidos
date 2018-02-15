@@ -29,6 +29,12 @@
     <string name="sin_registro">Si no tiene usuario, registrese aquí</string>
     <string name="con_registro">Si ya tiene usuario, acceda desde aquí</string>
     <string name="conectando_msg">Conectando con el servidor...</string>
+    <string name="progress_actualizacion">Actualizando catálogo...</string>
+    <string name="descargando_actualizacion">Descargando actualización...</string>
+    <string name="conection_ws_error">Error al conectar con el servidor</string>
+    <string name="exito_actualizar">Catálogo actualizado con éxtito</string>
+    <string name="salir_qu">¿Quiere salir de la aplicacion?</string>
+    <string name="salir">Salir</string>
 
 
 

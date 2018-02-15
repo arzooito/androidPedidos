@@ -92,8 +92,11 @@ public class BD {
 
     public void eliminarProductosSalen(String[] ids){
 
-        for(int i=0; i < ids.length; i++){
-            Modelo.eliminarProducto(context,db, ids[i]);
+        if(ids != null){
+
+            for(int i=0; i < ids.length; i++){
+                Modelo.eliminarProducto(context,db, ids[i]);
+            }
         }
     }
 }

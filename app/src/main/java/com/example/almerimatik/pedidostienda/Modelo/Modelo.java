@@ -38,7 +38,7 @@ public class Modelo {
 
         try {
             final ContentValues valores = marca.rellenar();
-            db.insertOrThrow(tabla, null, valores);
+            db.insertWithOnConflict(tabla, null, valores, SQLiteDatabase.CONFLICT_IGNORE);
         } catch (final Exception e) {
             Log.d("policia", "Error al guardar en BD: ", e);
             Msg.mensaje(context, "Error", "Error al guardar en BD: " + e.getMessage(), false);
@@ -87,7 +87,7 @@ public class Modelo {
 
         try {
             final ContentValues valores = cat.rellenar();
-            db.insertOrThrow(tabla, null, valores);
+            db.insertWithOnConflict(tabla, null, valores, SQLiteDatabase.CONFLICT_IGNORE);
         } catch (final Exception e) {
             Log.d("tienda", "Error al guardar en BD: ", e);
             Msg.mensaje(context, "Error", "Error al guardar en BD: " + e.getMessage(), false);
@@ -135,7 +135,7 @@ public class Modelo {
 
         try {
             final ContentValues valores = sub.rellenar();
-            db.insertOrThrow(tabla, null, valores);
+            db.insertWithOnConflict(tabla, null, valores, SQLiteDatabase.CONFLICT_IGNORE);
         } catch (final Exception e) {
             Log.d("tienda", "Error al guardar en BD: ", e);
             Msg.mensaje(context, "Error", "Error al guardar en BD: " + e.getMessage(), false);
@@ -188,7 +188,7 @@ public class Modelo {
 
         try {
             final ContentValues valores = prod.rellenar();
-            db.insertOrThrow(tabla, null, valores);
+            db.insertWithOnConflict(tabla, null, valores, SQLiteDatabase.CONFLICT_IGNORE);
         } catch (final Exception e) {
             Log.d("tienda", "Error al guardar en BD: ", e);
             Msg.mensaje(context, "Error", "Error al guardar en BD: " + e.getMessage(), false);

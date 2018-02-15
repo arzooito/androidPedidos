@@ -30,7 +30,6 @@ public class Msg {
 
     public static void toast(final Context contexto, final String mensaje) {
         final Toast t = Toast.makeText(contexto, mensaje, Toast.LENGTH_LONG);
-        t.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
         t.show();
     }
 }
