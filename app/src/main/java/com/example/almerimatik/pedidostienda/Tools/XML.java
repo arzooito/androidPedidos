@@ -61,9 +61,11 @@ public class XML {
         return s == null || s.trim().length() == 0;
     }
 
-    public static List<Producto> getProductosEntran(Element entran, BD bd) throws DOMException,NumberFormatException{
+    public static List<Producto> getProductosEntran(Document doc, BD bd) throws DOMException,NumberFormatException{
 
         List<Producto> productos = new ArrayList<>();
+
+        Element entran = getElementoUnico(doc,"entran");
 
         if(entran != null){
             int i;
@@ -108,9 +110,11 @@ public class XML {
         return productos;
     }
 
-    public static List<Marca> getMarcasEntran(Element elementoMarcas) throws DOMException,NumberFormatException{
+    public static List<Marca> getMarcasEntran(Document doc) throws DOMException,NumberFormatException{
 
         List<Marca> marcas = new ArrayList<>();
+
+        Element elementoMarcas = getElementoUnico(doc,"marcas");
 
         if(elementoMarcas != null){
             int i;
@@ -142,9 +146,11 @@ public class XML {
         return marcas;
     }
 
-    public static List<Categoria> getCategoriasEntran(Element elementoCategorias) throws DOMException,NumberFormatException{
+    public static List<Categoria> getCategoriasEntran(Document doc) throws DOMException,NumberFormatException{
 
         List<Categoria> categorias = new ArrayList<>();
+
+        Element elementoCategorias = getElementoUnico(doc,"categorias");
 
         if(elementoCategorias != null){
             int i;
@@ -176,9 +182,11 @@ public class XML {
         return categorias;
     }
 
-    public static List<Subcategoria> getSubcategoriasEntran(Element elementoSubcategorias, BD bd) throws DOMException,NumberFormatException{
+    public static List<Subcategoria> getSubcategoriasEntran(Document doc, BD bd) throws DOMException,NumberFormatException{
 
         List<Subcategoria> subcategorias = new ArrayList<>();
+
+        Element elementoSubcategorias = getElementoUnico(doc,"subcategorias");
 
         if(elementoSubcategorias != null){
             int i;
@@ -215,26 +223,25 @@ public class XML {
         return subcategorias;
     }
 
-    public static long[] productosSalen(Element salen){
+    public static String[] productosSalen(Document doc){
 
-        long[] ids = null;
+        String[] ids = null;
+
+        Element salen = getElementoUnico(doc,"salen");
 
         if(salen != null){
             int i;
-            long id;
+            String id;
 
             NodeList nodosProd = salen.getChildNodes();
             Element elementoProd = null;
-            ids = new long[nodosProd.getLength()];
+            ids = new String[nodosProd.getLength()];
 
             if(nodosProd != null && nodosProd.getLength()>0){
                 for(i=0; i<nodosProd.getLength();i++){
 
                     elementoProd = (Element)nodosProd.item(i);
-
-                    String s_id = elementoProd.getAttribute("id");
-
-                    id = Long.valueOf(s_id);
+                    id = elementoProd.getAttribute("id");
 
                     ids[i] = id;
                 }
@@ -243,4 +250,16 @@ public class XML {
 
         return ids;
     }
+
+    public static Element getElementoUnico(Document doc, String nombreElemento){
+
+        Element element = null;
+        NodeList nodos = doc.getElementsByTagName(nombreElemento);
+        if(nodos != null && nodos.getLength()>0){
+            element = (Element)nodos.item(0);
+        }
+        return element;
+    }
+
+
 }

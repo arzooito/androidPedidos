@@ -5,7 +5,10 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.almerimatik.pedidostienda.entity.Categoria;
 import com.example.almerimatik.pedidostienda.entity.Marca;
+import com.example.almerimatik.pedidostienda.entity.Producto;
 import com.example.almerimatik.pedidostienda.entity.Subcategoria;
+
+import java.util.List;
 
 /**
  * Created by Almerimatik on 08/02/2018.
@@ -59,5 +62,38 @@ public class BD {
         return sub;
     }
 
+    public void guardarMarcas(List<Marca> marcas){
 
+        for(Marca marca : marcas){
+            Modelo.guardarMarca(context,db,marca);
+        }
+    }
+
+    public void guardarCategorias(List<Categoria> categorias){
+
+        for(Categoria cat : categorias){
+            Modelo.guardarCategoria(context,db,cat);
+        }
+    }
+
+    public void guardarSubcategorias(List<Subcategoria> subcategorias){
+
+        for(Subcategoria sub : subcategorias){
+            Modelo.guardarSubcategoria(context,db,sub);
+        }
+    }
+
+    public void guardarProductos(List<Producto> productos){
+
+        for(Producto prod : productos){
+            Modelo.guardarProducto(context,db,prod);
+        }
+    }
+
+    public void eliminarProductosSalen(String[] ids){
+
+        for(int i=0; i < ids.length; i++){
+            Modelo.eliminarProducto(context,db, ids[i]);
+        }
+    }
 }

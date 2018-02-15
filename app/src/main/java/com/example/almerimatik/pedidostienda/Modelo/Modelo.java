@@ -1,5 +1,6 @@
 package com.example.almerimatik.pedidostienda.Modelo;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,6 +9,7 @@ import android.util.Log;
 import com.example.almerimatik.pedidostienda.Tools.Msg;
 import com.example.almerimatik.pedidostienda.entity.Categoria;
 import com.example.almerimatik.pedidostienda.entity.Marca;
+import com.example.almerimatik.pedidostienda.entity.Producto;
 import com.example.almerimatik.pedidostienda.entity.Subcategoria;
 
 import java.util.ArrayList;
@@ -27,6 +29,21 @@ public class Modelo {
     private static final String PEDIDO = "pedido";
     private static final String PED_PROD = "pedido_producto";
 
+
+    ///// MARCA ////////////////////
+
+    public static void guardarMarca(Context context, SQLiteDatabase db, Marca marca){
+
+        String tabla = MARCA;
+
+        try {
+            final ContentValues valores = marca.rellenar();
+            db.insertOrThrow(tabla, null, valores);
+        } catch (final Exception e) {
+            Log.d("policia", "Error al guardar en BD: ", e);
+            Msg.mensaje(context, "Error", "Error al guardar en BD: " + e.getMessage(), false);
+        }
+    }
 
     public static Marca cargarMarca(SQLiteDatabase db, Context context,String id){
 
@@ -62,6 +79,21 @@ public class Modelo {
         return marca;
     }
 
+    ///////// CATEGORIA ////////
+
+    public static void guardarCategoria(Context context, SQLiteDatabase db, Categoria cat){
+
+        String tabla = CAT;
+
+        try {
+            final ContentValues valores = cat.rellenar();
+            db.insertOrThrow(tabla, null, valores);
+        } catch (final Exception e) {
+            Log.d("tienda", "Error al guardar en BD: ", e);
+            Msg.mensaje(context, "Error", "Error al guardar en BD: " + e.getMessage(), false);
+        }
+    }
+
     public static Categoria cargarCategoria(SQLiteDatabase db, Context context, String id){
 
         Categoria cat = new Categoria();
@@ -94,6 +126,22 @@ public class Modelo {
         c.close();
         return cat;
     }
+
+    /////// Subcategoria ////////////////////
+
+    public static void guardarSubcategoria(Context context, SQLiteDatabase db, Subcategoria sub){
+
+        String tabla = SUB;
+
+        try {
+            final ContentValues valores = sub.rellenar();
+            db.insertOrThrow(tabla, null, valores);
+        } catch (final Exception e) {
+            Log.d("tienda", "Error al guardar en BD: ", e);
+            Msg.mensaje(context, "Error", "Error al guardar en BD: " + e.getMessage(), false);
+        }
+    }
+
 
     public static Subcategoria cargarSubcategoria(SQLiteDatabase db, Context context, String id){
 
@@ -132,4 +180,31 @@ public class Modelo {
         return sub;
     }
 
+    //////////////////// Productos /////////////////////////////////
+
+    public static void guardarProducto(Context context, SQLiteDatabase db, Producto prod){
+
+        String tabla = PRODUCTO;
+
+        try {
+            final ContentValues valores = prod.rellenar();
+            db.insertOrThrow(tabla, null, valores);
+        } catch (final Exception e) {
+            Log.d("tienda", "Error al guardar en BD: ", e);
+            Msg.mensaje(context, "Error", "Error al guardar en BD: " + e.getMessage(), false);
+        }
+    }
+
+    public static void eliminarProducto(Context context, SQLiteDatabase db, String id){
+
+        String tabla = PRODUCTO;
+        try {
+            String[] args = new String[]{id};
+            String where = "id = ?";
+            db.delete(tabla,where,args);
+        } catch (final Exception e) {
+            Log.d("tienda", "Error al eliminar de BD: ", e);
+            Msg.mensaje(context, "Error", "Error al eliminar de BD: " + e.getMessage(), false);
+        }
+    }
 }
