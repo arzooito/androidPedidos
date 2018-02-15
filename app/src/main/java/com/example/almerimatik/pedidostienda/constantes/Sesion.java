@@ -42,4 +42,11 @@ public class Sesion {
     public static void setPassword(String password) {
         Sesion.password = password;
     }
+
+    public static void limpiarSesion(){
+
+        setIdUsuario(-1);
+        setNombreUsuario(null);
+        setPassword(null);
+    }
 }

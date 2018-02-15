@@ -12,8 +12,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.almerimatik.pedidostienda.R;
+import com.example.almerimatik.pedidostienda.constantes.Data;
+import com.example.almerimatik.pedidostienda.constantes.Sesion;
 import com.example.almerimatik.pedidostienda.constantes.Tipo;
 
 /**
@@ -25,6 +28,8 @@ public class ListadoBaseActivity <E, A extends ArrayAdapter<E>>extends AppCompat
 
     private ListView lvLista;
     protected int activityTipo = Tipo.BASE;
+
+    TextView tvIdUser, tvNombreUser, tvFechaAct;
 
 
     @Override
@@ -43,6 +48,14 @@ public class ListadoBaseActivity <E, A extends ArrayAdapter<E>>extends AppCompat
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        tvIdUser = (TextView) navigationView.getHeaderView(0).findViewById(R.id.idUser);
+        tvNombreUser = (TextView) navigationView.getHeaderView(0).findViewById(R.id.usuarioNombre);
+        tvFechaAct = (TextView) navigationView.getHeaderView(0).findViewById(R.id.fechaActualizacion);
+
+        String id = String.format("%d", Sesion.getIdUsuario());
+        tvIdUser.setText(id);
+        tvNombreUser.setText(Sesion.getNombreUsuario());
+        tvFechaAct.setText(Data.getUltimaActualizacion(this));
     }
 
     @Override
@@ -55,6 +68,7 @@ public class ListadoBaseActivity <E, A extends ArrayAdapter<E>>extends AppCompat
                 super.onBackPressed();
             }else{
                 Intent intent  = new Intent(this,MenuPrincipalActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
 
@@ -117,7 +131,8 @@ public class ListadoBaseActivity <E, A extends ArrayAdapter<E>>extends AppCompat
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_logout) {
-            //limpiarSesion();
+            Data.limpiarSesion(this);
+            Sesion.limpiarSesion();
             intent  = new Intent(this,MainActivity.class);
             startActivity(intent);
 
