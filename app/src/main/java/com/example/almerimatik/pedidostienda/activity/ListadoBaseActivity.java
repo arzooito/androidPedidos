@@ -12,8 +12,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.almerimatik.pedidostienda.R;
+import com.example.almerimatik.pedidostienda.constantes.Data;
+import com.example.almerimatik.pedidostienda.constantes.Sesion;
 import com.example.almerimatik.pedidostienda.constantes.Tipo;
 
 /**
@@ -23,7 +26,5 @@ import com.example.almerimatik.pedidostienda.constantes.Tipo;
 public class ListadoBaseActivity <E, A extends ArrayAdapter<E>>extends BaseActivity{
 
     private ListView lvLista;
-    protected int activityTipo = Tipo.BASE;
-
 
 }

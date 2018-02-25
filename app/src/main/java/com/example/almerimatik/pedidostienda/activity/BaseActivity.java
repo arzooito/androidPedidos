@@ -10,9 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.almerimatik.pedidostienda.R;
 import com.example.almerimatik.pedidostienda.Tools.Msg;
+import com.example.almerimatik.pedidostienda.constantes.Data;
+import com.example.almerimatik.pedidostienda.constantes.Sesion;
 import com.example.almerimatik.pedidostienda.constantes.Tipo;
 
 /**
@@ -24,6 +27,7 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
 
     protected int activityTipo = Tipo.BASE;
     private boolean seguroSalir = true;
+    TextView tvIdUser, tvNombreUser, tvFechaAct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,14 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        tvIdUser = (TextView) navigationView.getHeaderView(0).findViewById(R.id.idUser);
+        tvNombreUser = (TextView) navigationView.getHeaderView(0).findViewById(R.id.usuarioNombre);
+        tvFechaAct = (TextView) navigationView.getHeaderView(0).findViewById(R.id.fechaActualizacion);
 
+        String id = String.format("%d", Sesion.getIdUsuario());
+        tvIdUser.setText(id);
+        tvNombreUser.setText(Sesion.getNombreUsuario());
+        tvFechaAct.setText(Data.getUltimaActualizacion(this));
 
     }
 
@@ -55,6 +66,7 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
                 super.onBackPressed();
             }else if(this.getActivityTipo() != Tipo.PRINCIPAL){
                 Intent intent  = new Intent(this,MenuPrincipalActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }else{
                 if(seguroSalir){
@@ -122,7 +134,8 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_logout) {
-            limpiarSesion();
+            Data.limpiarSesion(this);
+            Sesion.limpiarSesion();
             intent  = new Intent(this,MainActivity.class);
             startActivity(intent);
 

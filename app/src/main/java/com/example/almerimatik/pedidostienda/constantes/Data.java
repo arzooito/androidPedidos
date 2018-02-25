@@ -66,4 +66,12 @@ public class Data {
 
         return getShared(act).getString("password",null);
     }
+
+    public static void limpiarSesion(Activity act){
+
+        setIdUsuario(act,-1);
+        setNombreUsuario(act, null);
+        setPassword(act,null);
+    }
+
 }
