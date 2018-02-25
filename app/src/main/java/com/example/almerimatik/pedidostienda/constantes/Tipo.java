@@ -11,4 +11,5 @@ public class Tipo {
     public static final int HISTORIAL = 1;
     public static final int LISTA = 2;
     public static final int LISTAS = 3;
+    public static final int PRINCIPAL = 4;
 }

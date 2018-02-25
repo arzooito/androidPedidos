@@ -8,12 +8,16 @@ import android.view.View;
 import com.example.almerimatik.pedidostienda.R;
 import com.example.almerimatik.pedidostienda.Tools.Contenido;
 
+import static com.example.almerimatik.pedidostienda.constantes.Tipo.HISTORIAL;
+import static com.example.almerimatik.pedidostienda.constantes.Tipo.PRINCIPAL;
+
 public class MenuPrincipalActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Contenido.addContent(this,R.layout.content_menu_principal);
+        activityTipo = PRINCIPAL;
     }
 
     public void abrirCatalogo(View view) {

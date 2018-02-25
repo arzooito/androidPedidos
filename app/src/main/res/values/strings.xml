@@ -35,7 +35,6 @@
     <string name="exito_actualizar">Catálogo actualizado con éxtito</string>
     <string name="salir_qu">¿Quiere salir de la aplicacion?</string>
     <string name="salir">Salir</string>
-
-
+    <string name="seguro_salir">Pulse en botón atras otra vez para salir de la app</string>
 
 </resources>

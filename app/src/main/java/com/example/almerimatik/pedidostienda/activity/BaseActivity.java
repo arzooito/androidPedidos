@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.almerimatik.pedidostienda.R;
+import com.example.almerimatik.pedidostienda.Tools.Msg;
 import com.example.almerimatik.pedidostienda.constantes.Tipo;
 
 /**
@@ -22,6 +23,7 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
 
 
     protected int activityTipo = Tipo.BASE;
+    private boolean seguroSalir = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +53,18 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
         } else {
             if(this.getActivityTipo() == Tipo.LISTA){
                 super.onBackPressed();
-            }else{
+            }else if(this.getActivityTipo() != Tipo.PRINCIPAL){
                 Intent intent  = new Intent(this,MenuPrincipalActivity.class);
                 startActivity(intent);
+            }else{
+                if(seguroSalir){
+                    String mensaje = getString(R.string.seguro_salir);
+                    Msg.toast(this, mensaje);
+                    seguroSalir = false;
+                }else{
+
+                }
+
             }
 
         }
@@ -68,12 +79,8 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
         }
@@ -115,7 +122,7 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_logout) {
-            //limpiarSesion();
+            limpiarSesion();
             intent  = new Intent(this,MainActivity.class);
             startActivity(intent);
 
