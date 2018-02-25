@@ -26,7 +26,6 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
 
 
     protected int activityTipo = Tipo.BASE;
-    private boolean seguroSalir = true;
     TextView tvIdUser, tvNombreUser, tvFechaAct;
 
     @Override
@@ -69,14 +68,7 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }else{
-                if(seguroSalir){
-                    String mensaje = getString(R.string.seguro_salir);
-                    Msg.toast(this, mensaje);
-                    seguroSalir = false;
-                }else{
-
-                }
-
+                Msg.salir(this);
             }
 
         }

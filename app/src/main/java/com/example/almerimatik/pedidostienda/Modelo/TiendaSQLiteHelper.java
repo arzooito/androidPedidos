@@ -31,6 +31,7 @@ public class TiendaSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE pedido_producto(_id INTEGER PRIMARY KEY AUTOINCREMENT, idPedido INTEGER, idProducto INTEGER, unidades INTEGER)");
     }
 
+
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
