@@ -6,13 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.almerimatik.pedidostienda.R;
+import com.example.almerimatik.pedidostienda.Tools.Contenido;
 
-public class MenuPrincipalActivity extends AppCompatActivity {
+public class MenuPrincipalActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu_principal);
+        Contenido.addContent(this,R.layout.content_menu_principal);
     }
 
     public void abrirCatalogo(View view) {
