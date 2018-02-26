@@ -79,6 +79,50 @@ public class Modelo {
         return marca;
     }
 
+    public static void eliminarMarca(Context context, SQLiteDatabase db, String id){
+
+        String tabla = MARCA;
+        try {
+            String[] args = new String[]{id};
+            String where = "id = ?";
+            db.delete(tabla,where,args);
+        } catch (final Exception e) {
+            Log.d("tienda", "Error al eliminar de BD: ", e);
+            Msg.mensaje(context, "Error", "Error al eliminar de BD: " + e.getMessage(), false);
+        }
+    }
+
+    public static int[] cargarMarcasSinProducto(SQLiteDatabase db, Context context){
+
+        int[] result = new int[0];
+        String[] args = new String[] {"0"};
+        Cursor c = null;
+        String query = "select m.id from producto p right join marca m on m.id = p.idMarca group by m.id having count(p.id) = ?";
+
+        try {
+            c = db.rawQuery(query, args);
+
+        }catch (final Exception e) {
+            Log.d("tienda", "Error al borrar marcas obsoletas  BD: ", e);
+            Msg.mensaje(context, "Error", "Error al borrar registros obsoletos desde BD: " + e.getMessage(), false);
+        }
+
+
+        if(c != null && c.moveToFirst()){
+
+            int regs = c.getCount();
+            result = new int[regs];
+
+            for(int i=0; i<regs; i++, c.moveToNext()){
+                int id = c.getInt(0);
+                result[i] = id;
+            }
+        }
+
+        c.close();
+        return result;
+    }
+
     ///////// CATEGORIA ////////
 
     public static void guardarCategoria(Context context, SQLiteDatabase db, Categoria cat){
@@ -125,6 +169,50 @@ public class Modelo {
 
         c.close();
         return cat;
+    }
+
+    public static void eliminarCategoria(Context context, SQLiteDatabase db, String id){
+
+        String tabla = CAT;
+        try {
+            String[] args = new String[]{id};
+            String where = "id = ?";
+            db.delete(tabla,where,args);
+        } catch (final Exception e) {
+            Log.d("tienda", "Error al eliminar de BD: ", e);
+            Msg.mensaje(context, "Error", "Error al eliminar de BD: " + e.getMessage(), false);
+        }
+    }
+
+    public static int[] cargarCategoriasSinSubcategoria(SQLiteDatabase db, Context context){
+
+        int[] result = new int[0];
+        String[] args = new String[] {"0"};
+        Cursor c = null;
+        String query = "select cat.nombre from subcategoria sub right join categoria cat on cat.id = sub.idCategoria group by cat.id having count(sub.id) = ?";
+
+        try {
+            c = db.rawQuery(query, args);
+
+        }catch (final Exception e) {
+            Log.d("tienda", "Error al borrar categorias obsoletas  BD: ", e);
+            Msg.mensaje(context, "Error", "Error al borrar registros obsoletos desde BD: " + e.getMessage(), false);
+        }
+
+
+        if(c != null && c.moveToFirst()){
+
+            int regs = c.getCount();
+            result = new int[regs];
+
+            for(int i=0; i<regs; i++, c.moveToNext()){
+                int id = c.getInt(0);
+                result[i] = id;
+            }
+        }
+
+        c.close();
+        return result;
     }
 
     /////// Subcategoria ////////////////////
@@ -178,6 +266,50 @@ public class Modelo {
 
         c.close();
         return sub;
+    }
+
+    public static void eliminarSubcategoria(Context context, SQLiteDatabase db, String id){
+
+        String tabla = SUB;
+        try {
+            String[] args = new String[]{id};
+            String where = "id = ?";
+            db.delete(tabla,where,args);
+        } catch (final Exception e) {
+            Log.d("tienda", "Error al eliminar de BD: ", e);
+            Msg.mensaje(context, "Error", "Error al eliminar de BD: " + e.getMessage(), false);
+        }
+    }
+
+    public static int[] cargarSubcategoriasSinProducto(SQLiteDatabase db, Context context){
+
+        int[] result = new int[0];
+        String[] args = new String[] {"0"};
+        Cursor c = null;
+        String query = "select s.id from producto p right join subcategoria s on s.id = p.idSubcategoria group by s.id having count(p.id) = ?";
+
+        try {
+            c = db.rawQuery(query, args);
+
+        }catch (final Exception e) {
+            Log.d("tienda", "Error al borrar subcategorias obsoletas  BD: ", e);
+            Msg.mensaje(context, "Error", "Error al borrar registros obsoletos desde BD: " + e.getMessage(), false);
+        }
+
+
+        if(c != null && c.moveToFirst()){
+
+            int regs = c.getCount();
+            result = new int[regs];
+
+            for(int i=0; i<regs; i++, c.moveToNext()){
+                int id = c.getInt(0);
+                result[i] = id;
+            }
+        }
+
+        c.close();
+        return result;
     }
 
     //////////////////// Productos /////////////////////////////////
