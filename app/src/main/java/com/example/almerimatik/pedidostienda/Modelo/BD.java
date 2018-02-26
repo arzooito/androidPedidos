@@ -99,4 +99,50 @@ public class BD {
             }
         }
     }
+
+    public void eliminarMarcasObsoletas(){
+
+        int ids[] = Modelo.cargarMarcasSinProducto(db,context);
+
+        if(ids != null){
+
+            for(int i=0; i < ids.length; i++){
+                String id = String.format("%d",ids[i]);
+                Modelo.eliminarProducto(context,db, id);
+            }
+        }
+    }
+
+    public void eliminarSubcategoriasObsoletas(){
+
+        int ids[] = Modelo.cargarSubcategoriasSinProducto(db,context);
+
+        if(ids != null){
+
+            for(int i=0; i < ids.length; i++){
+                String id = String.format("%d",ids[i]);
+                Modelo.eliminarProducto(context,db, id);
+            }
+        }
+    }
+
+    public void eliminarCategoriasObsoletas(){
+
+        int ids[] = Modelo.cargarCategoriasSinSubcategoria(db,context);
+
+        if(ids != null){
+
+            for(int i=0; i < ids.length; i++){
+                String id = String.format("%d",ids[i]);
+                Modelo.eliminarProducto(context,db, id);
+            }
+        }
+    }
+
+    public void eliminarObsoletos(){
+
+        eliminarMarcasObsoletas();
+        eliminarSubcategoriasObsoletas();
+        eliminarCategoriasObsoletas();
+    }
 }

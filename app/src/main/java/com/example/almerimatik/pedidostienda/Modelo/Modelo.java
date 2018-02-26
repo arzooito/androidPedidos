@@ -94,10 +94,10 @@ public class Modelo {
 
     public static int[] cargarMarcasSinProducto(SQLiteDatabase db, Context context){
 
-        int[] result = new int[0];
+        int[] result = null;
         String[] args = new String[] {"0"};
         Cursor c = null;
-        String query = "select m.id from producto p right join marca m on m.id = p.idMarca group by m.id having count(p.id) = ?";
+        String query = "select m.id from marca m left join producto p on m.id = p.idMarca group by m.id having count(p.id) = ?";
 
         try {
             c = db.rawQuery(query, args);
@@ -186,10 +186,10 @@ public class Modelo {
 
     public static int[] cargarCategoriasSinSubcategoria(SQLiteDatabase db, Context context){
 
-        int[] result = new int[0];
+        int[] result = null;
         String[] args = new String[] {"0"};
         Cursor c = null;
-        String query = "select cat.nombre from subcategoria sub right join categoria cat on cat.id = sub.idCategoria group by cat.id having count(sub.id) = ?";
+        String query = "select cat.id from categoria cat left join subcategoria sub on cat.id = sub.idCategoria group by cat.id having count(sub.id) = ?";
 
         try {
             c = db.rawQuery(query, args);
@@ -283,10 +283,10 @@ public class Modelo {
 
     public static int[] cargarSubcategoriasSinProducto(SQLiteDatabase db, Context context){
 
-        int[] result = new int[0];
+        int[] result = null;
         String[] args = new String[] {"0"};
         Cursor c = null;
-        String query = "select s.id from producto p right join subcategoria s on s.id = p.idSubcategoria group by s.id having count(p.id) = ?";
+        String query = "select s.id from subcategoria s left join producto p on s.id = p.idSubcategoria group by s.id having count(p.id) = ?";
 
         try {
             c = db.rawQuery(query, args);

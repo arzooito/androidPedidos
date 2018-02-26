@@ -81,6 +81,8 @@ public class ActualizarTask extends AsyncTask<Void, Integer, Void> {
             List<Producto> entran = XML.getProductosEntran(doc,bd);
             bd.guardarProductos(entran);
 
+            bd.eliminarObsoletos();
+
             bd.closeBD();
 
             String actualizacionFecha = Fechas.FormatearFechaHora();
