@@ -17,8 +17,7 @@ public class Ws {
 
     private static final String NAMESPACE = "http://tienda_ws.almerimatik.es/";
     //localhost desde emulador
-    private static final String URL = "http://10.0.2.2:8084/tienda_WS/ServicioAppTienda?wsdl";
-
+    private static final String URL = "http://10.0.2.2:8080/tienda_WS/ServicioAppTienda?wsdl";
 
 
     public static long login(String usuario, String password){
