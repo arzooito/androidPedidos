@@ -18,6 +18,8 @@
     <string name="info_text">Ingresa con tu cuenta o registate</string>
     <string name="recordar_check">Recordarme</string>
     <string name="olvidar_text">¿Olvidaste tu contraseña?</string>
+    <string name="catalogo">Catálogo</string>
+    <string name="opciones">Opciones</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -33,7 +35,10 @@
     <string name="descargando_actualizacion">Descargando actualización...</string>
     <string name="conection_ws_error">Error al conectar con el servidor</string>
     <string name="exito_actualizar">Catálogo actualizado con éxtito</string>
-    <string name="salir_qu">¿Quiere salir de la aplicacion?</string>
+    <string name="salir_qu">¿Quiere salir de la aplicación?</string>
     <string name="salir">Salir</string>
+    <string name="logout_qu">¿Quiere cerrar sesión?</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="empty_list">No hay elementos que mostrar</string>
 
 </resources>

@@ -2,6 +2,7 @@ package com.example.almerimatik.pedidostienda.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -10,13 +11,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.almerimatik.pedidostienda.R;
-import com.example.almerimatik.pedidostienda.Tools.Msg;
+import com.example.almerimatik.pedidostienda.entity.Producto;
+import com.example.almerimatik.pedidostienda.modelo.BD;
+import com.example.almerimatik.pedidostienda.tools.Msg;
 import com.example.almerimatik.pedidostienda.constantes.Data;
 import com.example.almerimatik.pedidostienda.constantes.Sesion;
 import com.example.almerimatik.pedidostienda.constantes.Tipo;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Created by arzoo on 25/02/2018.
@@ -25,7 +33,6 @@ import com.example.almerimatik.pedidostienda.constantes.Tipo;
 public class BaseActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener{
 
 
-    protected int activityTipo = Tipo.BASE;
     TextView tvIdUser, tvNombreUser, tvFechaAct;
 
     @Override
@@ -61,9 +68,9 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if(this.getActivityTipo() == Tipo.LISTA){
+            if(this instanceof ListaActivity){
                 super.onBackPressed();
-            }else if(this.getActivityTipo() != Tipo.PRINCIPAL){
+            }else if(!(this instanceof MenuPrincipalActivity)){
                 Intent intent  = new Intent(this,MenuPrincipalActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
@@ -77,7 +84,7 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.catalogo, menu);
+        getMenuInflater().inflate(R.menu.menu_base, menu);
         return true;
     }
 
@@ -85,16 +92,16 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_carrito) {
+            if(!(this instanceof CarritoActivity)){
+                abrirCarrito();
+            }
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public int getActivityTipo(){
-        return this.activityTipo;
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -102,40 +109,69 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        Intent intent;
-
         if (id == R.id.nav_catalogo) {
-
-            if(this.getActivityTipo() != Tipo.CATALOGO){
-                intent  = new Intent(this,CatalogoActivity.class);
-                startActivity(intent);
+            if(!(this instanceof CatalogoActivity)){
+                abrirCatalogo();
             }
 
         } else if (id == R.id.nav_lista) {
-            if(this.getActivityTipo() != Tipo.LISTAS){
-                intent  = new Intent(this,ListasActivity.class);
-                startActivity(intent);
+            if(!(this instanceof ListasActivity)){
+                abrirListas();
             }
 
         } else if (id == R.id.nav_historial) {
-            if(this.getActivityTipo() != Tipo.HISTORIAL){
-                intent  = new Intent(this,HistorialActivity.class);
-                startActivity(intent);
+            if(!(this instanceof HistorialActivity)){
+                abrirListas();
             }
 
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_logout) {
-            Data.limpiarSesion(this);
-            Sesion.limpiarSesion();
-            intent  = new Intent(this,MainActivity.class);
-            startActivity(intent);
-
+            Msg.preguntarLogout(this);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void abrirCatalogo() {
+
+        Intent intent = new Intent(this, CatalogoActivity.class);
+        BD bd = new BD(this);
+        bd.openBD(false);
+        ArrayList<Producto> lista = bd.cargarProductos();
+        bd.closeBD();
+        intent.putExtra("lista", (Serializable) lista);
+        startActivity(intent);
+    }
+
+    public void abrirListas() {
+
+        Intent intent = new Intent(this, ListasActivity.class);
+        startActivity(intent);
+    }
+
+    public void abrirHistorial() {
+
+        Intent intent = new Intent(this, HistorialActivity.class);
+        startActivity(intent);
+    }
+
+    public void abrirCarrito() {
+
+        Intent intent = new Intent(this, CarritoActivity.class);
+        ArrayList<Producto> lista = Sesion.getCarrito();
+        intent.putExtra("lista", (Serializable) lista);
+        startActivity(intent);
+    }
+
+    public void logout(){
+
+        Data.limpiarSesion(this);
+        Sesion.limpiarSesion();
+        Intent intent  = new Intent(this,MainActivity.class);
+        startActivity(intent);
     }
 
 }

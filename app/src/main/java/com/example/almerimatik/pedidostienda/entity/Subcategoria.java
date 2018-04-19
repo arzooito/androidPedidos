@@ -2,11 +2,13 @@ package com.example.almerimatik.pedidostienda.entity;
 
 import android.content.ContentValues;
 
+import java.io.Serializable;
+
 /**
  * Created by Almerimatik on 09/02/2018.
  */
 
-public class Subcategoria {
+public class Subcategoria implements Serializable{
 
     private long id;
     private String nombre;

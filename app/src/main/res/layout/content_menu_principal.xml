@@ -26,7 +26,6 @@
             <Button
                 style="@style/BotonNaranja"
                 android:id="@+id/btnCatalogo"
-                android:onClick="abrirCatalogo"
                 android:text="@string/cat_logo" />
             <Button
                 style="@style/BotonNaranja"

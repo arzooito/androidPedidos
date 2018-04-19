@@ -2,9 +2,10 @@ package com.example.almerimatik.pedidostienda.entity;
 
 import android.content.ContentValues;
 
-import com.example.almerimatik.pedidostienda.Tools.Fechas;
+import com.example.almerimatik.pedidostienda.tools.Fechas;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by Almerimatik on 12/02/2018.
@@ -14,6 +15,7 @@ public class Pedido {
 
     long id;
     Date fecha;
+    private Map<Producto,Integer> productos;
 
     public Pedido(){
 

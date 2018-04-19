@@ -12,14 +12,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.almerimatik.pedidostienda.AsynTasks.ActualizarTask;
-import com.example.almerimatik.pedidostienda.AsynTasks.LoginTask;
-import com.example.almerimatik.pedidostienda.Dialogs.LoginDialog;
-import com.example.almerimatik.pedidostienda.Dialogs.RegistroDialog;
+import com.example.almerimatik.pedidostienda.asynTasks.ActualizarTask;
+import com.example.almerimatik.pedidostienda.dialogs.LoginDialog;
+import com.example.almerimatik.pedidostienda.dialogs.RegistroDialog;
 import com.example.almerimatik.pedidostienda.R;
 import com.example.almerimatik.pedidostienda.constantes.Data;
 import com.example.almerimatik.pedidostienda.constantes.Sesion;
-import com.example.almerimatik.pedidostienda.ws.Ws;
 
 public class MainActivity  extends FragmentActivity {
 

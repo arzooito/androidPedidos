@@ -1,23 +1,19 @@
 package com.example.almerimatik.pedidostienda.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.almerimatik.pedidostienda.R;
-import com.example.almerimatik.pedidostienda.constantes.Data;
-import com.example.almerimatik.pedidostienda.constantes.Sesion;
-import com.example.almerimatik.pedidostienda.constantes.Tipo;
+import com.example.almerimatik.pedidostienda.tools.Contenido;
+
+import java.util.ArrayList;
+
+import static com.example.almerimatik.pedidostienda.constantes.Tipo.PRINCIPAL;
 
 /**
  * Created by Almerimatik on 18/01/2018.
@@ -26,5 +22,34 @@ import com.example.almerimatik.pedidostienda.constantes.Tipo;
 public class ListadoBaseActivity <E, A extends ArrayAdapter<E>>extends BaseActivity{
 
     private ListView lvLista;
+    TextView emptyLabel;
+
+    protected void onCreate(Bundle savedInstanceState,final A adapter) {
+        super.onCreate(savedInstanceState);
+        Contenido.addContent(this,R.layout.content_listado_base);
+        emptyLabel = findViewById(R.id.emptyLabel);
+        lvLista = (ListView) findViewById(R.id.lista);
+        lvLista.setAdapter(adapter);
+        final ArrayList<E> lista = (ArrayList<E>) getIntent().getParcelableArrayListExtra("lista");
+        rellenarLista(lista);
+    }
+
+
+    protected void rellenarLista(final ArrayList<E> lista) {
+        if (lista != null && !lista.isEmpty()) {
+            emptyLabel.setVisibility(View.GONE);
+            try {
+                final A adapter = (A) lvLista.getAdapter();
+                adapter.clear();
+                for (final E t : lista) {
+                    adapter.add(t);
+                }
+            } catch (final Exception ex) {
+                Log.e("ListadoBase", "Error al rellenar lista", ex);
+            }
+        }else{
+            emptyLabel.setVisibility(View.VISIBLE);
+        }
+    }
 
 }

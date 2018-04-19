@@ -1,4 +1,4 @@
-package com.example.almerimatik.pedidostienda.Modelo;
+package com.example.almerimatik.pedidostienda.modelo;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

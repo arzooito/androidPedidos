@@ -2,7 +2,9 @@ package com.example.almerimatik.pedidostienda.entity;
 
 import android.content.ContentValues;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Almerimatik on 09/02/2018.
@@ -12,7 +14,7 @@ public class Lista {
 
     private long id;
     private String nombre;
-    private List<Producto> productos;
+    private Map<Producto,Integer> productos;
 
     public Lista(){
 
@@ -23,7 +25,7 @@ public class Lista {
         this.nombre = nombre;
     }
 
-    public Lista(long id, String nombre, List<Producto> productos) {
+    public Lista(long id, String nombre, Map<Producto,Integer> productos) {
         this.id = id;
         this.nombre = nombre;
         this.productos = productos;
@@ -45,11 +47,11 @@ public class Lista {
         this.nombre = nombre;
     }
 
-    public List<Producto> getProductos() {
+    public Map<Producto,Integer> getProductos() {
         return productos;
     }
 
-    public void setProductos(List<Producto> productos) {
+    public void setProductos(Map<Producto,Integer> productos) {
         this.productos = productos;
     }
 

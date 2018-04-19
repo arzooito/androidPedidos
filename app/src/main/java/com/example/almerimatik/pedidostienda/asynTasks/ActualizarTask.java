@@ -1,13 +1,13 @@
-package com.example.almerimatik.pedidostienda.AsynTasks;
+package com.example.almerimatik.pedidostienda.asynTasks;
 
 import android.os.AsyncTask;
 import android.view.View;
 
-import com.example.almerimatik.pedidostienda.Modelo.BD;
+import com.example.almerimatik.pedidostienda.modelo.BD;
 import com.example.almerimatik.pedidostienda.R;
-import com.example.almerimatik.pedidostienda.Tools.Fechas;
-import com.example.almerimatik.pedidostienda.Tools.Msg;
-import com.example.almerimatik.pedidostienda.Tools.XML;
+import com.example.almerimatik.pedidostienda.tools.Fechas;
+import com.example.almerimatik.pedidostienda.tools.Msg;
+import com.example.almerimatik.pedidostienda.tools.XML;
 import com.example.almerimatik.pedidostienda.activity.MainActivity;
 import com.example.almerimatik.pedidostienda.constantes.Data;
 import com.example.almerimatik.pedidostienda.entity.Categoria;
@@ -27,6 +27,7 @@ import java.util.List;
 public class ActualizarTask extends AsyncTask<Void, Integer, Void> {
 
     MainActivity main;
+    boolean actualizacionFallida = false;
 
     public ActualizarTask(MainActivity main){
         this.main = main;
@@ -50,6 +51,11 @@ public class ActualizarTask extends AsyncTask<Void, Integer, Void> {
     }
 
     protected void onPostExecute(Void result) {
+
+        if(actualizacionFallida){
+            String msj = main.getString(R.string.conection_ws_error);
+            Msg.toast(main,msj);
+        }
 
         main.getProgressBar().setVisibility(View.GONE);
         main.iniciar();
@@ -88,8 +94,7 @@ public class ActualizarTask extends AsyncTask<Void, Integer, Void> {
             String actualizacionFecha = Fechas.FormatearFechaHora();
             Data.setUltimaActualizacion(main,actualizacionFecha);
         }else{
-            String msj = main.getString(R.string.conection_ws_error);
-            Msg.toast(main,msj);
+            actualizacionFallida = true;
         }
 
     }

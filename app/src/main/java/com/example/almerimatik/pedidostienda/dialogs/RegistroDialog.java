@@ -1,36 +1,33 @@
-package com.example.almerimatik.pedidostienda.Dialogs;
+package com.example.almerimatik.pedidostienda.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.DialogInterface;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.almerimatik.pedidostienda.AsynTasks.LoginTask;
+import com.example.almerimatik.pedidostienda.asynTasks.RegistrarTask;
 import com.example.almerimatik.pedidostienda.R;
 import com.example.almerimatik.pedidostienda.activity.MainActivity;
 
 /**
- * Created by Almerimatik on 07/02/2018.
+ * Created by Almerimatik on 08/02/2018.
  */
 
-public class LoginDialog extends DialogFragment {
+public class RegistroDialog extends DialogFragment {
 
-    EditText etUsuario,  etPassword;
+    EditText etUsuario,  etPassword, etTelefono, etEmail;
     String mensaje;
-    Button btnLoguear;
+    Button btnRegistrar;
     CheckBox checkRecordar;
-    TextView tvRegistrar;
     MainActivity activity;
+    TextView tvLoguear;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -40,40 +37,48 @@ public class LoginDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         View v= inflater.inflate(R.layout.dialog_login, null);
-
         etUsuario = (EditText) v.findViewById(R.id.etUsuario);
+        etEmail = (EditText) v.findViewById(R.id.etEmail);
+        etTelefono = (EditText) v.findViewById(R.id.etTelefono);
         etPassword = (EditText) v.findViewById(R.id.etPassword);
+        btnRegistrar = (Button) v.findViewById(R.id.btnLoguear);
         checkRecordar = (CheckBox) v.findViewById(R.id.recordar_check);
-        btnLoguear = (Button) v.findViewById(R.id.btnLoguear);
-        tvRegistrar = (TextView) v.findViewById(R.id.tvRegistrar);
+        tvLoguear = (TextView) v.findViewById(R.id.tvRegistrar);
+
+        etEmail.setVisibility(View.VISIBLE);
+        etTelefono.setVisibility(View.VISIBLE);
+        checkRecordar.setVisibility(View.GONE);
+        btnRegistrar.setText(R.string.boton_registrar);
+        tvLoguear.setText(R.string.con_registro);
 
         builder.setView(v);
 
-        btnLoguear.setOnClickListener(
+        btnRegistrar.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         String user = etUsuario.getText().toString().trim();
+                        String email = etEmail.getText().toString().trim();
+                        String telefono = etTelefono.getText().toString().trim();
                         String password = etPassword.getText().toString().trim();
-                        boolean remember = checkRecordar.isChecked();
-                        activity.setNameUser(user);
-                        activity.setPass(password);
-                        activity.setRemember(remember);
 
                         if(validar()){
-                            loguear(user,password);
+                            registrar(user, email, telefono, password);
+                            dismiss();
                         }else{
                             Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
                         }
+
                     }
                 }
         );
 
-        tvRegistrar.setOnClickListener(
+        tvLoguear.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        activity.abrirRegistrar();
+                        activity.abrirLogin();
                     }
                 }
         );
@@ -82,10 +87,11 @@ public class LoginDialog extends DialogFragment {
         return builder.create();
     }
 
-    public void loguear(String usuario, String password){
+    public void registrar(String usuario, String email, String telefono, String password){
 
-        String[] params = {usuario,password};
-        new LoginTask(activity).execute(params);
+        String[] params = {usuario,email,telefono,password};
+        MainActivity activity = (MainActivity) getActivity();
+        new RegistrarTask(activity).execute(params);
     }
 
 
@@ -95,6 +101,14 @@ public class LoginDialog extends DialogFragment {
 
         if("".equals(etUsuario.getText().toString().trim())){
             mensaje += "* Debe introducir un nombre de usuario\n";
+        }
+        if(!etEmail.getText().toString().trim()
+                .matches("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$")){
+            mensaje += "* Debe introducir un email válido\n";
+        }
+        if(!etTelefono.getText().toString().trim()
+                .matches("^[0-9]{9}")){
+            mensaje += "* Debe introducir un telefono válido\n";
         }
         if("".equals(etPassword.getText().toString().trim())){
             mensaje += "* Debe introducir un password\n";
@@ -110,10 +124,4 @@ public class LoginDialog extends DialogFragment {
         }
         return valido;
     }
-
-    public void clearInputs(){
-        etUsuario.setText("");
-        etPassword.setText("");
-    }
-
 }

@@ -1,12 +1,17 @@
 package com.example.almerimatik.pedidostienda.entity;
 
 import android.content.ContentValues;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by Almerimatik on 09/02/2018.
  */
 
-public class Producto {
+public class Producto implements Parcelable, Serializable {
 
     private long id;
     private String nombre;
@@ -15,6 +20,7 @@ public class Producto {
     private String foto;
     private Marca marca;
     private Subcategoria subcategoria;
+    private int cantidad = 0;
 
     public Producto(){
 
@@ -86,6 +92,14 @@ public class Producto {
         this.subcategoria = subcategoria;
     }
 
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
     public ContentValues rellenar(){
 
         final ContentValues nuevoRegistro = new ContentValues();
@@ -103,5 +117,67 @@ public class Producto {
 
         String[] campos = {"id","nombre", "formato", "precio", "foto", "idMarca", "idSubcategoria"};
         return campos;
+    }
+
+    public String getRutaFoto(){
+
+        String rutaFoto =
+                "productos/"+subcategoria.getCategoria().getNombre()+"/"+subcategoria.getNombre()+"/"+marca.getNombre()+"/"+foto;
+
+        return rutaFoto;
+    }
+
+
+    /*
+    * Parceable
+    */
+
+
+    public static final Parcelable.Creator<Producto> CREATOR = new Parcelable.Creator<Producto>() {
+        @Override
+        public Producto createFromParcel(final Parcel in)
+        {
+            return new Producto().readFromParcel(in);
+        }
+
+        @Override
+        public Producto[] newArray(final int size)
+        {
+            return new Producto[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+
+    private Producto readFromParcel(final Parcel in) {
+
+        id = in.readLong();
+        nombre = in.readString();
+        formato = in.readString();
+        precio = in.readFloat();
+        foto = in.readString();
+        marca = (Marca) in.readSerializable();
+        subcategoria = (Subcategoria) in.readSerializable();
+        cantidad = in.readInt();
+
+        return this;
+    }
+
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+
+        out.writeLong(id);
+        out.writeString(nombre);
+        out.writeString(formato);
+        out.writeFloat(precio);
+        out.writeString(foto);
+        out.writeSerializable(marca);
+        out.writeSerializable(subcategoria);
+        out.writeInt(cantidad);
+
     }
 }

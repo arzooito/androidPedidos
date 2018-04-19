@@ -1,14 +1,14 @@
-package com.example.almerimatik.pedidostienda.Tools;
+package com.example.almerimatik.pedidostienda.tools;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v4.app.FragmentActivity;
-import android.view.Gravity;
 import android.widget.Toast;
 
 import com.example.almerimatik.pedidostienda.R;
+import com.example.almerimatik.pedidostienda.activity.BaseActivity;
 
 /**
  * Created by Almerimatik on 14/02/2018.
@@ -48,6 +48,28 @@ public class Msg {
                         dialog.dismiss();
                         Activity act = (Activity) contexto;
                         act.finish();
+                        System.exit(0);
+                    }
+                }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(final DialogInterface dialog, final int id) {
+                dialog.cancel();
+            }
+        }).show();
+    }
+
+    public static void preguntarLogout(final Context contexto)
+    {
+        String mensaje = contexto.getString(R.string.logout_qu);
+        String titulo = contexto.getString(R.string.logout);
+
+        new AlertDialog.Builder(contexto).setMessage(mensaje).setTitle(titulo).
+                setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        dialog.dismiss();
+                        BaseActivity act = (BaseActivity) contexto;
+                        act.logout();
                         System.exit(0);
                     }
                 }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {

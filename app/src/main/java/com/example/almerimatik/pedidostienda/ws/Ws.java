@@ -1,6 +1,9 @@
 package com.example.almerimatik.pedidostienda.ws;
 
 import android.util.Log;
+
+import com.example.almerimatik.pedidostienda.constantes.Rutas;
+
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.MarshalBase64;
 import org.ksoap2.serialization.PropertyInfo;
@@ -17,7 +20,9 @@ public class Ws {
 
     private static final String NAMESPACE = "http://tienda_ws.almerimatik.es/";
     //localhost desde emulador
-    private static final String URL = "http://10.0.2.2:8080/tienda_WS/ServicioAppTienda?wsdl";
+    private static final String URL = Rutas.URL_BASE+"/tienda_WS/ServicioAppTienda?wsdl";
+    //pi server
+    //private static final String URL = "http://gabarron.ddns.net/tienda_WS/ServicioAppTienda?wsdl";
 
 
     public static long login(String usuario, String password){

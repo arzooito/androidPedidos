@@ -2,11 +2,13 @@ package com.example.almerimatik.pedidostienda.entity;
 
 import android.content.ContentValues;
 
+import java.io.Serializable;
+
 /**
  * Created by Almerimatik on 09/02/2018.
  */
 
-public class Marca {
+public class Marca implements Serializable{
 
     private long id;
     private String nombre;

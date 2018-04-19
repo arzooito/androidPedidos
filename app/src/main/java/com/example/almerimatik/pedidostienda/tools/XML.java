@@ -1,8 +1,8 @@
-package com.example.almerimatik.pedidostienda.Tools;
+package com.example.almerimatik.pedidostienda.tools;
 
 import android.util.Log;
 
-import com.example.almerimatik.pedidostienda.Modelo.BD;
+import com.example.almerimatik.pedidostienda.modelo.BD;
 import com.example.almerimatik.pedidostienda.entity.Categoria;
 import com.example.almerimatik.pedidostienda.entity.Marca;
 import com.example.almerimatik.pedidostienda.entity.Producto;

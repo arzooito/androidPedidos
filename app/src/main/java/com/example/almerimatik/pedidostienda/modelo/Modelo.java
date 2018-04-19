@@ -1,4 +1,4 @@
-package com.example.almerimatik.pedidostienda.Modelo;
+package com.example.almerimatik.pedidostienda.modelo;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.example.almerimatik.pedidostienda.Tools.Msg;
+import com.example.almerimatik.pedidostienda.tools.Msg;
 import com.example.almerimatik.pedidostienda.entity.Categoria;
 import com.example.almerimatik.pedidostienda.entity.Marca;
 import com.example.almerimatik.pedidostienda.entity.Producto;
@@ -313,6 +313,49 @@ public class Modelo {
     }
 
     //////////////////// Productos /////////////////////////////////
+
+    public static ArrayList<Producto> cargarProductos(SQLiteDatabase db, Context context){
+
+        String tabla = PRODUCTO;
+        Producto prod = new Producto();
+        ArrayList<Producto> prodList = new ArrayList<>();
+        String[] campos = prod.getCampos();
+        int camposCount = campos.length;
+        Cursor c = null;
+
+        try {
+            c = db.query(tabla, campos, null, null, null, null, null);
+
+        }catch (final Exception e) {
+            Log.d("tienda", "Error al cargar "+tabla+ " BD: ", e);
+            Msg.mensaje(context, "Error", "Error al cargar "+tabla+ " desde BD: " + e.getMessage(), false);
+        }
+
+
+        if(c != null && c.moveToFirst()){
+            do{
+                prod = new Producto();
+                for(int i=0; i<camposCount; i++){
+
+                    Marca marca;
+                    Subcategoria sub;
+
+                    prod.setId(c.getLong(0));
+                    prod.setNombre(c.getString(1));
+                    prod.setFormato(c.getString(2));
+                    prod.setPrecio(c.getFloat(3));
+                    prod.setFoto(c.getString(4));
+                    marca = cargarMarca(db,context,String.valueOf(c.getLong(5)));
+                    prod.setMarca(marca);
+                    sub = cargarSubcategoria(db,context,String.valueOf(c.getLong(6)));
+                    prod.setSubcategoria(sub);
+                }
+                prodList.add(prod);
+            }while(c.moveToNext());
+        }
+        c.close();
+        return prodList;
+    }
 
     public static void guardarProducto(Context context, SQLiteDatabase db, Producto prod){
 

@@ -1,4 +1,4 @@
-package com.example.almerimatik.pedidostienda.Modelo;
+package com.example.almerimatik.pedidostienda.modelo;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,6 +8,7 @@ import com.example.almerimatik.pedidostienda.entity.Marca;
 import com.example.almerimatik.pedidostienda.entity.Producto;
 import com.example.almerimatik.pedidostienda.entity.Subcategoria;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -81,6 +82,12 @@ public class BD {
         for(Subcategoria sub : subcategorias){
             Modelo.guardarSubcategoria(context,db,sub);
         }
+    }
+
+    public ArrayList<Producto> cargarProductos(){
+
+        ArrayList<Producto> lista = Modelo.cargarProductos(db,context);
+        return lista;
     }
 
     public void guardarProductos(List<Producto> productos){

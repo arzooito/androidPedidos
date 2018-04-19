@@ -10,4 +10,8 @@
     <dimen name="button_padding">20dp</dimen>
     <dimen name="normal_padding">16dp</dimen>
     <dimen name="edit_text_padding">20dp</dimen>
+    <dimen name="btn_unidades_ancho">35dp</dimen>
+    <dimen name="btn_unidades_alto">35dp</dimen>
+    <dimen name="label_unidades_alto">36dp</dimen>
+    <dimen name="btn_add_carrito">70dp</dimen>
 </resources>

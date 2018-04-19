@@ -7,15 +7,15 @@
         <item
             android:id="@+id/nav_catalogo"
             android:icon="@drawable/ic_menu_catalogo"
-            android:title="Catalogo" />
+            android:title="@string/catalogo" />
         <item
             android:id="@+id/nav_lista"
             android:icon="@drawable/ic_menu_lista"
-            android:title="Listas" />
+            android:title="@string/listas" />
         <item
             android:id="@+id/nav_historial"
             android:icon="@drawable/ic_menu_historial"
-            android:title="Historial" />
+            android:title="@string/historial" />
     </group>
 
     <item android:title="">
@@ -23,11 +23,11 @@
             <item
                 android:id="@+id/nav_settings"
                 android:icon="@drawable/ic_menu_manage"
-                android:title="Opciones" />
+                android:title="@string/opciones" />
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_salir"
-                android:title="Salir" />
+                android:title="@string/logout" />
         </menu>
     </item>
 

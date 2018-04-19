@@ -13,6 +13,5 @@ public class ListasActivity extends ListadoBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityTipo = LISTAS;
     }
 }

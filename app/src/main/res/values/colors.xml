@@ -5,4 +5,5 @@
     <color name="colorAccent">#0400ff</color>
     <color name="botonTexto">#ea626e</color>
     <color name="botonReposo">#f6b275</color>
+    <color name="borde_unidades">#999693</color>
 </resources>
