@@ -68,7 +68,7 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if(this instanceof ListaActivity){
+            if(this instanceof CarritoActivity){
                 super.onBackPressed();
             }else if(!(this instanceof MenuPrincipalActivity)){
                 Intent intent  = new Intent(this,MenuPrincipalActivity.class);

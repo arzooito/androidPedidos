@@ -12,10 +12,10 @@
     <string name="boton_registrar">Registrarse</string>
     <string name="et_nombre_usuario">Nombre de usuario</string>
     <string name="et_password">Password</string>
-    <string name="et_telefono">Telefono</string>
+    <string name="et_telefono">Teléfono</string>
     <string name="et_email">Email</string>
     <string name="cancel">Cancelar</string>
-    <string name="info_text">Ingresa con tu cuenta o registate</string>
+    <string name="info_text">Ingresa con tu cuenta o registrate</string>
     <string name="recordar_check">Recordarme</string>
     <string name="olvidar_text">¿Olvidaste tu contraseña?</string>
     <string name="catalogo">Catálogo</string>
@@ -40,5 +40,12 @@
     <string name="logout_qu">¿Quiere cerrar sesión?</string>
     <string name="logout">Cerrar sesión</string>
     <string name="empty_list">No hay elementos que mostrar</string>
+    <string name="empty_list_carrito">No hay productos en el carrito\n ¡añade algo!</string>
+    <string name="realizar_pedido">Realizar pedido</string>
+    <string name="guardar_lista">Guardar en lista</string>
+    <string name="vaciar_carrito">Vaciar carrito</string>
+    <string name="vaciar_carrito_qu">Se borrarán todos los artículos añadidos al carrito ¿Desea continuar?</string>
+    <string name="ir_a_catalogo">Ir al catálogo</string>
+
 
 </resources>

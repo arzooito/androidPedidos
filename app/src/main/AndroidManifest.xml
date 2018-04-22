@@ -38,10 +38,6 @@
             android:label="@string/title_activity_listas"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.ListaActivity"
-            android:label="@string/title_activity_lista"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".activity.CarritoActivity"
             android:label="@string/title_activity_carrito"
             android:theme="@style/AppTheme.NoActionBar" />

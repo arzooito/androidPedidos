@@ -24,16 +24,16 @@
             android:orientation="vertical">
 
             <Button
-                style="@style/BotonNaranja"
+                style="@style/BotonNaranja.MenuPrincipal"
                 android:id="@+id/btnCatalogo"
                 android:text="@string/cat_logo" />
             <Button
-                style="@style/BotonNaranja"
+                style="@style/BotonNaranja.MenuPrincipal"
                 android:id="@+id/btnListas"
                 android:onClick="abrirListas"
                 android:text="@string/listas"/>
             <Button
-                style="@style/BotonNaranja"
+                style="@style/BotonNaranja.MenuPrincipal"
                 android:id="@+id/btnHistorial"
                 android:onClick="abrirHistorial"
                 android:text="@string/historial"/>

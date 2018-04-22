@@ -6,4 +6,8 @@
     <color name="botonTexto">#ea626e</color>
     <color name="botonReposo">#f6b275</color>
     <color name="borde_unidades">#999693</color>
+    <color name="btn_pedido_dark">#0c9349</color>
+    <color name="btn_pedido_light">#1ace6b</color>
+    <color name="btn_pedido_pressed_dark">#dcd210</color>
+    <color name="btn_pedido_pressed_light">#fdff95</color>
 </resources>

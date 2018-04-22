@@ -18,10 +18,7 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="BotonNaranja">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/boton_activity_principal</item>
-        <item name="android:layout_marginBottom">20dp</item>
         <item name="android:padding">20dp</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@android:color/white</item>
@@ -30,6 +27,12 @@
         <item name="android:shadowDx">2</item>
         <item name="android:shadowDy">1</item>
         <item name="android:shadowRadius">0</item>
+    </style>
+
+    <style name="BotonNaranja.MenuPrincipal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">20dp</item>
     </style>
 
     <style name="contenido">

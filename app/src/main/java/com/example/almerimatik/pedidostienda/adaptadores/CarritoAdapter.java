@@ -57,7 +57,7 @@ public class CarritoAdapter extends ArrayAdapter<Producto> {
         holder.labelFormato.setText(prod.getFormato());
         holder.labelPrecio.setText(String.format("%.2f € unidad",prod.getPrecio()));
         holder.labelCantidad.setText(String.format("x %d",prod.getCantidad()));
-        float total = prod.getCantidad() + prod.getPrecio();
+        float total = prod.getCantidad() * prod.getPrecio();
         holder.labelPrecioTotal.setText(String.format("%.2f €", total));
 
         return celda;
