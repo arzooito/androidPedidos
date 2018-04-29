@@ -8,8 +8,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class Fechas {
+
+    public static final SimpleDateFormat SDF_FECHA = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+    public static final SimpleDateFormat SDF_HORA = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
     private final static String FORMATO_HORA = "HH:mm";
     private final static String FORMATO_FECHA_CORTO = "dd-MM-yyyy";
@@ -225,6 +229,22 @@ public class Fechas {
             resultado = sdf.format(fecha);
         }
         return resultado;
+    }
+
+    public static String formatearFecha(final Long milis) {
+        if (milis != null) {
+            return SDF_FECHA.format(new Date(milis));
+        } else {
+            return null;
+        }
+    }
+
+    public static String formatearHora(final Long milis) {
+        if (milis != null) {
+            return SDF_HORA.format(new Date(milis));
+        } else {
+            return null;
+        }
     }
 
     public static String FormatearHora() {

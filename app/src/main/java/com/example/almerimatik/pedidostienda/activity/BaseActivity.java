@@ -2,7 +2,6 @@ package com.example.almerimatik.pedidostienda.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -11,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.example.almerimatik.pedidostienda.R;
@@ -20,11 +18,9 @@ import com.example.almerimatik.pedidostienda.modelo.BD;
 import com.example.almerimatik.pedidostienda.tools.Msg;
 import com.example.almerimatik.pedidostienda.constantes.Data;
 import com.example.almerimatik.pedidostienda.constantes.Sesion;
-import com.example.almerimatik.pedidostienda.constantes.Tipo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 /**
  * Created by arzoo on 25/02/2018.
@@ -124,8 +120,8 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
                 abrirListas();
             }
 
-        } else if (id == R.id.nav_settings) {
-
+        } else if (id == R.id.nav_actualizar) {
+            abrirMain();
         } else if (id == R.id.nav_logout) {
             Msg.preguntarLogout(this);
         }
@@ -163,6 +159,11 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
         Intent intent = new Intent(this, CarritoActivity.class);
         ArrayList<Producto> lista = Sesion.getCarrito();
         intent.putExtra("lista", (Serializable) lista);
+        startActivity(intent);
+    }
+
+    public void abrirMain(){
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 

@@ -59,6 +59,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Importe total:"
+                android:shadowColor="#565050"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowRadius="0.3"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
@@ -68,6 +72,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
+                android:shadowColor="#565050"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowRadius="0.3"
                 android:layout_marginHorizontal="10dp"
                 android:text=" 99 €"
                 android:textSize="20sp" />

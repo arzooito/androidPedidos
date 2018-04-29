@@ -3,7 +3,6 @@ package com.example.almerimatik.pedidostienda.activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -13,7 +12,6 @@ import com.example.almerimatik.pedidostienda.tools.Contenido;
 
 import java.util.ArrayList;
 
-import static com.example.almerimatik.pedidostienda.constantes.Tipo.PRINCIPAL;
 
 /**
  * Created by Almerimatik on 18/01/2018.

@@ -14,12 +14,14 @@
     <string name="et_password">Password</string>
     <string name="et_telefono">Teléfono</string>
     <string name="et_email">Email</string>
+    <string name="aceptar">Aceptar</string>
     <string name="cancel">Cancelar</string>
     <string name="info_text">Ingresa con tu cuenta o registrate</string>
     <string name="recordar_check">Recordarme</string>
     <string name="olvidar_text">¿Olvidaste tu contraseña?</string>
     <string name="catalogo">Catálogo</string>
     <string name="opciones">Opciones</string>
+    <string name="actualizar_catalogo">Actualizar catálogo</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -30,9 +32,9 @@
     <string name="error_registro">Usuario ya registrado. Pruebe a loguearse</string>
     <string name="sin_registro">Si no tiene usuario, registrese aquí</string>
     <string name="con_registro">Si ya tiene usuario, acceda desde aquí</string>
-    <string name="conectando_msg">Conectando con el servidor...</string>
-    <string name="progress_actualizacion">Actualizando catálogo...</string>
-    <string name="descargando_actualizacion">Descargando actualización...</string>
+    <string name="conectando_msg">Conectando con el servidor…</string>
+    <string name="progress_actualizacion">Actualizando catálogo…</string>
+    <string name="descargando_actualizacion">Descargando actualización…</string>
     <string name="conection_ws_error">Error al conectar con el servidor</string>
     <string name="exito_actualizar">Catálogo actualizado con éxtito</string>
     <string name="salir_qu">¿Quiere salir de la aplicación?</string>
@@ -44,8 +46,18 @@
     <string name="realizar_pedido">Realizar pedido</string>
     <string name="guardar_lista">Guardar en lista</string>
     <string name="vaciar_carrito">Vaciar carrito</string>
-    <string name="vaciar_carrito_qu">Se borrarán todos los artículos añadidos al carrito ¿Desea continuar?</string>
+    <string name="vaciar_carrito_qu">Se borrarán todos los artículos añadidos al carrito \n\n¿Desea continuar?</string>
     <string name="ir_a_catalogo">Ir al catálogo</string>
-
-
+    <string name="vaciar">Vaciar</string>
+    <string name="title_activity_realizar_pedido">Realizar pedido</string>
+    <string name="recogida">Recogida y confirmar</string>
+    <string name="fecha">Fecha</string>
+    <string name="hora">Hora:</string>
+    <string name="fecha_recogida">&lt;&lt;Fecha de recogida&gt;&gt;</string>
+    <string name="hora_recogida">&lt;&lt;Hora de recogida&gt;&gt;</string>
+    <string name="resumen_pedido">Resumen de pedido:</string>
+    <string name="confirmar_pedido">Confirmar pedido</string>
+    <string name="direccion_recogida">El pedido se recogerá en tienda, en la dirección  calle falsa nº13 </string>
+    <string name="dia">Día: </string>
+    <string name="select">Seleccionar</string>
 </resources>

@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.almerimatik.pedidostienda.R;
 import com.example.almerimatik.pedidostienda.activity.BaseActivity;
+import com.example.almerimatik.pedidostienda.activity.CarritoActivity;
 
 /**
  * Created by Almerimatik on 14/02/2018.
@@ -20,7 +21,7 @@ public class Msg {
                                final boolean finalizar)
     {
         new AlertDialog.Builder(contexto).setMessage(mensaje).setTitle(titulo).
-                setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                setPositiveButton(R.string.aceptar, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface dialog, final int id) {
                         dialog.cancel();
@@ -36,13 +37,18 @@ public class Msg {
         t.show();
     }
 
+    public static void toast(final Context contexto, final int mensaje) {
+        final Toast t = Toast.makeText(contexto, mensaje, Toast.LENGTH_LONG);
+        t.show();
+    }
+
     public static void salir(final Context contexto)
     {
         String mensaje = contexto.getString(R.string.salir_qu);
         String titulo = contexto.getString(R.string.salir);
 
         new AlertDialog.Builder(contexto).setMessage(mensaje).setTitle(titulo).
-                setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                setPositiveButton(R.string.salir, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface dialog, final int id) {
                         dialog.dismiss();
@@ -50,7 +56,7 @@ public class Msg {
                         act.finish();
                         System.exit(0);
                     }
-                }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(final DialogInterface dialog, final int id) {
                 dialog.cancel();
@@ -64,7 +70,7 @@ public class Msg {
         String titulo = contexto.getString(R.string.logout);
 
         new AlertDialog.Builder(contexto).setMessage(mensaje).setTitle(titulo).
-                setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                setPositiveButton(R.string.logout, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface dialog, final int id) {
                         dialog.dismiss();
@@ -72,11 +78,33 @@ public class Msg {
                         act.logout();
                         System.exit(0);
                     }
-                }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(final DialogInterface dialog, final int id) {
                 dialog.cancel();
             }
         }).show();
     }
+
+    public static void preguntarLimpiarCarrito(final Context contexto)
+    {
+        String mensaje = contexto.getString(R.string.vaciar_carrito_qu);
+        String titulo = contexto.getString(R.string.vaciar_carrito);
+
+        new AlertDialog.Builder(contexto).setMessage(mensaje).setTitle(titulo).
+                setPositiveButton(R.string.vaciar, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        dialog.dismiss();
+                        CarritoActivity act = (CarritoActivity) contexto;
+                        act.limpiarCarrito();
+                    }
+                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(final DialogInterface dialog, final int id) {
+                dialog.cancel();
+            }
+        }).show();
+    }
+
 }

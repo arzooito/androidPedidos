@@ -26,7 +26,7 @@ public class TiendaSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE subcategoria(id INTEGER PRIMARY KEY, nombre TEXT, idCategoria INTEGER)");
 
         db.execSQL("CREATE TABLE lista(_id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT)");
-        db.execSQL("CREATE TABLE pedido(_id INTEGER PRIMARY KEY AUTOINCREMENT, fecha TEXT)");
+        db.execSQL("CREATE TABLE pedido(_id INTEGER PRIMARY KEY AUTOINCREMENT, fecha TEXT, fechaRecogida TEXT)");
         db.execSQL("CREATE TABLE lista_producto(_id INTEGER PRIMARY KEY AUTOINCREMENT, idLista INTEGER, idProducto INTEGER, unidades INTEGER)");
         db.execSQL("CREATE TABLE pedido_producto(_id INTEGER PRIMARY KEY AUTOINCREMENT, idPedido INTEGER, idProducto INTEGER, unidades INTEGER)");
     }

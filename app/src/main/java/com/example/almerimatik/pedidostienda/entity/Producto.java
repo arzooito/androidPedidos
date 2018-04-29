@@ -100,6 +100,14 @@ public class Producto implements Parcelable, Serializable {
         this.cantidad = cantidad;
     }
 
+    @Override
+    public String toString() {
+
+        float subtotal = this.cantidad * this.precio;
+        String resumen = String.format("%-40s  x  %3d -> %.2f €", this.nombre, this.cantidad, subtotal);
+        return resumen;
+    }
+
     public ContentValues rellenar(){
 
         final ContentValues nuevoRegistro = new ContentValues();

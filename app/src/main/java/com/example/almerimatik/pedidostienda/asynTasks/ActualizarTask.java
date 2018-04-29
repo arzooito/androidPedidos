@@ -55,6 +55,9 @@ public class ActualizarTask extends AsyncTask<Void, Integer, Void> {
         if(actualizacionFallida){
             String msj = main.getString(R.string.conection_ws_error);
             Msg.toast(main,msj);
+        }else{
+            String msj = main.getString(R.string.exito_actualizar);
+            Msg.toast(main,msj);
         }
 
         main.getProgressBar().setVisibility(View.GONE);

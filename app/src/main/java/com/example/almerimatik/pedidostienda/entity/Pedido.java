@@ -4,6 +4,8 @@ import android.content.ContentValues;
 
 import com.example.almerimatik.pedidostienda.tools.Fechas;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
@@ -11,11 +13,12 @@ import java.util.Map;
  * Created by Almerimatik on 12/02/2018.
  */
 
-public class Pedido {
+public class Pedido implements Serializable {
 
     long id;
     Date fecha;
-    private Map<Producto,Integer> productos;
+    Date fechaRecogida;
+    private ArrayList<Producto> productos;
 
     public Pedido(){
 
@@ -42,19 +45,37 @@ public class Pedido {
         this.fecha = fecha;
     }
 
+    public Date getFechaRecogida() {
+        return fechaRecogida;
+    }
+
+    public void setFechaRecogida(Date fechaRecogida) {
+        this.fechaRecogida = fechaRecogida;
+    }
+
+    public ArrayList<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(ArrayList<Producto> productos) {
+        this.productos = productos;
+    }
+
     public ContentValues rellenar(){
 
         final ContentValues nuevoRegistro = new ContentValues();
         String sFecha = Fechas.FormatearFecha(fecha);
+        String sFechaRecogida = Fechas.FormatearFecha(fechaRecogida);
         nuevoRegistro.put("id", id);
         nuevoRegistro.put("fecha", sFecha);
+        nuevoRegistro.put("fechaRecogida", sFechaRecogida);
         return nuevoRegistro;
 
     }
 
     public String[] getCampos(){
 
-        String[] campos = {"id","fecha"};
+        String[] campos = {"id","fecha","fechaRecogida"};
         return campos;
     }
 }

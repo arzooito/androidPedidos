@@ -13,7 +13,6 @@ import com.example.almerimatik.pedidostienda.tools.Contenido;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import static com.example.almerimatik.pedidostienda.constantes.Tipo.PRINCIPAL;
 
 public class MenuPrincipalActivity extends BaseActivity {
 

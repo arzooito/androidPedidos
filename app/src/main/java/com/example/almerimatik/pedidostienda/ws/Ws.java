@@ -20,9 +20,9 @@ public class Ws {
 
     private static final String NAMESPACE = "http://tienda_ws.almerimatik.es/";
     //localhost desde emulador
-    private static final String URL = Rutas.URL_BASE+"/tienda_WS/ServicioAppTienda?wsdl";
+    //private static final String URL = Rutas.URL_BASE+"/tienda_WS/ServicioAppTienda?wsdl";
     //pi server
-    //private static final String URL = "http://gabarron.ddns.net/tienda_WS/ServicioAppTienda?wsdl";
+    private static final String URL = "http://gabarron.hopto.org/tienda_WS/ServicioAppTienda?wsdl";
 
 
     public static long login(String usuario, String password){

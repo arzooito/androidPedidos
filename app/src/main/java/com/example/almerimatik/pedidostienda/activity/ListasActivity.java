@@ -2,7 +2,6 @@ package com.example.almerimatik.pedidostienda.activity;
 
 import android.os.Bundle;
 
-import static com.example.almerimatik.pedidostienda.constantes.Tipo.LISTAS;
 
 /**
  * Created by Almerimatik on 06/02/2018.

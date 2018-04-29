@@ -1,5 +1,6 @@
 package com.example.almerimatik.pedidostienda.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -15,10 +16,14 @@ import android.widget.TextView;
 import com.example.almerimatik.pedidostienda.R;
 import com.example.almerimatik.pedidostienda.adaptadores.CarritoAdapter;
 import com.example.almerimatik.pedidostienda.constantes.Sesion;
+import com.example.almerimatik.pedidostienda.entity.Pedido;
 import com.example.almerimatik.pedidostienda.entity.Producto;
 import com.example.almerimatik.pedidostienda.tools.Contenido;
+import com.example.almerimatik.pedidostienda.tools.Msg;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 /**
@@ -58,15 +63,15 @@ public class CarritoActivity extends BaseActivity{
         realizarPedido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                realizarPedido();
+                AbrirRealizarPedido();
             }
         });
 
         lvLista.setAdapter(adapter);
         final ArrayList<Producto> lista = (ArrayList<Producto>) getIntent().getSerializableExtra("lista");
+
         listaEmpty = lista.isEmpty();
         rellenarLista(lista);
-
 
     }
 
@@ -84,7 +89,7 @@ public class CarritoActivity extends BaseActivity{
 
                 tvImporteTotal.setText(String.format("%.2f €",importeTotal));
             } catch (final Exception ex) {
-                Log.e("ListadoBase", "Error al rellenar lista", ex);
+                Log.e("ListadoCarrito", "Error al rellenar lista", ex);
             }
         }else{
             listaVacia(true);
@@ -106,7 +111,7 @@ public class CarritoActivity extends BaseActivity{
         }
     }
 
-    private void limpiarCarrito(){
+    public void limpiarCarrito(){
 
         Sesion.getCarrito().clear();
         adapter.clear();
@@ -119,11 +124,24 @@ public class CarritoActivity extends BaseActivity{
         toolbar.getMenu().clear();
     }
 
+    private void hacerPedido(){
+
+        Pedido pedido = new Pedido();
+        pedido.setFecha(new Date());
+        pedido.setProductos((ArrayList<Producto>) getIntent().getSerializableExtra("lista"));
+
+    }
+
     private void guardarCarrito(){
 
     }
 
-    private void realizarPedido(){
+    private void AbrirRealizarPedido(){
+        Intent intent = new Intent(this, RealizarPedidoActivity.class);
+        ArrayList<Producto> lista = Sesion.getCarrito();
+        intent.putExtra("lista", (Serializable) lista);
+        intent.putExtra("importeTotal", importeTotal);
+        startActivity(intent);
 
     }
 
@@ -140,7 +158,7 @@ public class CarritoActivity extends BaseActivity{
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             case R.id.limpiar_carrito:
-                limpiarCarrito();
+                Msg.preguntarLimpiarCarrito(this);
                 return true;
 
             case R.id.guardar_en_lista:

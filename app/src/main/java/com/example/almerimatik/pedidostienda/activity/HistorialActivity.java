@@ -9,7 +9,6 @@ import com.example.almerimatik.pedidostienda.R;
 import com.example.almerimatik.pedidostienda.adaptadores.CatalogoAdapter;
 import com.example.almerimatik.pedidostienda.entity.Producto;
 
-import static com.example.almerimatik.pedidostienda.constantes.Tipo.HISTORIAL;
 
 /**
  * Created by Almerimatik on 18/01/2018.

@@ -41,6 +41,10 @@
             android:name=".activity.CarritoActivity"
             android:label="@string/title_activity_carrito"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.RealizarPedidoActivity"
+            android:label="@string/recogida"
+            android:theme="@style/AppTheme" />
 
     </application>
 
