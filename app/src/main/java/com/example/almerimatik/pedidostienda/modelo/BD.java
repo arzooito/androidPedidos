@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.almerimatik.pedidostienda.entity.Categoria;
 import com.example.almerimatik.pedidostienda.entity.Marca;
+import com.example.almerimatik.pedidostienda.entity.Pedido;
 import com.example.almerimatik.pedidostienda.entity.Producto;
 import com.example.almerimatik.pedidostienda.entity.Subcategoria;
 
@@ -115,7 +116,7 @@ public class BD {
 
             for(int i=0; i < ids.length; i++){
                 String id = String.format("%d",ids[i]);
-                Modelo.eliminarProducto(context,db, id);
+                Modelo.eliminarMarca(context,db, id);
             }
         }
     }
@@ -128,7 +129,7 @@ public class BD {
 
             for(int i=0; i < ids.length; i++){
                 String id = String.format("%d",ids[i]);
-                Modelo.eliminarProducto(context,db, id);
+                Modelo.eliminarSubcategoria(context,db, id);
             }
         }
     }
@@ -141,7 +142,7 @@ public class BD {
 
             for(int i=0; i < ids.length; i++){
                 String id = String.format("%d",ids[i]);
-                Modelo.eliminarProducto(context,db, id);
+                Modelo.eliminarSubcategoria(context,db, id);
             }
         }
     }
@@ -151,5 +152,14 @@ public class BD {
         eliminarMarcasObsoletas();
         eliminarSubcategoriasObsoletas();
         eliminarCategoriasObsoletas();
+    }
+
+    public void guardarPedido(Pedido ped){
+
+        ArrayList<Producto> prods = ped.getProductos();
+        Modelo.guardarPedido(context, db, ped);
+        for(Producto reg : prods){
+            Modelo.guardarProductosPedido(context, db, ped, reg);
+        }
     }
 }

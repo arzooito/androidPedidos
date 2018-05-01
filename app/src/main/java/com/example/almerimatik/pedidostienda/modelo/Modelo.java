@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.almerimatik.pedidostienda.entity.Pedido;
+import com.example.almerimatik.pedidostienda.tools.Fechas;
 import com.example.almerimatik.pedidostienda.tools.Msg;
 import com.example.almerimatik.pedidostienda.entity.Categoria;
 import com.example.almerimatik.pedidostienda.entity.Marca;
@@ -13,6 +15,7 @@ import com.example.almerimatik.pedidostienda.entity.Producto;
 import com.example.almerimatik.pedidostienda.entity.Subcategoria;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Almerimatik on 08/02/2018.
@@ -357,6 +360,48 @@ public class Modelo {
         return prodList;
     }
 
+    public static Producto cargarProducto(SQLiteDatabase db, Context context, long idProducto){
+
+        String tabla = PRODUCTO;
+        Producto prod = new Producto();
+        ArrayList<Producto> prodList = new ArrayList<>();
+        String[] campos = prod.getCampos();
+        String where = "id = ?";
+        String[] args = {String.valueOf(idProducto)};
+        int camposCount = campos.length;
+        Cursor c = null;
+
+        try {
+            c = db.query(tabla, campos, where, args, null, null, null);
+
+        }catch (final Exception e) {
+            Log.d("tienda", "Error al cargar "+tabla+ " BD: ", e);
+            Msg.mensaje(context, "Error", "Error al cargar "+tabla+ " desde BD: " + e.getMessage(), false);
+        }
+
+
+        if(c != null && c.moveToFirst()){
+                prod = new Producto();
+                for(int i=0; i<camposCount; i++){
+
+                    Marca marca;
+                    Subcategoria sub;
+
+                    prod.setId(c.getLong(0));
+                    prod.setNombre(c.getString(1));
+                    prod.setFormato(c.getString(2));
+                    prod.setPrecio(c.getFloat(3));
+                    prod.setFoto(c.getString(4));
+                    marca = cargarMarca(db,context,String.valueOf(c.getLong(5)));
+                    prod.setMarca(marca);
+                    sub = cargarSubcategoria(db,context,String.valueOf(c.getLong(6)));
+                    prod.setSubcategoria(sub);
+                }
+        }
+        c.close();
+        return prod;
+    }
+
     public static void guardarProducto(Context context, SQLiteDatabase db, Producto prod){
 
         String tabla = PRODUCTO;
@@ -382,4 +427,155 @@ public class Modelo {
             Msg.mensaje(context, "Error", "Error al eliminar de BD: " + e.getMessage(), false);
         }
     }
+
+    //////////////////// Pedidos /////////////////////////////////
+
+    public static void guardarPedido(Context context, SQLiteDatabase db, Pedido ped){
+
+        String tabla = PEDIDO;
+
+        try {
+            final ContentValues valores = ped.rellenar();
+            db.insertWithOnConflict(tabla, null, valores, SQLiteDatabase.CONFLICT_IGNORE);
+        } catch (final Exception e) {
+            Log.d("tienda", "Error al guardar en BD: ", e);
+            Msg.mensaje(context, "Error", "Error al guardar en BD: " + e.getMessage(), false);
+        }
+    }
+
+    public static void guardarProductosPedido(Context context, SQLiteDatabase db, Pedido ped, Producto prod){
+
+        String tabla = PED_PROD;
+
+        try {
+            final ContentValues valores = new ContentValues();
+            valores.put("idPedido", ped.getId());
+            valores.put("idProducto", prod.getId());
+            valores.put("unidades", prod.getCantidad());
+
+            db.insertWithOnConflict(tabla, null, valores, SQLiteDatabase.CONFLICT_IGNORE);
+        } catch (final Exception e) {
+            Log.d("tienda", "Error al guardar en BD: ", e);
+            Msg.mensaje(context, "Error", "Error al guardar en BD: " + e.getMessage(), false);
+        }
+    }
+
+    public static ArrayList<Producto> cargarProductosPedido(Context context, SQLiteDatabase db, Pedido ped){
+
+        String tabla = PED_PROD;
+        Producto prod = new Producto();
+        ArrayList<Producto> prodList = new ArrayList<>();
+        String[] campos = {"idPedido", "idProducto", "unidades"};
+        String where = "idPedido = ?";
+        String[] args = {String.valueOf(ped.getId())};
+        int camposCount = campos.length;
+        Cursor c = null;
+
+        try {
+            c = db.query(tabla, campos, where, args, null, null, null);
+
+        }catch (final Exception e) {
+            Log.d("tienda", "Error al cargar "+tabla+ " BD: ", e);
+            Msg.mensaje(context, "Error", "Error al cargar "+tabla+ " desde BD: " + e.getMessage(), false);
+        }
+
+
+        if(c != null && c.moveToFirst()){
+            do{
+                for(int i=0; i<camposCount; i++){
+
+                    long idProd = c.getLong(1);
+                    prod = cargarProducto(db,context, idProd);
+                    prod.setCantidad(c.getInt(2));
+                }
+                prodList.add(prod);
+            }while(c.moveToNext());
+        }
+        c.close();
+        return prodList;
+    }
+
+    public static ArrayList<Pedido> cargarPedidos(SQLiteDatabase db, Context context){
+
+        String tabla = PEDIDO;
+        Pedido pedido = new Pedido();
+        ArrayList<Pedido> pedidoList = new ArrayList<>();
+        ArrayList<Producto> prodList = new ArrayList<>();
+        String[] campos = pedido.getCampos();
+        int camposCount = campos.length;
+        Cursor c = null;
+
+        try {
+            c = db.query(tabla, campos, null, null, null, null, null);
+
+        }catch (final Exception e) {
+            Log.d("tienda", "Error al cargar "+tabla+ " BD: ", e);
+            Msg.mensaje(context, "Error", "Error al cargar "+tabla+ " desde BD: " + e.getMessage(), false);
+        }
+
+        if(c != null && c.moveToFirst()){
+            do{
+                pedido = new Pedido();
+                for(int i=0; i<camposCount; i++){
+
+                    pedido.setId(c.getLong(0));
+                    Date fecha = Fechas.Convertir(c.getString(1));
+                    pedido.setFecha(fecha);
+                    Date fechaRecogida = Fechas.Convertir(c.getString(2));
+                    pedido.setFechaRecogida(fechaRecogida);
+                    Date horaRecogida = Fechas.ConvertirHora(c.getString(3));
+                    pedido.setHoraRecogida(horaRecogida);
+
+                    prodList = cargarProductosPedido(context, db, pedido);
+                    pedido.setProductos(prodList);
+                }
+                pedidoList.add(pedido);
+            }while(c.moveToNext());
+        }
+        c.close();
+        return pedidoList;
+    }
+
+    public static Pedido cargarPedido(SQLiteDatabase db, Context context, long idPedido){
+
+        String tabla = PEDIDO;
+        Pedido pedido = new Pedido();
+        ArrayList<Producto> prodList;
+        String[] campos = pedido.getCampos();
+        String[] args = {String.valueOf(idPedido)};
+        String where = "_id = ?";
+        int camposCount = campos.length;
+        Cursor c = null;
+
+        try {
+            c = db.query(tabla, campos, where, args, null, null, null);
+
+        }catch (final Exception e) {
+            Log.d("tienda", "Error al cargar "+tabla+ " BD: ", e);
+            Msg.mensaje(context, "Error", "Error al cargar "+tabla+ " desde BD: " + e.getMessage(), false);
+        }
+
+        if(c != null && c.moveToFirst()){
+
+                pedido = new Pedido();
+                for(int i=0; i<camposCount; i++){
+
+                    pedido.setId(c.getLong(0));
+                    Date fecha = Fechas.Convertir(c.getString(1));
+                    pedido.setFecha(fecha);
+                    Date fechaRecogida = Fechas.Convertir(c.getString(2));
+                    pedido.setFechaRecogida(fechaRecogida);
+                    Date horaRecogida = Fechas.ConvertirHora(c.getString(3));
+                    pedido.setHoraRecogida(horaRecogida);
+
+                    prodList = cargarProductosPedido(context, db, pedido);
+                    pedido.setProductos(prodList);
+                }
+        }
+        c.close();
+        return pedido;
+    }
+
+    //////////////////// Lista /////////////////////////////////
+
 }

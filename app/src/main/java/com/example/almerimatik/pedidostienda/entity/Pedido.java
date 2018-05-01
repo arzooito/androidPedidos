@@ -18,6 +18,7 @@ public class Pedido implements Serializable {
     long id;
     Date fecha;
     Date fechaRecogida;
+    Date horaRecogida;
     private ArrayList<Producto> productos;
 
     public Pedido(){
@@ -53,6 +54,14 @@ public class Pedido implements Serializable {
         this.fechaRecogida = fechaRecogida;
     }
 
+    public Date getHoraRecogida() {
+        return horaRecogida;
+    }
+
+    public void setHoraRecogida(Date horaRecogida) {
+        this.horaRecogida = horaRecogida;
+    }
+
     public ArrayList<Producto> getProductos() {
         return productos;
     }
@@ -66,16 +75,18 @@ public class Pedido implements Serializable {
         final ContentValues nuevoRegistro = new ContentValues();
         String sFecha = Fechas.FormatearFecha(fecha);
         String sFechaRecogida = Fechas.FormatearFecha(fechaRecogida);
-        nuevoRegistro.put("id", id);
+        String sHoraRecogida = Fechas.FormatearHora(fechaRecogida);
+        nuevoRegistro.put("_id", id);
         nuevoRegistro.put("fecha", sFecha);
         nuevoRegistro.put("fechaRecogida", sFechaRecogida);
+        nuevoRegistro.put("horaRecogida", sHoraRecogida);
         return nuevoRegistro;
 
     }
 
     public String[] getCampos(){
 
-        String[] campos = {"id","fecha","fechaRecogida"};
+        String[] campos = {"_id","fecha","fechaRecogida", "horaRecogida"};
         return campos;
     }
 }

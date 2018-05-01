@@ -13,15 +13,18 @@ import android.widget.TextView;
 
 import com.example.almerimatik.pedidostienda.R;
 import com.example.almerimatik.pedidostienda.adaptadores.ResumenAdapter;
-import com.example.almerimatik.pedidostienda.dialogs.DatePickerDialog;
+import com.example.almerimatik.pedidostienda.asynTasks.TramitarPedidoTask;
 import com.example.almerimatik.pedidostienda.dialogs.DatePickerFragment;
+import com.example.almerimatik.pedidostienda.dialogs.TimePickerFragment;
 import com.example.almerimatik.pedidostienda.entity.Pedido;
 import com.example.almerimatik.pedidostienda.entity.Producto;
 import com.example.almerimatik.pedidostienda.tools.Fechas;
+import com.example.almerimatik.pedidostienda.tools.Msg;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by arzoo on 22/04/2018.
@@ -39,7 +42,6 @@ public class RealizarPedidoActivity extends AppCompatActivity {
 
     Date fechaSeleccionada;
     Date horaSeleccionada;
-    Date fechaRecogida;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,13 @@ public class RealizarPedidoActivity extends AppCompatActivity {
             @Override
             public void onClick(final View v) {
                 pedirFecha();
+            }
+        });
+
+        etHora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                pedirHora();
             }
         });
 
@@ -78,6 +87,13 @@ public class RealizarPedidoActivity extends AppCompatActivity {
 
     public void realizarPedido(){
 
+        if(validar()){
+            Pedido pedido = crearPedido();
+            new TramitarPedidoTask(this).execute(pedido);
+
+        }else{
+            Msg.mensaje(this, R.string.error_validacion, R.string.error_validar, false);
+        }
     }
 
     protected void rellenarLista(final ArrayList<Producto> lista) {
@@ -99,15 +115,14 @@ public class RealizarPedidoActivity extends AppCompatActivity {
         Pedido pedido = new Pedido();
         pedido.setFecha(new Date());
         pedido.setProductos(listaProductos);
-        fechaRecogida = new Date();
-        fechaRecogida.setTime( fechaSeleccionada.getTime() + horaSeleccionada.getTime());
-        pedido.setFechaRecogida(fechaRecogida);
+        pedido.setFechaRecogida(fechaSeleccionada);
+        pedido.setHoraRecogida(horaSeleccionada);
 
         return pedido;
     }
 
     private boolean validar(){
-        return fechaSeleccionada != null && horaSeleccionada != null;
+        return !etFecha.getText().equals(null) && !etHora.getText().equals(null);
     }
 
 
@@ -116,10 +131,22 @@ public class RealizarPedidoActivity extends AppCompatActivity {
         Date now =  new Date();
         Date en3Dias = Fechas.Incrementar(now, Calendar.DAY_OF_MONTH, 3);
 
-        final DatePickerDialog dialog = DatePickerDialog.newInstance(now.getTime(),en3Dias.getTime());
+        final DatePickerFragment newFragment = DatePickerFragment.newInstance(now.getTime(), en3Dias.getTime());
+        newFragment.setEditTextFecha(etFecha);
+        newFragment.setEditTextHora(etHora);
+        fechaSeleccionada = new Date();
+        newFragment.setFechaSeleccionada(fechaSeleccionada);
 
-        dialog.show(getFragmentManager(), "datePicker");
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
 
+    public void pedirHora(){
+
+        final TimePickerFragment newFragment = new TimePickerFragment();
+        newFragment.setEditText(etHora);
+        horaSeleccionada = new Date();
+        newFragment.setHoraSeleccionada(horaSeleccionada);
+        newFragment.show(getSupportFragmentManager(), "timePicker");
     }
 
 }

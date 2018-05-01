@@ -60,4 +60,11 @@
     <string name="direccion_recogida">El pedido se recogerá en tienda, en la dirección  calle falsa nº13 </string>
     <string name="dia">Día: </string>
     <string name="select">Seleccionar</string>
+    <string name="exito_enviar">Pedido enviado con éxito</string>
+    <string name="error_enviar">El pedido no se ha enviado correctamente</string>
+    <string name="error_envio">Error de envío</string>
+    <string name="error_validacion">Error de validación</string>
+    <string name="error_validar">Debe especificar una fecha y hora de recogida válidas</string>
+
+
 </resources>

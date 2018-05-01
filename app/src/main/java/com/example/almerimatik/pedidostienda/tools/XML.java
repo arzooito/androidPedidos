@@ -2,6 +2,8 @@ package com.example.almerimatik.pedidostienda.tools;
 
 import android.util.Log;
 
+import com.example.almerimatik.pedidostienda.constantes.Sesion;
+import com.example.almerimatik.pedidostienda.entity.Pedido;
 import com.example.almerimatik.pedidostienda.modelo.BD;
 import com.example.almerimatik.pedidostienda.entity.Categoria;
 import com.example.almerimatik.pedidostienda.entity.Marca;
@@ -255,6 +257,30 @@ public class XML {
             element = (Element)nodos.item(0);
         }
         return element;
+    }
+
+    public static String crearPedido(Pedido pedido){
+
+        String fechaRecogida = Fechas.FormatearFecha(pedido.getFechaRecogida());
+        String horaRecogida = Fechas.FormatearHora(pedido.getHoraRecogida());
+        String idUser = String.valueOf(Sesion.getIdUsuario());
+
+        String pedidoXML = "<pedido " +
+                "fechaRecogida=\'"+fechaRecogida+"\' " +
+                "horaRecogida=\'"+horaRecogida+"\' " +
+                "idUsuario=\'"+idUser+"\'>";
+
+        for(Producto reg : pedido.getProductos()){
+
+            String productoXML = "<producto id=\'"+reg.getId()+"\' " +
+                    "unidades=\'"+reg.getCantidad()+"\'/>";
+
+            pedidoXML += productoXML;
+        }
+
+        pedidoXML += "</pedido>";
+
+        return pedidoXML;
     }
 
 

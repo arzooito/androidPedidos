@@ -32,6 +32,23 @@ public class Msg {
                 }).show();
     }
 
+    public static void mensaje(final Context contexto, final int titulo, final int mensaje,
+                               final boolean finalizar)
+    {
+        new AlertDialog.Builder(contexto).setMessage(contexto.getResources().getString(mensaje))
+                .setTitle(contexto.getResources().getString(titulo))
+                .setPositiveButton(R.string.aceptar, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        dialog.cancel();
+                        if (finalizar && contexto instanceof FragmentActivity) {
+                            ((FragmentActivity) contexto).finish();
+                        }
+                    }
+                }).show();
+    }
+
+
     public static void toast(final Context contexto, final String mensaje) {
         final Toast t = Toast.makeText(contexto, mensaje, Toast.LENGTH_LONG);
         t.show();

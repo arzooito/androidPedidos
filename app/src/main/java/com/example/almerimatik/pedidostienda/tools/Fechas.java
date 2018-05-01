@@ -12,8 +12,8 @@ import java.util.Locale;
 
 public class Fechas {
 
-    public static final SimpleDateFormat SDF_FECHA = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-    public static final SimpleDateFormat SDF_HORA = new SimpleDateFormat("HH:mm", Locale.getDefault());
+    public static final SimpleDateFormat SDF_FECHA = new SimpleDateFormat("EEEE, d MMMM", new Locale("ES"));
+    public static final SimpleDateFormat SDF_HORA = new SimpleDateFormat("HH:mm", new Locale("ES"));
 
     private final static String FORMATO_HORA = "HH:mm";
     private final static String FORMATO_FECHA_CORTO = "dd-MM-yyyy";
