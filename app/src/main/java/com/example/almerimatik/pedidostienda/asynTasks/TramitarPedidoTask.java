@@ -1,24 +1,30 @@
 package com.example.almerimatik.pedidostienda.asynTasks;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
-import android.view.View;
 
 import com.example.almerimatik.pedidostienda.R;
+import com.example.almerimatik.pedidostienda.activity.RecogerActivity;
+import com.example.almerimatik.pedidostienda.constantes.Sesion;
+import com.example.almerimatik.pedidostienda.dialogs.EnviandoDialog;
 import com.example.almerimatik.pedidostienda.entity.Pedido;
 import com.example.almerimatik.pedidostienda.modelo.BD;
 import com.example.almerimatik.pedidostienda.tools.Msg;
 import com.example.almerimatik.pedidostienda.tools.XML;
 import com.example.almerimatik.pedidostienda.ws.Ws;
 
+import java.io.Serializable;
+
 /**
  * Created by arzoo on 30/04/2018.
  */
 
-public class TramitarPedidoTask extends AsyncTask<Pedido, Void, Void> {
+public class TramitarPedidoTask extends AsyncTask<Pedido, Void, Pedido> {
 
     Activity act;
-    boolean enviado;
+    long superID = 0;
+    EnviandoDialog dialog;
 
     public TramitarPedidoTask(Activity act){
         this.act = act;
@@ -26,18 +32,26 @@ public class TramitarPedidoTask extends AsyncTask<Pedido, Void, Void> {
 
     protected void onPreExecute(){
 
+        dialog = new EnviandoDialog();
+        dialog.show(act.getFragmentManager(),"EnviandoDialog");
     }
 
-    protected Void doInBackground(Pedido... params) {
+    protected Pedido doInBackground(Pedido... params) {
 
-        guardarPedido(params[0]);
         enviarPedido(params[0]);
-        return null;
+        guardarPedido(params[0]);
+        return params[0];
     }
 
-    protected void onPostExecute(Void result) {
-        if(enviado){
-            Msg.toast(act,R.string.exito_enviar);
+    protected void onPostExecute(Pedido result) {
+
+        dialog.dismiss();
+
+        if(superID > 0){
+            Sesion.getCarrito().clear();
+            Intent intent = new Intent(act, RecogerActivity.class);
+            intent.putExtra("pedido", (Serializable) result);
+            act.startActivity(intent);
         }else{
             Msg.mensaje(act, R.string.error_envio,R.string.error_enviar, false);
         }
@@ -56,7 +70,8 @@ public class TramitarPedidoTask extends AsyncTask<Pedido, Void, Void> {
 
         String pedidoXML = XML.crearPedido(ped);
         System.out.println(pedidoXML);
-        enviado = Ws.guardarPedido(pedidoXML);
+        superID = Ws.guardarPedido(pedidoXML);
+        ped.setSuperID(superID);
 
     }
 }

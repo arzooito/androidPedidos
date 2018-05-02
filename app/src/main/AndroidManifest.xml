@@ -45,6 +45,10 @@
             android:name=".activity.RealizarPedidoActivity"
             android:label="@string/recogida"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.RecogerActivity"
+            android:label="@string/pedido_realizado"
+            android:theme="@style/AppTheme" />
 
     </application>
 

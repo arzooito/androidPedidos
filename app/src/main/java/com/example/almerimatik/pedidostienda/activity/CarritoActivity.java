@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.almerimatik.pedidostienda.R;
 import com.example.almerimatik.pedidostienda.adaptadores.CarritoAdapter;
 import com.example.almerimatik.pedidostienda.constantes.Sesion;
+import com.example.almerimatik.pedidostienda.dialogs.ListaDialog;
 import com.example.almerimatik.pedidostienda.entity.Pedido;
 import com.example.almerimatik.pedidostienda.entity.Producto;
 import com.example.almerimatik.pedidostienda.tools.Contenido;
@@ -133,7 +134,8 @@ public class CarritoActivity extends BaseActivity{
     }
 
     private void guardarCarrito(){
-
+        ListaDialog dialog = new ListaDialog();
+        dialog.show(getFragmentManager(), "ListaDialog");
     }
 
     private void AbrirRealizarPedido(){

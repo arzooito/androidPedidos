@@ -65,6 +65,17 @@
     <string name="error_envio">Error de envío</string>
     <string name="error_validacion">Error de validación</string>
     <string name="error_validar">Debe especificar una fecha y hora de recogida válidas</string>
+    <string name="volver">Volver</string>
+    <string name="recoger_en">Podrá recoger su pedido en\n\n <b>calle falsa nº 7</b> \n\n en la fecha y hora seleccionada:</string>
+    <string name="pedido_realizado">Pedido realizado</string>
+    <string name="inicio">Inicio</string>
+    <string name="enviando_msg">Enviando pedido…</string>
+    <string name="cargando_contenido">Cargando contenido…</string>
+    <string name="nueva_lista">Nueva lista</string>
+    <string name="nombre_lista">Introduce un nombre para la nueva lista</string>
+    <string name="crear">Crear</string>
+    <string name="introducir_nombre">Debe introducir un nombre para la lista</string>
+    <string name="exito_guardar">Tu nueva lista se ha creado con éxito</string>
 
 
 </resources>

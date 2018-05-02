@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.almerimatik.pedidostienda.constantes.Sesion;
+import com.example.almerimatik.pedidostienda.entity.Lista;
 import com.example.almerimatik.pedidostienda.entity.Pedido;
 import com.example.almerimatik.pedidostienda.tools.Fechas;
 import com.example.almerimatik.pedidostienda.tools.Msg;
@@ -430,17 +432,20 @@ public class Modelo {
 
     //////////////////// Pedidos /////////////////////////////////
 
-    public static void guardarPedido(Context context, SQLiteDatabase db, Pedido ped){
+    public static long guardarPedido(Context context, SQLiteDatabase db, Pedido ped){
 
         String tabla = PEDIDO;
+        long idPedido = 0;
 
         try {
             final ContentValues valores = ped.rellenar();
-            db.insertWithOnConflict(tabla, null, valores, SQLiteDatabase.CONFLICT_IGNORE);
+            idPedido = db.insertWithOnConflict(tabla, null, valores, SQLiteDatabase.CONFLICT_IGNORE);
         } catch (final Exception e) {
             Log.d("tienda", "Error al guardar en BD: ", e);
             Msg.mensaje(context, "Error", "Error al guardar en BD: " + e.getMessage(), false);
         }
+
+        return idPedido;
     }
 
     public static void guardarProductosPedido(Context context, SQLiteDatabase db, Pedido ped, Producto prod){
@@ -501,12 +506,14 @@ public class Modelo {
         Pedido pedido = new Pedido();
         ArrayList<Pedido> pedidoList = new ArrayList<>();
         ArrayList<Producto> prodList = new ArrayList<>();
+        String where = "idUsuario = ?";
+        String[] args = {String.valueOf(Sesion.getIdUsuario())};
         String[] campos = pedido.getCampos();
         int camposCount = campos.length;
         Cursor c = null;
 
         try {
-            c = db.query(tabla, campos, null, null, null, null, null);
+            c = db.query(tabla, campos, where, args, null, null, null);
 
         }catch (final Exception e) {
             Log.d("tienda", "Error al cargar "+tabla+ " BD: ", e);
@@ -525,6 +532,7 @@ public class Modelo {
                     pedido.setFechaRecogida(fechaRecogida);
                     Date horaRecogida = Fechas.ConvertirHora(c.getString(3));
                     pedido.setHoraRecogida(horaRecogida);
+                    pedido.setSuperID(c.getLong(4));
 
                     prodList = cargarProductosPedido(context, db, pedido);
                     pedido.setProductos(prodList);
@@ -542,8 +550,8 @@ public class Modelo {
         Pedido pedido = new Pedido();
         ArrayList<Producto> prodList;
         String[] campos = pedido.getCampos();
-        String[] args = {String.valueOf(idPedido)};
-        String where = "_id = ?";
+        String[] args = {String.valueOf(idPedido), String.valueOf(Sesion.getIdUsuario())};
+        String where = "_id = ? && idUsuario = ?";
         int camposCount = campos.length;
         Cursor c = null;
 
@@ -567,6 +575,7 @@ public class Modelo {
                     pedido.setFechaRecogida(fechaRecogida);
                     Date horaRecogida = Fechas.ConvertirHora(c.getString(3));
                     pedido.setHoraRecogida(horaRecogida);
+                    pedido.setSuperID(c.getLong(4));
 
                     prodList = cargarProductosPedido(context, db, pedido);
                     pedido.setProductos(prodList);
@@ -578,4 +587,141 @@ public class Modelo {
 
     //////////////////// Lista /////////////////////////////////
 
+    public static long guardarLista(Context context, SQLiteDatabase db, Lista lis){
+
+        String tabla = LISTA;
+        long idLista = 0;
+
+        try {
+            final ContentValues valores = lis.rellenar();
+            idLista = db.insertWithOnConflict(tabla, null, valores, SQLiteDatabase.CONFLICT_IGNORE);
+        } catch (final Exception e) {
+            Log.d("tienda", "Error al guardar en BD: ", e);
+            Msg.mensaje(context, "Error", "Error al guardar en BD: " + e.getMessage(), false);
+        }
+        return idLista;
+    }
+
+    public static void guardarProductosLista(Context context, SQLiteDatabase db, Lista lis, Producto prod){
+
+        String tabla = LIS_PROD;
+
+        try {
+            final ContentValues valores = new ContentValues();
+            valores.put("idLista", lis.getId());
+            valores.put("idProducto", prod.getId());
+            valores.put("unidades", prod.getCantidad());
+
+            db.insertWithOnConflict(tabla, null, valores, SQLiteDatabase.CONFLICT_IGNORE);
+        } catch (final Exception e) {
+            Log.d("tienda", "Error al guardar en BD: ", e);
+            Msg.mensaje(context, "Error", "Error al guardar en BD: " + e.getMessage(), false);
+        }
+    }
+
+    public static ArrayList<Producto> cargarProductosLista(Context context, SQLiteDatabase db, Lista lis){
+
+        String tabla = LIS_PROD;
+        Producto prod = new Producto();
+        ArrayList<Producto> prodList = new ArrayList<>();
+        String[] campos = {"idLista", "idProducto", "unidades"};
+        String where = "idLista = ?";
+        String[] args = {String.valueOf(lis.getId())};
+        int camposCount = campos.length;
+        Cursor c = null;
+
+        try {
+            c = db.query(tabla, campos, where, args, null, null, null);
+
+        }catch (final Exception e) {
+            Log.d("tienda", "Error al cargar "+tabla+ " BD: ", e);
+            Msg.mensaje(context, "Error", "Error al cargar "+tabla+ " desde BD: " + e.getMessage(), false);
+        }
+
+
+        if(c != null && c.moveToFirst()){
+            do{
+                for(int i=0; i<camposCount; i++){
+
+                    long idProd = c.getLong(1);
+                    prod = cargarProducto(db,context, idProd);
+                    prod.setCantidad(c.getInt(2));
+                }
+                prodList.add(prod);
+            }while(c.moveToNext());
+        }
+        c.close();
+        return prodList;
+    }
+
+    public static ArrayList<Lista> cargarListas(SQLiteDatabase db, Context context){
+
+        String tabla = LISTA;
+        Lista lista = new Lista();
+        ArrayList<Lista> listaList = new ArrayList<>();
+        ArrayList<Producto> prodList = new ArrayList<>();
+        String where = "idUsuario = ?";
+        String[] args = {String.valueOf(Sesion.getIdUsuario())};
+        String[] campos = lista.getCampos();
+        int camposCount = campos.length;
+        Cursor c = null;
+
+        try {
+            c = db.query(tabla, campos, where, args, null, null, null);
+
+        }catch (final Exception e) {
+            Log.d("tienda", "Error al cargar "+tabla+ " BD: ", e);
+            Msg.mensaje(context, "Error", "Error al cargar "+tabla+ " desde BD: " + e.getMessage(), false);
+        }
+
+        if(c != null && c.moveToFirst()){
+            do{
+                lista = new Lista();
+                for(int i=0; i<camposCount; i++){
+
+                    lista.setId(c.getLong(0));
+                    lista.setNombre(c.getString(1));
+                    prodList = cargarProductosLista(context, db, lista);
+                    lista.setProductos(prodList);
+                }
+                listaList.add(lista);
+            }while(c.moveToNext());
+        }
+        c.close();
+        return listaList;
+    }
+
+    public static Lista cargarLista(SQLiteDatabase db, Context context, long idLista){
+
+        String tabla = LISTA;
+        Lista lista = new Lista();
+        ArrayList<Producto> prodList;
+        String[] campos = lista.getCampos();
+        String[] args = {String.valueOf(idLista), String.valueOf(Sesion.getIdUsuario())};
+        String where = "_id = ? && idUsuario = ?";
+        int camposCount = campos.length;
+        Cursor c = null;
+
+        try {
+            c = db.query(tabla, campos, where, args, null, null, null);
+
+        }catch (final Exception e) {
+            Log.d("tienda", "Error al cargar "+tabla+ " BD: ", e);
+            Msg.mensaje(context, "Error", "Error al cargar "+tabla+ " desde BD: " + e.getMessage(), false);
+        }
+
+        if(c != null && c.moveToFirst()){
+
+            lista = new Lista();
+            for(int i=0; i<camposCount; i++){
+
+                lista.setId(c.getLong(0));
+                lista.setNombre(c.getString(1));
+                prodList = cargarProductosLista(context, db, lista);
+                lista.setProductos(prodList);
+            }
+        }
+        c.close();
+        return lista;
+    }
 }

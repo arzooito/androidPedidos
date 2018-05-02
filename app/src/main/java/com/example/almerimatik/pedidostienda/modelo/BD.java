@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.almerimatik.pedidostienda.entity.Categoria;
+import com.example.almerimatik.pedidostienda.entity.Lista;
 import com.example.almerimatik.pedidostienda.entity.Marca;
 import com.example.almerimatik.pedidostienda.entity.Pedido;
 import com.example.almerimatik.pedidostienda.entity.Producto;
@@ -157,9 +158,44 @@ public class BD {
     public void guardarPedido(Pedido ped){
 
         ArrayList<Producto> prods = ped.getProductos();
-        Modelo.guardarPedido(context, db, ped);
+        long id = Modelo.guardarPedido(context, db, ped);
+        ped.setId(id);
         for(Producto reg : prods){
             Modelo.guardarProductosPedido(context, db, ped, reg);
         }
+    }
+
+    public Pedido cargarPedido(long id){
+
+        Pedido pedido = Modelo.cargarPedido(db,context, id);
+        return pedido;
+    }
+
+    public ArrayList<Pedido> cargarPedidos(){
+
+        ArrayList<Pedido> pedidos = Modelo.cargarPedidos(db, context);
+        return pedidos;
+    }
+
+    public void guardarLista(Lista lista){
+
+        ArrayList<Producto> prods = lista.getProductos();
+        long id = Modelo.guardarLista(context, db, lista);
+        lista.setId(id);
+        for(Producto reg : prods){
+            Modelo.guardarProductosLista(context, db, lista, reg);
+        }
+    }
+
+    public Lista cargarLista(long id){
+
+        Lista lista = Modelo.cargarLista(db,context, id);
+        return lista;
+    }
+
+    public ArrayList<Lista> cargarListas(){
+
+        ArrayList<Lista> listas = Modelo.cargarListas(db, context);
+        return listas;
     }
 }

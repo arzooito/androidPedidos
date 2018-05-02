@@ -41,13 +41,13 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
         long minima = getArguments().getLong(MINIMA);
         long maxima = getArguments().getLong(MAXIMA);
-
+/*
         Locale locale = new Locale("ES");
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.locale = locale;
         getActivity().getApplicationContext().getResources().updateConfiguration(config, null);
-
+*/
 
         final Calendar calendario = Calendar.getInstance();
         try {

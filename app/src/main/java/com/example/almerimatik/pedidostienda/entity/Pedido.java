@@ -1,7 +1,9 @@
 package com.example.almerimatik.pedidostienda.entity;
 
 import android.content.ContentValues;
+import android.os.Parcelable;
 
+import com.example.almerimatik.pedidostienda.constantes.Sesion;
 import com.example.almerimatik.pedidostienda.tools.Fechas;
 
 import java.io.Serializable;
@@ -19,6 +21,7 @@ public class Pedido implements Serializable {
     Date fecha;
     Date fechaRecogida;
     Date horaRecogida;
+    long superID;
     private ArrayList<Producto> productos;
 
     public Pedido(){
@@ -62,6 +65,14 @@ public class Pedido implements Serializable {
         this.horaRecogida = horaRecogida;
     }
 
+    public long getSuperID() {
+        return superID;
+    }
+
+    public void setSuperID(long superID) {
+        this.superID = superID;
+    }
+
     public ArrayList<Producto> getProductos() {
         return productos;
     }
@@ -76,17 +87,18 @@ public class Pedido implements Serializable {
         String sFecha = Fechas.FormatearFecha(fecha);
         String sFechaRecogida = Fechas.FormatearFecha(fechaRecogida);
         String sHoraRecogida = Fechas.FormatearHora(fechaRecogida);
-        nuevoRegistro.put("_id", id);
+        nuevoRegistro.put("idUsuario", Sesion.getIdUsuario());
         nuevoRegistro.put("fecha", sFecha);
         nuevoRegistro.put("fechaRecogida", sFechaRecogida);
         nuevoRegistro.put("horaRecogida", sHoraRecogida);
+        nuevoRegistro.put("id", superID);
         return nuevoRegistro;
 
     }
 
     public String[] getCampos(){
 
-        String[] campos = {"_id","fecha","fechaRecogida", "horaRecogida"};
+        String[] campos = {"_id", "fecha", "fechaRecogida", "horaRecogida", "id" };
         return campos;
     }
 }

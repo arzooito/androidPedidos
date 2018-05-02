@@ -2,6 +2,10 @@ package com.example.almerimatik.pedidostienda.entity;
 
 import android.content.ContentValues;
 
+import com.example.almerimatik.pedidostienda.constantes.Sesion;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,11 +14,11 @@ import java.util.Map;
  * Created by Almerimatik on 09/02/2018.
  */
 
-public class Lista {
+public class Lista implements Serializable{
 
     private long id;
     private String nombre;
-    private Map<Producto,Integer> productos;
+    private ArrayList<Producto> productos;
 
     public Lista(){
 
@@ -25,7 +29,7 @@ public class Lista {
         this.nombre = nombre;
     }
 
-    public Lista(long id, String nombre, Map<Producto,Integer> productos) {
+    public Lista(long id, String nombre, ArrayList<Producto> productos) {
         this.id = id;
         this.nombre = nombre;
         this.productos = productos;
@@ -47,18 +51,18 @@ public class Lista {
         this.nombre = nombre;
     }
 
-    public Map<Producto,Integer> getProductos() {
+    public ArrayList<Producto> getProductos() {
         return productos;
     }
 
-    public void setProductos(Map<Producto,Integer> productos) {
+    public void setProductos(ArrayList<Producto> productos) {
         this.productos = productos;
     }
 
     public ContentValues rellenar(){
 
         final ContentValues nuevoRegistro = new ContentValues();
-        nuevoRegistro.put("id", id);
+        nuevoRegistro.put("idUsuario", Sesion.getIdUsuario());
         nuevoRegistro.put("nombre", nombre);
         return nuevoRegistro;
 
@@ -66,7 +70,7 @@ public class Lista {
 
     public String[] getCampos(){
 
-        String[] campos = {"id","nombre"};
+        String[] campos = {"_id", "nombre"};
         return campos;
     }
 }

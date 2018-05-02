@@ -20,9 +20,7 @@ public class Ws {
 
     private static final String NAMESPACE = "http://tienda_ws.almerimatik.es/";
     //localhost desde emulador
-    //private static final String URL = Rutas.URL_BASE+"/tienda_WS/ServicioAppTienda?wsdl";
-    //pi server
-    private static final String URL = "http://gabarron.hopto.org/tienda_WS/ServicioAppTienda?wsdl";
+    private static final String URL = Rutas.URL_BASE+"/tienda_WS/ServicioAppTienda?wsdl";
 
 
     public static long login(String usuario, String password){
@@ -84,12 +82,12 @@ public class Ws {
         return result;
     }
 
-    public static boolean guardarPedido(String pedidoXML){
+    public static long guardarPedido(String pedidoXML){
 
         String METHOD = "guardarPedido";
         String SOAP_ACTION = NAMESPACE+METHOD;
 
-        boolean result = false;
+        long result = 0;
         SoapObject request = new SoapObject(NAMESPACE, METHOD);
         request.addProperty("pedido", pedidoXML);
 
@@ -101,7 +99,7 @@ public class Ws {
         {
             transporte.call(SOAP_ACTION, envelope);
             SoapPrimitive resultado_xml =(SoapPrimitive)envelope.getResponse();
-            result = Boolean.valueOf(resultado_xml.toString());
+            result = Long.valueOf(resultado_xml.toString());
         }
         catch (Exception e)
         {

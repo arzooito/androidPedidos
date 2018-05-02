@@ -13,6 +13,10 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.almerimatik.pedidostienda.R;
+import com.example.almerimatik.pedidostienda.asynTasks.CargarCatalogoTask;
+import com.example.almerimatik.pedidostienda.asynTasks.CargarHistorialTask;
+import com.example.almerimatik.pedidostienda.asynTasks.CargarListasTask;
+import com.example.almerimatik.pedidostienda.entity.Pedido;
 import com.example.almerimatik.pedidostienda.entity.Producto;
 import com.example.almerimatik.pedidostienda.modelo.BD;
 import com.example.almerimatik.pedidostienda.tools.Msg;
@@ -105,6 +109,12 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        if (id == R.id.nav_inicio) {
+            if (!(this instanceof MenuPrincipalActivity)) {
+                abrirMenuPrincipal();
+            }
+        }
+
         if (id == R.id.nav_catalogo) {
             if(!(this instanceof CatalogoActivity)){
                 abrirCatalogo();
@@ -122,8 +132,10 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
 
         } else if (id == R.id.nav_actualizar) {
             abrirMain();
+
         } else if (id == R.id.nav_logout) {
             Msg.preguntarLogout(this);
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -133,25 +145,17 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
 
     public void abrirCatalogo() {
 
-        Intent intent = new Intent(this, CatalogoActivity.class);
-        BD bd = new BD(this);
-        bd.openBD(false);
-        ArrayList<Producto> lista = bd.cargarProductos();
-        bd.closeBD();
-        intent.putExtra("lista", (Serializable) lista);
-        startActivity(intent);
+        new CargarCatalogoTask(this).execute();
     }
 
     public void abrirListas() {
 
-        Intent intent = new Intent(this, ListasActivity.class);
-        startActivity(intent);
+        new CargarListasTask(this).execute();
     }
 
     public void abrirHistorial() {
 
-        Intent intent = new Intent(this, HistorialActivity.class);
-        startActivity(intent);
+        new CargarHistorialTask(this).execute();
     }
 
     public void abrirCarrito() {
@@ -159,6 +163,12 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
         Intent intent = new Intent(this, CarritoActivity.class);
         ArrayList<Producto> lista = Sesion.getCarrito();
         intent.putExtra("lista", (Serializable) lista);
+        startActivity(intent);
+    }
+
+    public void abrirMenuPrincipal(){
+
+        Intent intent = new Intent(this, MenuPrincipalActivity.class);
         startActivity(intent);
     }
 

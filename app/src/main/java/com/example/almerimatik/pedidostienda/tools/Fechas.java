@@ -12,15 +12,18 @@ import java.util.Locale;
 
 public class Fechas {
 
-    public static final SimpleDateFormat SDF_FECHA = new SimpleDateFormat("EEEE, d MMMM", new Locale("ES"));
-    public static final SimpleDateFormat SDF_HORA = new SimpleDateFormat("HH:mm", new Locale("ES"));
 
-    private final static String FORMATO_HORA = "HH:mm";
-    private final static String FORMATO_FECHA_CORTO = "dd-MM-yyyy";
-    private final static String FORMATO_FECHA_HORA = "dd-MM-yyyy HH:mm";
-    private final static String FORMATO_FECHA_HORA_SQL = "yyyy-MM-dd HH:mm";
-    private final static String FECHA_MINIMA_SQL = "01-01-1753";
-    private final static String FECHA_MAXIMA_SQL = "31-12-999";
+
+    public final static String FORMATO_FECHA_CERCANA ="EEEE, d MMMM";
+    public final static String FORMATO_HORA = "HH:mm";
+    public final static String FORMATO_FECHA_CORTO = "dd-MM-yyyy";
+    public final static String FORMATO_FECHA_HORA = "dd-MM-yyyy HH:mm";
+    public final static String FORMATO_FECHA_HORA_SQL = "yyyy-MM-dd HH:mm";
+    public final static String FECHA_MINIMA_SQL = "01-01-1753";
+    public final static String FECHA_MAXIMA_SQL = "31-12-999";
+
+    public static final SimpleDateFormat SDF_FECHA = new SimpleDateFormat(FORMATO_FECHA_CERCANA, Locale.getDefault());
+    public static final SimpleDateFormat SDF_HORA = new SimpleDateFormat(FORMATO_HORA, Locale.getDefault());
 
     private static Calendar HOY = Calendar.getInstance();
 
