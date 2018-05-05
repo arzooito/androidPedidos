@@ -133,6 +133,7 @@ public class Ws {
             Log.e("AppTienda", "Error al conectar con el servicio "+ METHOD, e);
         }
 
+        System.out.println(result);
         return result;
     }
 }

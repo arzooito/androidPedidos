@@ -13,7 +13,7 @@ import java.util.Date;
 
 public class Producto implements Parcelable, Serializable {
 
-    private long id;
+    private long id = 0;
     private String nombre;
     private String formato;
     private float precio;
@@ -102,16 +102,25 @@ public class Producto implements Parcelable, Serializable {
 
     @Override
     public String toString() {
-
-        float subtotal = this.cantidad * this.precio;
-        String resumen = String.format("%-40s  x  %3d -> %.2f €", this.nombre, this.cantidad, subtotal);
-        return resumen;
+        return nombre;
     }
 
     public ContentValues rellenar(){
 
         final ContentValues nuevoRegistro = new ContentValues();
         nuevoRegistro.put("id", id);
+        nuevoRegistro.put("nombre", nombre);
+        nuevoRegistro.put("formato", formato);
+        nuevoRegistro.put("precio", precio);
+        nuevoRegistro.put("foto", foto);
+        nuevoRegistro.put("idMarca", marca.getId());
+        nuevoRegistro.put("idSubcategoria", subcategoria.getId());
+        return nuevoRegistro;
+    }
+
+    public ContentValues rellenarActualizar(){
+
+        final ContentValues nuevoRegistro = new ContentValues();
         nuevoRegistro.put("nombre", nombre);
         nuevoRegistro.put("formato", formato);
         nuevoRegistro.put("precio", precio);

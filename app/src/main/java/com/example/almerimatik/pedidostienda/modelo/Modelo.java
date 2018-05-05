@@ -417,6 +417,21 @@ public class Modelo {
         }
     }
 
+    public static void updateProducto(Context context, SQLiteDatabase db, Producto prod){
+
+        String tabla = PRODUCTO;
+        String where = "id = ?";
+        String[] args = {String.valueOf(prod.getId())};
+
+        try {
+            final ContentValues valores = prod.rellenarActualizar();
+            db.updateWithOnConflict(tabla, valores, where, args, SQLiteDatabase.CONFLICT_IGNORE);
+        } catch (final Exception e) {
+            Log.d("tienda", "Error al guardar en BD: ", e);
+            Msg.mensaje(context, "Error", "Error al guardar en BD: " + e.getMessage(), false);
+        }
+    }
+
     public static void eliminarProducto(Context context, SQLiteDatabase db, String id){
 
         String tabla = PRODUCTO;
@@ -723,5 +738,44 @@ public class Modelo {
         }
         c.close();
         return lista;
+    }
+
+    public static void eliminarLista(Context context, SQLiteDatabase db, long id){
+
+        String tabla = LISTA;
+        try {
+            String[] args = new String[]{String.valueOf(id)};
+            String where = "_id = ?";
+            db.delete(tabla,where,args);
+        } catch (final Exception e) {
+            Log.d("tienda", "Error al eliminar de BD: ", e);
+            Msg.mensaje(context, "Error", "Error al eliminar de BD: " + e.getMessage(), false);
+        }
+    }
+
+    public static void eliminarProductosLista(Context context, SQLiteDatabase db, long idLista){
+
+        String tabla = LIS_PROD;
+        try {
+            String[] args = new String[]{String.valueOf(idLista)};
+            String where = "idLista = ?";
+            db.delete(tabla,where,args);
+        } catch (final Exception e) {
+            Log.d("tienda", "Error al eliminar de BD: ", e);
+            Msg.mensaje(context, "Error", "Error al eliminar de BD: " + e.getMessage(), false);
+        }
+    }
+
+    public static void eliminarProductoLista(Context context, SQLiteDatabase db, long idLista, long idProducto){
+
+        String tabla = LIS_PROD;
+        try {
+            String[] args = new String[]{String.valueOf(idLista), String.valueOf(idProducto)};
+            String where = "idLista = ? and idProducto = ?";
+            db.delete(tabla,where,args);
+        } catch (final Exception e) {
+            Log.d("tienda", "Error al eliminar de BD: ", e);
+            Msg.mensaje(context, "Error", "Error al eliminar de BD: " + e.getMessage(), false);
+        }
     }
 }

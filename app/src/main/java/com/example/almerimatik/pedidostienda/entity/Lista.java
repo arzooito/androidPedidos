@@ -59,6 +59,11 @@ public class Lista implements Serializable{
         this.productos = productos;
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
     public ContentValues rellenar(){
 
         final ContentValues nuevoRegistro = new ContentValues();

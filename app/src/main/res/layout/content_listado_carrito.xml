@@ -15,6 +15,7 @@
         android:visibility="gone">
 
         <TextView
+            android:id="@+id/texto_vacia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -32,16 +33,16 @@
     </LinearLayout>
 
 
-
     <LinearLayout
         android:id="@+id/footer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:background="@color/colorPrimary"
         android:orientation="vertical"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -58,26 +59,26 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Importe total:"
                 android:shadowColor="#565050"
                 android:shadowDx="2"
                 android:shadowDy="2"
                 android:shadowRadius="0.3"
-                android:textStyle="bold"
+                android:text="Importe total:"
                 android:textColor="@android:color/white"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/importeTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
+                android:layout_marginHorizontal="10dp"
                 android:shadowColor="#565050"
                 android:shadowDx="2"
                 android:shadowDy="2"
                 android:shadowRadius="0.3"
-                android:layout_marginHorizontal="10dp"
                 android:text=" 99 €"
+                android:textColor="@android:color/white"
                 android:textSize="20sp" />
 
         </LinearLayout>
@@ -87,28 +88,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingRight="15dp"
+            android:paddingBottom="8dp"
             android:paddingLeft="15dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp">
+            android:paddingRight="15dp"
+            android:paddingTop="8dp">
 
             <Button
                 android:id="@+id/btn_realizar_pedido"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:text="@string/realizar_pedido"
                 android:background="@drawable/boton_realizar_pedido"
+                android:text="@string/realizar_pedido"
                 android:textColor="@drawable/boton_realizar_pedido_text"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
 
         </LinearLayout>
     </LinearLayout>
 
-    <ListView
+    <com.baoyz.swipemenulistview.SwipeMenuListView
         android:id="@+id/lista"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"

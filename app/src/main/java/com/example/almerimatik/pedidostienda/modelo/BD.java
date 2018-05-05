@@ -95,7 +95,13 @@ public class BD {
     public void guardarProductos(List<Producto> productos){
 
         for(Producto prod : productos){
-            Modelo.guardarProducto(context,db,prod);
+            Producto producto = Modelo.cargarProducto(db,context,prod.getId());
+            if(producto.getId() == 0){
+                Modelo.guardarProducto(context,db,prod);
+            }else{
+                Modelo.updateProducto(context,db,prod);
+            }
+
         }
     }
 
@@ -197,5 +203,15 @@ public class BD {
 
         ArrayList<Lista> listas = Modelo.cargarListas(db, context);
         return listas;
+    }
+
+    public void eliminarLista(Lista lista){
+        Modelo.eliminarProductosLista(context, db, lista.getId());
+        Modelo.eliminarLista(context, db, lista.getId());
+    }
+
+    public void eliminarProductoLista(Lista lis, Producto prod){
+
+        Modelo.eliminarProductoLista(context, db, lis.getId(), prod.getId());
     }
 }

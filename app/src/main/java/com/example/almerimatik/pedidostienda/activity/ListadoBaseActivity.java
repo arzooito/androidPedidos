@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class ListadoBaseActivity <E, A extends ArrayAdapter<E>>extends BaseActivity{
 
-    private ListView lvLista;
+    protected ListView lvLista;
     TextView emptyLabel;
 
     protected void onCreate(Bundle savedInstanceState,final A adapter) {

@@ -49,6 +49,14 @@
             android:name=".activity.RecogerActivity"
             android:label="@string/pedido_realizado"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.ListaActivity"
+            android:label="@string/lista"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.PedidoActivity"
+            android:label="@string/pedido"
+            android:theme="@style/AppTheme.NoActionBar" />
 
     </application>
 

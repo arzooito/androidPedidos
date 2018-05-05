@@ -1,6 +1,5 @@
 package com.example.almerimatik.pedidostienda.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -19,33 +18,29 @@ import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.almerimatik.pedidostienda.R;
 import com.example.almerimatik.pedidostienda.adaptadores.CarritoAdapter;
-import com.example.almerimatik.pedidostienda.adaptadores.ListaAdapter;
-import com.example.almerimatik.pedidostienda.adaptadores.PedidoAdapter;
-import com.example.almerimatik.pedidostienda.asynTasks.BorrarListaTask;
-import com.example.almerimatik.pedidostienda.constantes.Sesion;
-import com.example.almerimatik.pedidostienda.dialogs.ListaDialog;
+import com.example.almerimatik.pedidostienda.asynTasks.BorrarProductoListaTask;
 import com.example.almerimatik.pedidostienda.entity.Lista;
 import com.example.almerimatik.pedidostienda.entity.Producto;
 import com.example.almerimatik.pedidostienda.tools.Contenido;
-import com.example.almerimatik.pedidostienda.tools.Msg;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-
 /**
- * Created by Almerimatik on 06/02/2018.
+ * Created by arzoo on 03/05/2018.
  */
 
-public class ListasActivity extends BaseActivity {
+public class ListaActivity extends BaseActivity {
 
     private SwipeMenuListView lvLista;
-    private ListaAdapter adapter;
+    private CarritoAdapter adapter;
     private LinearLayout emptyLabel;
     private LinearLayout footer;
+    private boolean listaEmpty;
     private Button irCatalogo;
-    private TextView tvVacio;
-    private ArrayList<Lista> lista;
+    private TextView tvImporteTotal, tvVacio;
+    private float importeTotal = 0;
+    private ArrayList<Producto> lista;
+    private Lista lis;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +51,8 @@ public class ListasActivity extends BaseActivity {
         lvLista = (SwipeMenuListView) findViewById(R.id.lista);
         tvVacio = (TextView) findViewById(R.id.texto_vacia);
         irCatalogo = (Button) findViewById(R.id.btn_ir_a_catalogo);
+        tvImporteTotal = (TextView) findViewById(R.id.importeTotal);
+
 
         tvVacio.setText(R.string.empty_list);
         irCatalogo.setVisibility(View.GONE);
@@ -64,14 +61,18 @@ public class ListasActivity extends BaseActivity {
 
         lvLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Lista lis = (Lista) adapterView.getAdapter().getItem(position);
-                abrirLista(lis);
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
             }
         });
 
-        lista = (ArrayList<Lista>) getIntent().getSerializableExtra("lista");
+        lis = (Lista) getIntent().getSerializableExtra("objetoLista");
+        lista = lis.getProductos();
+        listaEmpty = lista.isEmpty();
         rellenarLista(lista);
+
+        setTitle(lis.getNombre());
+
 
         //SwipeMenu
         SwipeMenuCreator creator = menuCreator();
@@ -80,16 +81,18 @@ public class ListasActivity extends BaseActivity {
     }
 
 
-    protected void rellenarLista(final ArrayList<Lista> lista) {
+    protected void rellenarLista(final ArrayList<Producto> lista) {
         if (lista != null && !lista.isEmpty()) {
             listaVacia(false);
             try {
-                adapter = new ListaAdapter(this);
+                adapter = new CarritoAdapter(this);
                 adapter.clear();
-                for (final Lista reg : lista) {
+                for (final Producto reg : lista) {
                     adapter.add(reg);
+                    importeTotal += reg.getCantidad() * reg.getPrecio();
                 }
                 lvLista.setAdapter(adapter);
+                tvImporteTotal.setText(String.format("%.2f €",importeTotal));
             } catch (final Exception ex) {
                 Log.e("ListadoCarrito", "Error al rellenar lista", ex);
             }
@@ -103,6 +106,7 @@ public class ListasActivity extends BaseActivity {
         if(vacia){
             emptyLabel.setVisibility(View.VISIBLE);
             lvLista.setVisibility(View.GONE);
+            deshabilitarMenu();
 
         }else{
             emptyLabel.setVisibility(View.GONE);
@@ -110,20 +114,44 @@ public class ListasActivity extends BaseActivity {
         }
     }
 
-    public void abrirLista(Lista lis){
-        Intent intent = new Intent(ListasActivity.this,  ListaActivity.class);
-        intent.putExtra("objetoLista", (Serializable) lis);
-        startActivity(intent);
+
+    private void deshabilitarMenu(){
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.getMenu().clear();
     }
 
-
-    public void eliminarItemLista(int position){
-        Lista lis = (Lista)lvLista.getItemAtPosition(position);
-        lista.remove(lis);
-        new BorrarListaTask(this).execute(lis);
+    public void eliminarProducto(int position){
+        Producto prod = (Producto)lvLista.getItemAtPosition(position);
+        lista.remove(prod);
+        Object[] params = {lis, prod};
+        new BorrarProductoListaTask(this).execute(params);
         rellenarLista(lista);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        if(!listaEmpty){
+            final MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu_lista, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.renombrar:
+
+                return true;
+
+            case R.id.add_producto:
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     public SwipeMenuCreator menuCreator(){
 
@@ -138,7 +166,7 @@ public class ListasActivity extends BaseActivity {
                 // set item background
                 deleteItem.setBackground(R.drawable.fondo_btn_delete);
                 // set item width
-                deleteItem.setWidth(200);
+                deleteItem.setWidth(250);
                 // set a icon
                 deleteItem.setIcon(R.drawable.ic_delete);
                 // add to menu
@@ -156,7 +184,7 @@ public class ListasActivity extends BaseActivity {
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0://delete
-                        eliminarItemLista(position);
+                        eliminarProducto(position);
                         break;
                 }
                 // false : close the menu; true : not close the menu

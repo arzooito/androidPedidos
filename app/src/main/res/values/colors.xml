@@ -10,4 +10,6 @@
     <color name="btn_pedido_light">#1ace6b</color>
     <color name="btn_pedido_pressed_dark">#dcd210</color>
     <color name="btn_pedido_pressed_light">#fdff95</color>
+    <color name="btn_swipe_delete">#ff0d0d</color>
+    <color name="btn_swipe_edit">#2ad8ff</color>
 </resources>

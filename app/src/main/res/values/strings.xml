@@ -76,6 +76,10 @@
     <string name="crear">Crear</string>
     <string name="introducir_nombre">Debe introducir un nombre para la lista</string>
     <string name="exito_guardar">Tu nueva lista se ha creado con éxito</string>
+    <string name="lista">Lista</string>
+    <string name="add_producto">Añadir producto</string>
+    <string name="renombrar_lista">Renombrar lista</string>
+    <string name="pedido">Pedido</string>
 
 
 </resources>
