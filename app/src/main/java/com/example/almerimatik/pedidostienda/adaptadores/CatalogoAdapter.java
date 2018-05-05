@@ -18,6 +18,7 @@ import com.example.almerimatik.pedidostienda.constantes.Rutas;
 import com.example.almerimatik.pedidostienda.constantes.Sesion;
 import com.example.almerimatik.pedidostienda.entity.Producto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -27,7 +28,7 @@ import java.util.HashSet;
  * Created by arzoo on 18/03/2018.
  */
 
-public class CatalogoAdapter extends ArrayAdapter<Producto> {
+public class CatalogoAdapter extends ArrayAdapter<Producto>{
 
     static final int LAYOUT = R.layout.item_lista_catalogo;
     static final String RUTA = Rutas.URL_BASE+"/tienda-img/";
@@ -81,6 +82,7 @@ public class CatalogoAdapter extends ArrayAdapter<Producto> {
         holder.btnAddCarrito.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 addToCarrito(position, CELDA);
             }
         });
@@ -118,6 +120,13 @@ public class CatalogoAdapter extends ArrayAdapter<Producto> {
         }
         holder.labelCantidad.setText(String.format("%d",holder.cantidad));
 
+    }
+
+    public void setCantidad(View celda, int unidades){
+
+
+        holder.cantidad = unidades;
+        holder.labelCantidad.setText(String.format("%d",holder.cantidad));
     }
 
     public void addToCarrito(int pos, View celda){

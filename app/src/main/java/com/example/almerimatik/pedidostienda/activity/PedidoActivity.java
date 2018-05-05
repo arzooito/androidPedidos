@@ -3,6 +3,9 @@ package com.example.almerimatik.pedidostienda.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -74,6 +77,26 @@ public class PedidoActivity extends BaseActivity{
             } catch (final Exception ex) {
                 Log.e("ListadoCarrito", "Error al rellenar lista", ex);
             }
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+
+        final MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_pedido, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.volver_pedir:
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 

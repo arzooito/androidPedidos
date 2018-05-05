@@ -214,4 +214,8 @@ public class BD {
 
         Modelo.eliminarProductoLista(context, db, lis.getId(), prod.getId());
     }
+
+    public void updateProductoLista(Lista lis, Producto prod){
+        Modelo.updateProductoLista(context, db, lis.getId(), prod.getId(), prod.getCantidad());
+    }
 }

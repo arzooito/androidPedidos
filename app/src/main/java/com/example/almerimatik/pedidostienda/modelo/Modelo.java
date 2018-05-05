@@ -778,4 +778,20 @@ public class Modelo {
             Msg.mensaje(context, "Error", "Error al eliminar de BD: " + e.getMessage(), false);
         }
     }
+
+    public static void updateProductoLista(Context context, SQLiteDatabase db, long idLista, long idProducto, int cantidad){
+
+        String tabla = LIS_PROD;
+        String where = "idLista = ? and idProducto = ?";
+        String[] args = {String.valueOf(idLista), String.valueOf(idProducto)};
+
+        try {
+            final ContentValues valores = new ContentValues();
+            valores.put("unidades",cantidad);
+            db.updateWithOnConflict(tabla, valores, where, args, SQLiteDatabase.CONFLICT_IGNORE);
+        } catch (final Exception e) {
+            Log.d("tienda", "Error al guardar en BD: ", e);
+            Msg.mensaje(context, "Error", "Error al guardar en BD: " + e.getMessage(), false);
+        }
+    }
 }

@@ -23,6 +23,7 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.almerimatik.pedidostienda.R;
 import com.example.almerimatik.pedidostienda.adaptadores.CarritoAdapter;
 import com.example.almerimatik.pedidostienda.constantes.Sesion;
+import com.example.almerimatik.pedidostienda.dialogs.EditarCantidadDialog;
 import com.example.almerimatik.pedidostienda.dialogs.ListaDialog;
 import com.example.almerimatik.pedidostienda.entity.Pedido;
 import com.example.almerimatik.pedidostienda.entity.Producto;
@@ -38,25 +39,19 @@ import java.util.Date;
  * Created by Almerimatik on 06/02/2018.
  */
 
-public class CarritoActivity extends BaseActivity{
+public class CarritoActivity extends ListadoProductoActivity{
 
-    private SwipeMenuListView lvLista;
-    private CarritoAdapter adapter;
-    private LinearLayout emptyLabel;
-    private LinearLayout footer;
+
     private boolean listaEmpty;
     private Button irCatalogo, realizarPedido;
     private TextView tvImporteTotal;
-    private float importeTotal = 0;
     private ArrayList<Producto> lista;
+    private Producto producto;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Contenido.addContent(this, R.layout.content_listado_carrito);
-        emptyLabel = findViewById(R.id.emptyLabel);
-        footer = findViewById(R.id.footer);
-        lvLista = (SwipeMenuListView) findViewById(R.id.lista);
+
         irCatalogo = (Button) findViewById(R.id.btn_ir_a_catalogo);
         realizarPedido = (Button) findViewById(R.id.btn_realizar_pedido);
         tvImporteTotal = (TextView) findViewById(R.id.importeTotal);
@@ -75,8 +70,10 @@ public class CarritoActivity extends BaseActivity{
 
         lvLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                producto = (Producto)adapterView.getAdapter().getItem(position);
+                EditarCantidadDialog dialog = EditarCantidadDialog.newInstance(CarritoActivity.this,producto);
+                dialog.show(getFragmentManager(), "EditarCantidadDialog");
             }
         });
 
@@ -84,13 +81,12 @@ public class CarritoActivity extends BaseActivity{
         listaEmpty = lista.isEmpty();
         rellenarLista(lista);
 
-        //SwipeMenu
-        SwipeMenuCreator creator = menuCreator();
-        lvLista.setMenuCreator(creator);
         setOnClickSwipeMenu(lvLista);
+
     }
 
 
+    @Override
     protected void rellenarLista(final ArrayList<Producto> lista) {
         if (lista != null && !lista.isEmpty()) {
             listaVacia(false);
@@ -111,7 +107,8 @@ public class CarritoActivity extends BaseActivity{
         }
     }
 
-    private void listaVacia(boolean vacia){
+    @Override
+    protected void listaVacia(boolean vacia){
 
         if(vacia){
             emptyLabel.setVisibility(View.VISIBLE);
@@ -133,11 +130,6 @@ public class CarritoActivity extends BaseActivity{
         listaVacia(true);
     }
 
-    private void deshabilitarMenu(){
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.getMenu().clear();
-    }
 
 
     private void guardarCarrito(){
@@ -159,6 +151,20 @@ public class CarritoActivity extends BaseActivity{
         lista.remove(prod);
         Sesion.getCarrito().remove(position);
         rellenarLista(lista);
+    }
+
+    @Override
+    public void editarProducto(int unidades){
+
+        producto.setCantidad(unidades);
+        rellenarLista(lista);
+
+        for(Producto reg : Sesion.getCarrito()){
+            if(reg.getId() == producto.getId()){
+                reg.setCantidad(producto.getCantidad());
+
+            }
+        }
     }
 
     @Override
@@ -185,30 +191,6 @@ public class CarritoActivity extends BaseActivity{
         }
     }
 
-    public SwipeMenuCreator menuCreator(){
-
-        SwipeMenuCreator creator = new SwipeMenuCreator() {
-
-            @Override
-            public void create(SwipeMenu menu) {
-
-                // create "delete" item
-                SwipeMenuItem deleteItem = new SwipeMenuItem(
-                        getApplicationContext());
-                // set item background
-                deleteItem.setBackground(R.drawable.fondo_btn_delete);
-                // set item width
-                deleteItem.setWidth(250);
-                // set a icon
-                deleteItem.setIcon(R.drawable.ic_delete);
-                // add to menu
-                menu.addMenuItem(deleteItem);
-            }
-        };
-
-        return creator;
-    }
-
     public void setOnClickSwipeMenu(final SwipeMenuListView listView){
 
         listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
@@ -224,5 +206,4 @@ public class CarritoActivity extends BaseActivity{
             }
         });
     }
-
 }

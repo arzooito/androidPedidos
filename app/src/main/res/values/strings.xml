@@ -80,6 +80,7 @@
     <string name="add_producto">Añadir producto</string>
     <string name="renombrar_lista">Renombrar lista</string>
     <string name="pedido">Pedido</string>
+    <string name="volver_pedir">Volver a pedir</string>
 
 
 </resources>

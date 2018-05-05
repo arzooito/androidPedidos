@@ -11,29 +11,35 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.almerimatik.pedidostienda.R;
+import com.example.almerimatik.pedidostienda.dialogs.EditarCantidadDialog;
 import com.example.almerimatik.pedidostienda.entity.Producto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by arzoo on 16/04/2018.
  */
 
-public class CarritoAdapter extends ArrayAdapter<Producto> {
+public class CarritoAdapter extends ArrayAdapter<Producto> implements Serializable {
 
 
     static final int LAYOUT = R.layout.item_lista_carrito;
     CarritoAdapter.ProductoHolder holder;
     Producto prod;
+    Activity context;
+    int index;
 
     public CarritoAdapter(final Context context) {
         super(context, LAYOUT);
+        this.context = (Activity)context;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View getView(final int position, final View convertView, final ViewGroup parent) {
         View celda = convertView;
+        this.index = position;
 
         if (celda == null) {
             final LayoutInflater inflater = ((Activity) getContext()).getLayoutInflater();
@@ -62,8 +68,12 @@ public class CarritoAdapter extends ArrayAdapter<Producto> {
         float total = prod.getCantidad() * prod.getPrecio();
         holder.labelPrecioTotal.setText(String.format("%.2f €", total));
 
+        final View CELDA = celda;
+
         return celda;
     }
+
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////      HOLDER      /////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -71,5 +81,6 @@ public class CarritoAdapter extends ArrayAdapter<Producto> {
     static class ProductoHolder {
 
         TextView labelNombre, labelMarca, labelFormato, labelPrecio, labelCantidad, labelPrecioTotal;
+
     }
 }

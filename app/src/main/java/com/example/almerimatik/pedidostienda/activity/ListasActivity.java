@@ -136,11 +136,11 @@ public class ListasActivity extends BaseActivity {
                 SwipeMenuItem deleteItem = new SwipeMenuItem(
                         getApplicationContext());
                 // set item background
-                deleteItem.setBackground(R.drawable.fondo_btn_delete);
+                deleteItem.setBackground(R.drawable.fondo_btn_delete_fill);
                 // set item width
-                deleteItem.setWidth(200);
+                deleteItem.setWidth(180);
                 // set a icon
-                deleteItem.setIcon(R.drawable.ic_delete);
+                deleteItem.setIcon(R.drawable.ic_delete_40);
                 // add to menu
                 menu.addMenuItem(deleteItem);
             }

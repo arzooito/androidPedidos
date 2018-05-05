@@ -29,6 +29,21 @@
         <item name="android:shadowRadius">0</item>
     </style>
 
+    <style name="BotonDialogEditar">
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingEnd">20dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="BotonDialogEditar.up">
+        <item name="android:background">@drawable/boton_dialog_editar_up</item>
+    </style>
+
+    <style name="BotonDialogEditar.down">
+        <item name="android:background">@drawable/boton_dialog_editar_down</item>
+    </style>
+
     <style name="BotonNaranja.MenuPrincipal">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
