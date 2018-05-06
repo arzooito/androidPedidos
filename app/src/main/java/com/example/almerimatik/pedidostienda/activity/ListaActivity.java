@@ -1,5 +1,6 @@
 package com.example.almerimatik.pedidostienda.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,11 +13,12 @@ import android.widget.TextView;
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.almerimatik.pedidostienda.R;
-import com.example.almerimatik.pedidostienda.asynTasks.BorrarProductoListaTask;
-import com.example.almerimatik.pedidostienda.asynTasks.UpdateProductoListaTask;
+import com.example.almerimatik.pedidostienda.asynTasks.CargarCatalogoTask;
 import com.example.almerimatik.pedidostienda.dialogs.EditarCantidadDialog;
+import com.example.almerimatik.pedidostienda.dialogs.ListaDialog;
 import com.example.almerimatik.pedidostienda.entity.Lista;
 import com.example.almerimatik.pedidostienda.entity.Producto;
+import com.example.almerimatik.pedidostienda.modelo.BD;
 
 
 /**
@@ -69,8 +71,10 @@ public class ListaActivity extends ListadoProductoActivity {
     public void eliminarProducto(int position){
         Producto prod = (Producto)lvLista.getItemAtPosition(position);
         lista.remove(prod);
-        Object[] params = {lis, prod};
-        new BorrarProductoListaTask(this).execute(params);
+        BD bd = new BD(this);
+        bd.openBD(true);
+        bd.eliminarProductoLista(lis, prod);
+        bd.closeBD();
         rellenarLista(lista);
     }
 
@@ -79,16 +83,17 @@ public class ListaActivity extends ListadoProductoActivity {
 
         producto.setCantidad(unidades);
         rellenarLista(lista);
-        Object[] params = {lis, producto};
-        new UpdateProductoListaTask(this).execute(params);
+        BD bd = new BD(this);
+        bd.openBD(true);
+        bd.updateProductoLista(lis, producto);
+        bd.closeBD();
     }
 
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
-        if(!listaEmpty){
-            final MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.menu_lista, menu);
-        }
+
+        final MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_lista, menu);
         return true;
     }
 
@@ -96,11 +101,12 @@ public class ListaActivity extends ListadoProductoActivity {
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             case R.id.renombrar:
-
+                ListaDialog dialog = new ListaDialog(lis);
+                dialog.show(getFragmentManager(), "ListaDialog");
                 return true;
 
             case R.id.add_producto:
-
+                new CargarCatalogoTask(this,lis).execute();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -64,7 +64,7 @@ public class CarritoActivity extends ListadoProductoActivity{
         realizarPedido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AbrirRealizarPedido();
+                abrirRealizarPedido();
             }
         });
 
@@ -137,7 +137,7 @@ public class CarritoActivity extends ListadoProductoActivity{
         dialog.show(getFragmentManager(), "ListaDialog");
     }
 
-    private void AbrirRealizarPedido(){
+    private void abrirRealizarPedido(){
         Intent intent = new Intent(this, RealizarPedidoActivity.class);
         ArrayList<Producto> lista = Sesion.getCarrito();
         intent.putExtra("lista", (Serializable) lista);

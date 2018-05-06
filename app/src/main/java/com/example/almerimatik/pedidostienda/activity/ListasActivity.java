@@ -2,7 +2,6 @@ package com.example.almerimatik.pedidostienda.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,16 +17,11 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.almerimatik.pedidostienda.R;
-import com.example.almerimatik.pedidostienda.adaptadores.CarritoAdapter;
 import com.example.almerimatik.pedidostienda.adaptadores.ListaAdapter;
-import com.example.almerimatik.pedidostienda.adaptadores.PedidoAdapter;
-import com.example.almerimatik.pedidostienda.asynTasks.BorrarListaTask;
-import com.example.almerimatik.pedidostienda.constantes.Sesion;
 import com.example.almerimatik.pedidostienda.dialogs.ListaDialog;
 import com.example.almerimatik.pedidostienda.entity.Lista;
-import com.example.almerimatik.pedidostienda.entity.Producto;
+import com.example.almerimatik.pedidostienda.modelo.BD;
 import com.example.almerimatik.pedidostienda.tools.Contenido;
-import com.example.almerimatik.pedidostienda.tools.Msg;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -120,10 +114,34 @@ public class ListasActivity extends BaseActivity {
     public void eliminarItemLista(int position){
         Lista lis = (Lista)lvLista.getItemAtPosition(position);
         lista.remove(lis);
-        new BorrarListaTask(this).execute(lis);
+        BD bd = new BD(this);
+        bd.openBD(true);
+        bd.eliminarLista(lis);
+        bd.closeBD();
         rellenarLista(lista);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+
+        final MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_listas, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.lista_nueva:
+                ListaDialog dialog = new ListaDialog();
+                dialog.show(getFragmentManager(), "ListaDialog");
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     public SwipeMenuCreator menuCreator(){
 

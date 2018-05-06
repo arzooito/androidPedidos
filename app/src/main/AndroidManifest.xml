@@ -58,6 +58,11 @@
             android:label="@string/pedido"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:name=".activity.CatalogoAListaActivity"
+            android:label="@string/seleccionar_producto"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

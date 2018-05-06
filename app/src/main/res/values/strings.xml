@@ -77,10 +77,15 @@
     <string name="introducir_nombre">Debe introducir un nombre para la lista</string>
     <string name="exito_guardar">Tu nueva lista se ha creado con éxito</string>
     <string name="lista">Lista</string>
-    <string name="add_producto">Añadir producto</string>
+    <string name="add_producto">Añadir productos</string>
     <string name="renombrar_lista">Renombrar lista</string>
     <string name="pedido">Pedido</string>
     <string name="volver_pedir">Volver a pedir</string>
+    <string name="nuevo_nombre">Introduce el nuevo nombre de la lista</string>
+    <string name="exito_actualizar_lista">Tu lista se ha actualizado con éxito</string>
+    <string name="lista_nueva">Crear nueva lista</string>
+    <string name="seleccionar_producto">Seleccionar productos</string>
+    <string name="add_to">Añadir a </string>
 
 
 </resources>

@@ -80,6 +80,14 @@ public class PedidoActivity extends BaseActivity{
         }
     }
 
+    private void abrirRealizarPedido(){
+        Intent intent = new Intent(this, RealizarPedidoActivity.class);
+        intent.putExtra("lista", (Serializable) lista);
+        intent.putExtra("importeTotal", importeTotal);
+        startActivity(intent);
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
 
@@ -93,7 +101,7 @@ public class PedidoActivity extends BaseActivity{
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             case R.id.volver_pedir:
-
+                abrirRealizarPedido();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

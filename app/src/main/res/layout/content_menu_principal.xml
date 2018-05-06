@@ -1,44 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/contenido"
     android:orientation="vertical">
 
 
     <ImageView
         android:id="@+id/imgLogo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/logo200"
-        android:paddingTop="40dp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo200" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
         android:orientation="vertical"
-        android:gravity="center">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgLogo">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <Button
+            android:id="@+id/btnCatalogo"
+            style="@style/BotonNaranja.MenuPrincipal"
+            android:text="@string/cat_logo" />
 
-            <Button
-                style="@style/BotonNaranja.MenuPrincipal"
-                android:id="@+id/btnCatalogo"
-                android:text="@string/cat_logo" />
-            <Button
-                style="@style/BotonNaranja.MenuPrincipal"
-                android:id="@+id/btnListas"
-                android:onClick="abrirListas"
-                android:text="@string/listas"/>
-            <Button
-                style="@style/BotonNaranja.MenuPrincipal"
-                android:id="@+id/btnHistorial"
-                android:onClick="abrirHistorial"
-                android:text="@string/historial"/>
-        </LinearLayout>
+        <Button
+            android:id="@+id/btnListas"
+            style="@style/BotonNaranja.MenuPrincipal"
+            android:onClick="abrirListas"
+            android:text="@string/listas" />
+
+        <Button
+            android:id="@+id/btnHistorial"
+            style="@style/BotonNaranja.MenuPrincipal"
+            android:onClick="abrirHistorial"
+            android:text="@string/historial" />
 
     </LinearLayout>
 
-</android.support.v7.widget.LinearLayoutCompat>
+
+</android.support.constraint.ConstraintLayout>

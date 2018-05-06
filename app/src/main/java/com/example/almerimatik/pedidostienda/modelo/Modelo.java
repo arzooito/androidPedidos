@@ -779,6 +779,22 @@ public class Modelo {
         }
     }
 
+    public static void updateLista(Context context, SQLiteDatabase db, Lista lista){
+
+        String tabla = LISTA;
+        String where = "_id = ?";
+        String[] args = {String.valueOf(lista.getId())};
+
+        try {
+            final ContentValues valores = new ContentValues();
+            valores.put("nombre",lista.getNombre());
+            db.updateWithOnConflict(tabla, valores, where, args, SQLiteDatabase.CONFLICT_IGNORE);
+        } catch (final Exception e) {
+            Log.d("tienda", "Error al guardar en BD: ", e);
+            Msg.mensaje(context, "Error", "Error al guardar en BD: " + e.getMessage(), false);
+        }
+    }
+
     public static void updateProductoLista(Context context, SQLiteDatabase db, long idLista, long idProducto, int cantidad){
 
         String tabla = LIS_PROD;

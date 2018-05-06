@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 
+import com.example.almerimatik.pedidostienda.activity.CatalogoAListaActivity;
 import com.example.almerimatik.pedidostienda.activity.CatalogoActivity;
 import com.example.almerimatik.pedidostienda.dialogs.CargandoDialog;
+import com.example.almerimatik.pedidostienda.entity.Lista;
 import com.example.almerimatik.pedidostienda.entity.Pedido;
 import com.example.almerimatik.pedidostienda.entity.Producto;
 import com.example.almerimatik.pedidostienda.modelo.BD;
@@ -21,10 +23,17 @@ public class CargarCatalogoTask extends AsyncTask<Void, Void, ArrayList<Producto
 
     Activity act;
     CargandoDialog dialog;
+    Lista lis;
 
     public CargarCatalogoTask(Activity act){
         this.act = act;
     }
+
+    public CargarCatalogoTask(Activity act, Lista lis){
+        this.act = act;
+        this.lis = lis;
+    }
+
 
     protected void onPreExecute(){
 
@@ -45,8 +54,15 @@ public class CargarCatalogoTask extends AsyncTask<Void, Void, ArrayList<Producto
     protected void onPostExecute(ArrayList<Producto> result) {
 
         dialog.dismiss();
-        Intent intent = new Intent(act, CatalogoActivity.class);
+        Intent intent;
+        if(lis == null){
+            intent = new Intent(act, CatalogoActivity.class);
+        }else{
+            intent = new Intent(act, CatalogoAListaActivity.class);
+            intent.putExtra("objetoLista", lis);
+        }
         intent.putExtra("lista", (Serializable) result);
         act.startActivity(intent);
+
     }
 }

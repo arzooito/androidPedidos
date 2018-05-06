@@ -218,4 +218,13 @@ public class BD {
     public void updateProductoLista(Lista lis, Producto prod){
         Modelo.updateProductoLista(context, db, lis.getId(), prod.getId(), prod.getCantidad());
     }
+
+    public void updateLista(Lista lis){
+        Modelo.updateLista(context, db, lis);
+    }
+
+    public void guardarProductoLista(Lista lista, Producto producto){
+
+        Modelo.guardarProductosLista(context, db, lista, producto);
+    }
 }
