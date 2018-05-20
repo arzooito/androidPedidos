@@ -68,18 +68,27 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if(this instanceof CarritoActivity){
-                super.onBackPressed();
-            }else if(!(this instanceof MenuPrincipalActivity)){
-                Intent intent  = new Intent(this,MenuPrincipalActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }else{
-                Msg.salir(this);
-            }
+            botonVolver();
 
         }
     }
+
+    public void volver(){
+        super.onBackPressed();
+    }
+
+    public void botonVolver() {
+        volverAlInicio();
+    }
+
+    public void volverAlInicio(){
+
+        Intent intent  = new Intent(this,MenuPrincipalActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

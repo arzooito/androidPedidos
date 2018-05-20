@@ -51,6 +51,7 @@ public class CatalogoListaAdapter extends CatalogoAdapter {
 
         if(!enListaProductos){
             prod.setCantidad(holder.cantidad);
+            lis.getProductos().add(prod);
             guardar(prod);
         }
 

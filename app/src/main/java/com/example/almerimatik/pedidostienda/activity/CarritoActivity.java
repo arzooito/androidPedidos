@@ -85,6 +85,11 @@ public class CarritoActivity extends ListadoProductoActivity{
 
     }
 
+    @Override
+    public void botonVolver(){
+        volver();
+    }
+
 
     @Override
     protected void rellenarLista(final ArrayList<Producto> lista) {

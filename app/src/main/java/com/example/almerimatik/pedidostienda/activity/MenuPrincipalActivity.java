@@ -9,6 +9,7 @@ import com.example.almerimatik.pedidostienda.R;
 import com.example.almerimatik.pedidostienda.entity.Producto;
 import com.example.almerimatik.pedidostienda.modelo.BD;
 import com.example.almerimatik.pedidostienda.tools.Contenido;
+import com.example.almerimatik.pedidostienda.tools.Msg;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -47,4 +48,8 @@ public class MenuPrincipalActivity extends BaseActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        Msg.salir(this);
+    }
 }
