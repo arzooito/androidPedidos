@@ -29,11 +29,11 @@ public class CatalogoListaAdapter extends CatalogoAdapter {
     Context act;
 
     public CatalogoListaAdapter(Context context) {
-        super(context);
+        super(context,LAYOUT);
     }
 
     public CatalogoListaAdapter(Context context, Lista lista) {
-        super(context);
+        super(context,LAYOUT);
         this.act = (CatalogoAListaActivity) context;
         this.lis = lista;
     }

@@ -31,9 +31,14 @@ public class CatalogoAdapter extends ArrayAdapter<Producto>{
     static final String RUTA = Rutas.URL_BASE+"/tienda-img/";
     ProductoHolder holder;
     Producto prod;
+    int layout = LAYOUT;
 
     public CatalogoAdapter(final Context context) {
         super(context, LAYOUT);
+    }
+    public CatalogoAdapter(final Context context, int layout) {
+        super(context, layout);
+        this.layout = layout;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -44,7 +49,7 @@ public class CatalogoAdapter extends ArrayAdapter<Producto>{
         if (celda == null) {
 
             final LayoutInflater inflater = ((Activity) getContext()).getLayoutInflater();
-            celda = inflater.inflate(LAYOUT, parent, false);
+            celda = inflater.inflate(layout, parent, false);
 
             holder = new ProductoHolder();
             holder.webFoto = (WebView) celda.findViewById(R.id.webFoto);
