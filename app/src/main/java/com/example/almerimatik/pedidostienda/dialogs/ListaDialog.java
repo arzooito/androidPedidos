@@ -19,8 +19,11 @@ import com.example.almerimatik.pedidostienda.activity.ListasActivity;
 import com.example.almerimatik.pedidostienda.asynTasks.CargarListasTask;
 import com.example.almerimatik.pedidostienda.constantes.Sesion;
 import com.example.almerimatik.pedidostienda.entity.Lista;
+import com.example.almerimatik.pedidostienda.entity.Producto;
 import com.example.almerimatik.pedidostienda.modelo.BD;
 import com.example.almerimatik.pedidostienda.tools.Msg;
+
+import java.util.ArrayList;
 
 /**
  * Created by arzoo on 01/05/2018.
@@ -31,6 +34,7 @@ public class ListaDialog extends DialogFragment {
     EditText inputNombre;
     TextView tvTitulo, tvMensaje;
     Lista lista;
+    boolean listaVacia = false;
 
     public ListaDialog(){
 
@@ -39,6 +43,11 @@ public class ListaDialog extends DialogFragment {
     @SuppressLint("ValidFragment")
     public ListaDialog(Lista lista){
         this.lista = lista;
+    }
+
+    @SuppressLint("ValidFragment")
+    public ListaDialog(boolean listaVacia){
+        this.listaVacia = listaVacia;
     }
 
     @Override
@@ -94,7 +103,11 @@ public class ListaDialog extends DialogFragment {
         if(!nombre.equals(null) && !nombre.equals("")){
             Lista lista = new Lista();
             lista.setNombre(nombre);
-            lista.setProductos(Sesion.getCarrito());
+            if(listaVacia){
+                lista.setProductos(new ArrayList<Producto>());
+            }else{
+                lista.setProductos(Sesion.getCarrito());
+            }
             guardarLista(lista);
             dismiss();
             abrirListasActivity();

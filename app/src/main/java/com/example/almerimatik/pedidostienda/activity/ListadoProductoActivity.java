@@ -99,7 +99,6 @@ public class ListadoProductoActivity extends BaseActivity {
         if(vacia){
             emptyLabel.setVisibility(View.VISIBLE);
             lvLista.setVisibility(View.GONE);
-            deshabilitarMenu();
 
         }else{
             emptyLabel.setVisibility(View.GONE);
