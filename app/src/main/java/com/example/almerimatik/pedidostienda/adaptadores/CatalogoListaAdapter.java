@@ -1,10 +1,15 @@
 package com.example.almerimatik.pedidostienda.adaptadores;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.almerimatik.pedidostienda.R;
 import com.example.almerimatik.pedidostienda.activity.CatalogoAListaActivity;
 import com.example.almerimatik.pedidostienda.entity.Lista;
 import com.example.almerimatik.pedidostienda.entity.Producto;
@@ -17,6 +22,8 @@ import java.util.ArrayList;
  */
 
 public class CatalogoListaAdapter extends CatalogoAdapter {
+
+    static final int LAYOUT = R.layout.item_lista_catalogo_a_lista;
 
     Lista lis;
     Context act;

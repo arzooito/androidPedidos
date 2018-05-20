@@ -134,7 +134,7 @@ public class ListasActivity extends BaseActivity {
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             case R.id.lista_nueva:
-                ListaDialog dialog = new ListaDialog();
+                ListaDialog dialog = new ListaDialog(true);
                 dialog.show(getFragmentManager(), "ListaDialog");
                 return true;
 

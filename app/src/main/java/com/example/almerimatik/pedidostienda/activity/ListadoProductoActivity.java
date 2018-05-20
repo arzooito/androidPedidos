@@ -99,10 +99,12 @@ public class ListadoProductoActivity extends BaseActivity {
         if(vacia){
             emptyLabel.setVisibility(View.VISIBLE);
             lvLista.setVisibility(View.GONE);
+            footer.setVisibility(View.GONE);
 
         }else{
             emptyLabel.setVisibility(View.GONE);
             lvLista.setVisibility(View.VISIBLE);
+            footer.setVisibility(View.VISIBLE);
         }
     }
 

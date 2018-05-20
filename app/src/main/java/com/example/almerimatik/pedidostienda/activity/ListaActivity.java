@@ -9,16 +9,21 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.almerimatik.pedidostienda.R;
+import com.example.almerimatik.pedidostienda.adaptadores.CatalogoAdapter;
 import com.example.almerimatik.pedidostienda.asynTasks.CargarCatalogoTask;
+import com.example.almerimatik.pedidostienda.constantes.Sesion;
 import com.example.almerimatik.pedidostienda.dialogs.EditarCantidadDialog;
 import com.example.almerimatik.pedidostienda.dialogs.ListaDialog;
 import com.example.almerimatik.pedidostienda.entity.Lista;
 import com.example.almerimatik.pedidostienda.entity.Producto;
 import com.example.almerimatik.pedidostienda.modelo.BD;
+
+import java.util.ArrayList;
 
 
 /**
@@ -29,7 +34,7 @@ public class ListaActivity extends ListadoProductoActivity {
 
 
     private boolean listaEmpty;
-    private Button irCatalogo;
+    private Button irCatalogo, btnAgregar;
     private TextView tvVacio;
     private Lista lis;
     private Producto producto;
@@ -41,11 +46,17 @@ public class ListaActivity extends ListadoProductoActivity {
         tvVacio = (TextView) findViewById(R.id.texto_vacia);
         irCatalogo = (Button) findViewById(R.id.btn_ir_a_catalogo);
         tvImporteTotal = (TextView) findViewById(R.id.importeTotal);
-
+        btnAgregar = (Button) findViewById(R.id.btn_realizar_pedido);
+        btnAgregar.setText(R.string.agregar_a_carrito);
+        btnAgregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                agregarProductosACarrito();
+            }
+        });
 
         tvVacio.setText(R.string.empty_list);
         irCatalogo.setVisibility(View.GONE);
-        footer.setVisibility(View.GONE);
 
 
         lvLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -89,6 +100,28 @@ public class ListaActivity extends ListadoProductoActivity {
         bd.closeBD();
     }
 
+    public void agregarProductosACarrito(){
+
+        int cant = 0;
+
+        for(int n = 0; n < lista.size(); n++){
+
+            Producto prod = lista.get(n);
+
+            for(Producto reg : Sesion.getCarrito()){
+                if(reg.getId() == prod.getId()){
+                    cant = reg.getCantidad() + prod.getCantidad();
+                    reg.setCantidad(cant);
+                }else{
+                    Sesion.getCarrito().add(prod);
+                }
+            }
+        }
+
+
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
 
@@ -128,12 +161,6 @@ public class ListaActivity extends ListadoProductoActivity {
                 return false;
             }
         });
-    }
-
-
-    @Override
-    public void botonVolver(){
-
     }
 
 }

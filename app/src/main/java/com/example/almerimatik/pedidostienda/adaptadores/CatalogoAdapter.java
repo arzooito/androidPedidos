@@ -18,10 +18,7 @@ import com.example.almerimatik.pedidostienda.constantes.Rutas;
 import com.example.almerimatik.pedidostienda.constantes.Sesion;
 import com.example.almerimatik.pedidostienda.entity.Producto;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 
 
 /**
@@ -45,6 +42,7 @@ public class CatalogoAdapter extends ArrayAdapter<Producto>{
         View celda = convertView;
 
         if (celda == null) {
+
             final LayoutInflater inflater = ((Activity) getContext()).getLayoutInflater();
             celda = inflater.inflate(LAYOUT, parent, false);
 
@@ -104,6 +102,7 @@ public class CatalogoAdapter extends ArrayAdapter<Producto>{
         return celda;
     }
 
+
     public void sumarCantidad(View celda){
         holder = (ProductoHolder) celda.getTag();
 
@@ -122,12 +121,6 @@ public class CatalogoAdapter extends ArrayAdapter<Producto>{
 
     }
 
-    public void setCantidad(View celda, int unidades){
-
-
-        holder.cantidad = unidades;
-        holder.labelCantidad.setText(String.format("%d",holder.cantidad));
-    }
 
     public void addToCarrito(int pos, View celda){
         ArrayList<Producto> carrito = Sesion.getCarrito();

@@ -77,7 +77,7 @@ public class CarritoActivity extends ListadoProductoActivity{
             }
         });
 
-        lista = (ArrayList<Producto>) getIntent().getSerializableExtra("lista");
+        lista = Sesion.getCarrito();
         listaEmpty = lista.isEmpty();
         rellenarLista(lista);
 

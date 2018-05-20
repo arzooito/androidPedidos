@@ -86,6 +86,7 @@
     <string name="lista_nueva">Crear nueva lista</string>
     <string name="seleccionar_producto">Seleccionar productos</string>
     <string name="add_to">Añadir a </string>
+    <string name="agregar_a_carrito">Agregar a carrito</string>
 
 
 </resources>

@@ -1,6 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutProducto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
+    <WebView
+        android:id="@+id/webFoto"
+        android:layout_width="112dp"
+        android:layout_height="112dp"
+        android:layout_marginStart="3dp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/layout_labels"
+        android:layout_width="0dp"
+        android:layout_height="94dp"
+        android:layout_marginEnd="119dp"
+        android:layout_marginStart="115dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/labelNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:text="nombre de producto"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/labelMarca"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="marca de producto" />
+
+        <TextView
+            android:id="@+id/labelFormato"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="formato del produrcto" />
+
+        <TextView
+            android:id="@+id/labelPrecio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
+            android:gravity="end|bottom"
+            android:text="99.99"
+            android:textSize="25sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_botones"
+        android:layout_width="115dp"
+        android:layout_height="107dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="3dp"
+        android:gravity="center_vertical|end"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/btnAddCantidad"
+                android:layout_width="@dimen/btn_unidades_ancho"
+                android:layout_height="@dimen/btn_unidades_alto"
+                android:layout_marginBottom="0dp"
+                android:contentDescription="flecha apuntando hacia arriba"
+                app:srcCompat="@drawable/ic_arrow_drop_up_black_24dp" />
+
+            <TextView
+                android:id="@+id/tvCantidadItemProd"
+                android:layout_width="@dimen/btn_unidades_ancho"
+                android:layout_height="@dimen/label_unidades_alto"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="0dp"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/background_unidades"
+                android:gravity="center"
+                android:text="1" />
+
+            <ImageButton
+                android:id="@+id/btnRmCantidad"
+                android:layout_width="@dimen/btn_unidades_ancho"
+                android:layout_height="@dimen/label_unidades_alto"
+                android:layout_marginTop="0dp"
+                android:contentDescription="flecha apuntando hacia abajo"
+                app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnAddCarrito"
+            android:layout_width="@dimen/btn_add_carrito"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:contentDescription="imagen de un carrito de la compra"
+            app:srcCompat="@drawable/ic_lista" />
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

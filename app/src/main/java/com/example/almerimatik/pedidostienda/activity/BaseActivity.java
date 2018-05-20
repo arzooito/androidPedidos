@@ -170,8 +170,6 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
     public void abrirCarrito() {
 
         Intent intent = new Intent(this, CarritoActivity.class);
-        ArrayList<Producto> lista = Sesion.getCarrito();
-        intent.putExtra("lista", (Serializable) lista);
         startActivity(intent);
     }
 
