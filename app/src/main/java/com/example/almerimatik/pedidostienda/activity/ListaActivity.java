@@ -107,8 +107,8 @@ public class ListaActivity extends ListadoProductoActivity {
         for(int n = 0; n < lista.size(); n++){
 
             Producto prod = lista.get(n);
-
-            for(Producto reg : Sesion.getCarrito()){
+            ArrayList<Producto> carrito = Sesion.getCarrito();
+            for(Producto reg : carrito){
                 if(reg.getId() == prod.getId()){
                     cant = reg.getCantidad() + prod.getCantidad();
                     reg.setCantidad(cant);
@@ -118,8 +118,8 @@ public class ListaActivity extends ListadoProductoActivity {
             }
         }
 
-
-
+        Toast.makeText(this, R.string.agregados_productos, Toast.LENGTH_SHORT).show();
+       // abrirCarrito();
     }
 
     @Override

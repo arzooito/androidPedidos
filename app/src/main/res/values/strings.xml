@@ -87,6 +87,7 @@
     <string name="seleccionar_producto">Seleccionar productos</string>
     <string name="add_to">Añadir a </string>
     <string name="agregar_a_carrito">Agregar a carrito</string>
+    <string name="agregados_productos">Lista añadida al carrito</string>
 
 
 </resources>

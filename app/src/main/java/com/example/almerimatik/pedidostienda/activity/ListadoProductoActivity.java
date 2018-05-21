@@ -31,7 +31,7 @@ public class ListadoProductoActivity extends BaseActivity {
     protected LinearLayout emptyLabel;
     protected LinearLayout footer;
     protected TextView tvImporteTotal;
-    protected float importeTotal = 0;
+    protected float importeTotal;
     protected ArrayList<Producto> lista;
 
 
@@ -80,6 +80,8 @@ public class ListadoProductoActivity extends BaseActivity {
             try {
                 adapter = new CarritoAdapter(this);
                 adapter.clear();
+                importeTotal = 0;
+
                 for (final Producto reg : lista) {
                     adapter.add(reg);
                     importeTotal += reg.getCantidad() * reg.getPrecio();
