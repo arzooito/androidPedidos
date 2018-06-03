@@ -136,7 +136,7 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
 
         } else if (id == R.id.nav_historial) {
             if(!(this instanceof HistorialActivity)){
-                abrirListas();
+                abrirHistorial();
             }
 
         } else if (id == R.id.nav_actualizar) {
